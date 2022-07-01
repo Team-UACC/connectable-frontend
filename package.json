@@ -6,6 +6,15 @@
     "apps/*",
     "packages/*"
   ],
+  "scripts": {
+    "dev:main": "yarn workspace main dev",
+    "build:main": "yarn workspace main build",
+    "start:main": "yarn workspace main start",
+    "dev:admin-artist": "yarn workspace admin-artist dev",
+    "build:admin-artist": "yarn workspace admin-artist build",
+    "dev:admin-service": "yarn workspace admin-service dev",
+    "build:admin-service": "yarn workspace admin-service build"
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.17.0",
     "@typescript-eslint/parser": "^5.17.0",
