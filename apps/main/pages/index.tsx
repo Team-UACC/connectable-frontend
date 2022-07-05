@@ -1,14 +1,5 @@
 import commonText from '@packages/common';
 
-function HomePage() {
-  return (
-    <div>
-      Welcome to Next.js!
-      <br />
-      <br />
-      {commonText}
-    </div>
-  );
+export default function HomePage() {
+  return <div>Welcome to Next.js!</div>;
 }
-
-export default HomePage;
