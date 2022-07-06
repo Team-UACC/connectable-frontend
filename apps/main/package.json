@@ -12,7 +12,8 @@
     "@packages/common": "workspace:*",
     "next": "^12.2.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "recoil": "^0.7.4"
   },
   "devDependencies": {
     "@types/node": "^18.0.0",
