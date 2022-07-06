@@ -1,17 +1,10 @@
-import axios from 'axios';
 import QRCode from 'qrcode.react';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
+import { postUserLogin } from '~/apis/users';
 import { getKlipAccessMethod, getKlipAccessUrl, getKlipRequestKey } from '~/utils/klip';
 
 import Spinner from '../Spinner';
-
-type UserLoginCallbackProps = {
-  status: 'completed' | 'prepared' | 'failed';
-  address?: string;
-  jwt?: string;
-  isNew?: boolean;
-};
 
 export default function KlipAuth() {
   const [method, qrvalue] = useKlipAuth();
@@ -56,10 +49,10 @@ const useKlipAuth = () => {
       const requestKey = await getKlipRequest(method, setQrvalue);
 
       intervalId = setInterval(async () => {
-        const res = await axios.get(`https://a2a-api.klipwallet.com/v2/a2a/result?request_key=${requestKey}`);
+        const res = await postUserLogin(requestKey);
 
-        if (res.data.result) {
-          console.log(JSON.stringify(res.data));
+        if (res.status === 'completed') {
+          console.log(JSON.stringify(res));
           clearInterval(intervalId);
         }
       }, 1000);
