@@ -39,7 +39,7 @@ export default function FullScreenModal() {
                 <div className="absolute flex justify-between w-full t-0 py-[1.5rem]">
                   <div className="text-xl"> {modal?.modalName}</div>
                   <button
-                    className="cursor-pointer "
+                    className="cursor-pointer h-[1.5rem]"
                     type="button"
                     onClick={() => {
                       setOpen(false);

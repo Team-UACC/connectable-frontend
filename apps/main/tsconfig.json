@@ -7,11 +7,11 @@
     "noEmit": true,
     "incremental": true,
     "paths": {
-      "~/pages/*": ["pages/*"],
-      "~/components/*": ["components/*"],
-      "~/styles/*": ["styles/*"],
-      "~/recoils/*": ["recoils/*"],
-      "~/hooks/*": ["hooks/*"]
+      "~/pages/*": ["src/pages/*"],
+      "~/components/*": ["src/components/*"],
+      "~/styles/*": ["src/styles/*"],
+      "~/recoils/*": ["src/recoils/*"],
+      "~/hooks/*": ["src/hooks/*"]
     }
   },
   "exclude": ["node_modules"],
