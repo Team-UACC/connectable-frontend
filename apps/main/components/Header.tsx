@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { MouseEvent, ReactNode } from 'react';
+import { MouseEvent } from 'react';
 
-import useModal from '@hooks/useModal';
+import useModal from '~/hooks/useModal';
 
 const MarketDescription = <span className="text-base font-semibold ">마켓플레이스 기능은 아직 준비 중이에요.</span>;
 const NotificationDescription = <span className="text-base font-semibold ">알림 기능은 아직 준비 중이에요.</span>;

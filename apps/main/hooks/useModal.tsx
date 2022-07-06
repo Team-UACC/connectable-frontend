@@ -1,6 +1,6 @@
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import { FullScreenModalProps, modalOepnState, modalState } from '@recoils/modal';
+import { FullScreenModalProps, modalOepnState, modalState } from '~/recoils/modal';
 
 export default function useModal() {
   const [modal, setModal] = useRecoilState(modalState);
