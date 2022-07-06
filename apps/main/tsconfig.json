@@ -11,7 +11,8 @@
       "~/components/*": ["src/components/*"],
       "~/styles/*": ["src/styles/*"],
       "~/recoils/*": ["src/recoils/*"],
-      "~/hooks/*": ["src/hooks/*"]
+      "~/hooks/*": ["src/hooks/*"],
+      "~/utils/*": ["src/utils/*"]
     }
   },
   "exclude": ["node_modules"],
