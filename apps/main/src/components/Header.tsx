@@ -39,7 +39,7 @@ export default function Header() {
         <nav className="relative flex justify-between w-full py-[1.5rem] ">
           <div className="flex flex-col justify-center">
             <Link href="/">
-              <div className="text-2xl cursor-pointer">LOGO</div>
+              <div className="ml-4 text-2xl cursor-pointer ">LOGO</div>
             </Link>
           </div>
           <div className="flex justify-between  w-[15rem]">

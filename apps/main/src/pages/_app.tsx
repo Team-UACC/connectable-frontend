@@ -20,8 +20,8 @@ export default function App({ Component, pageProps }: AppProps) {
       <RecoilRoot>
         <Layout>
           <Component {...pageProps} />
+          <Modals />
         </Layout>
-        <Modals />
       </RecoilRoot>
     </>
   );

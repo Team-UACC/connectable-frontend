@@ -8,7 +8,7 @@ type LayoutProps = {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <div style={{ width: '428px', margin: 'auto' }}>
+    <div style={{ position: 'relative', width: 'min(428px, 100vw)', margin: 'auto' }}>
       <Header />
       {children}
     </div>
