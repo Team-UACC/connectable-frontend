@@ -497,6 +497,32 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@headlessui/react", [\
+        ["npm:1.6.5", {\
+          "packageLocation": "./.yarn/cache/@headlessui-react-npm-1.6.5-a6c9230bbf-6e3db77c99.zip/node_modules/@headlessui/react/",\
+          "packageDependencies": [\
+            ["@headlessui/react", "npm:1.6.5"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:c23d35c484c37364ce76e6ad491963c83397206e744e6bebbfa198e142d80803c8386c05fb5bacfef11551e2eb5fc7b5a0b87e28f05cb1567288e5f703f596f6#npm:1.6.5", {\
+          "packageLocation": "./.yarn/__virtual__/@headlessui-react-virtual-54675a1837/0/cache/@headlessui-react-npm-1.6.5-a6c9230bbf-6e3db77c99.zip/node_modules/@headlessui/react/",\
+          "packageDependencies": [\
+            ["@headlessui/react", "virtual:c23d35c484c37364ce76e6ad491963c83397206e744e6bebbfa198e142d80803c8386c05fb5bacfef11551e2eb5fc7b5a0b87e28f05cb1567288e5f703f596f6#npm:1.6.5"],\
+            ["@types/react", "npm:18.0.14"],\
+            ["@types/react-dom", null],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:0befabf21d5aaf00e834658201df49f88a3274c73957b4b564b377a8829d746172dffcda89d96471de6df5578bbe3a39931311210c73f2d8402440efb584a8b6#npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react",\
+            "react-dom",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@humanwhocodes/config-array", [\
         ["npm:0.9.5", {\
           "packageLocation": "./.yarn/cache/@humanwhocodes-config-array-npm-0.9.5-030a025eae-8ba6281bc0.zip/node_modules/@humanwhocodes/config-array/",\
@@ -3483,6 +3509,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./apps/main/",\
           "packageDependencies": [\
             ["main", "workspace:apps/main"],\
+            ["@headlessui/react", "virtual:c23d35c484c37364ce76e6ad491963c83397206e744e6bebbfa198e142d80803c8386c05fb5bacfef11551e2eb5fc7b5a0b87e28f05cb1567288e5f703f596f6#npm:1.6.5"],\
             ["@packages/common", "workspace:packages/common"],\
             ["@types/node", "npm:18.0.0"],\
             ["@types/react", "npm:18.0.14"],\
