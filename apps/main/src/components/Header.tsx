@@ -1,8 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { MouseEvent } from 'react';
+import { useRecoilValue } from 'recoil';
 
 import useModal from '~/hooks/useModal';
+import { LoginState } from '~/recoils/user';
 
 import KlipAuth from './klip/KlipAuth';
 
@@ -11,6 +13,8 @@ const NotificationDescription = <span className="text-base font-semibold ">알�
 const MenuDescription = <span className="text-base font-semibold ">메뉴 기능은 아직 준비 중이에요.</span>;
 
 export default function Header() {
+  const loginState = useRecoilValue(LoginState);
+
   const { showModal } = useModal();
 
   const onClickMarketIcon = () => {
@@ -42,7 +46,11 @@ export default function Header() {
             <NavIcon src="/images/ticket.svg" alt="ticket" href="/events" />
             <NavIcon src="/images/market.svg" alt="market" onClick={onClickMarketIcon} />
             <NavIcon src="/images/notification.svg" alt="notification" onClick={onClickNotificationIcon} />
-            <NavIcon src="/images/login.svg" alt="login" onClick={onClickLoginIcon} />
+            {loginState ? (
+              <NavIcon src="/images/defaultProfile.svg" alt="profile" href="/my" />
+            ) : (
+              <NavIcon src="/images/login.svg" alt="login" onClick={onClickLoginIcon} />
+            )}
             <NavIcon src="/images/menu.svg" alt="menu" onClick={onClickMenuIcon} />
           </div>
         </nav>
