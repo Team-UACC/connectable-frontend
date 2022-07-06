@@ -9,7 +9,9 @@
     "paths": {
       "@pages/*": ["pages/*"],
       "@components/*": ["components/*"],
-      "@styles/*": ["styles/*"]
+      "@styles/*": ["styles/*"],
+      "@recoils/*": ["recoils/*"],
+      "@hooks/*": ["hooks/*"]
     }
   },
   "exclude": ["node_modules"],

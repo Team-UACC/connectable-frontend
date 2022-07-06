@@ -1,25 +1,51 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { MouseEvent } from 'react';
+import { MouseEvent, ReactNode } from 'react';
+
+import useModal from '@hooks/useModal';
+
+const MarketDescription = <span className="text-base font-semibold ">마켓플레이스 기능은 아직 준비 중이에요.</span>;
+const NotificationDescription = <span className="text-base font-semibold ">알림 기능은 아직 준비 중이에요.</span>;
+const MenuDescription = <span className="text-base font-semibold ">메뉴 기능은 아직 준비 중이에요.</span>;
 
 export default function Header() {
+  const { showModal } = useModal();
+
+  const onClickMarketIcon = () => {
+    showModal({ modalName: 'Market', children: MarketDescription });
+  };
+
+  const onClickNotificationIcon = () => {
+    showModal({ modalName: 'Notification', children: NotificationDescription });
+  };
+
+  const onClickLoginIcon = () => {
+    showModal({ modalName: 'Login', children: <span>로그인</span> });
+  };
+
+  const onClickMenuIcon = () => {
+    showModal({ modalName: 'Menu', children: MenuDescription });
+  };
+
   return (
-    <header className="relative flex justify-between w-full bg-white backdrop-blur-md">
-      <nav className="relative flex justify-between w-full py-[1.5rem] ">
-        <div className="flex flex-col justify-center">
-          <Link href="/">
-            <div className="text-2xl cursor-pointer">LOGO</div>
-          </Link>
-        </div>
-        <div className="flex justify-between  w-[15rem]">
-          <NavIcon src="/images/ticket.svg" alt="ticket" href="/events" />
-          <NavIcon src="/images/market.svg" alt="market" href="/events" />
-          <NavIcon src="/images/notification.svg" alt="notification" href="/events" />
-          <NavIcon src="/images/login.svg" alt="login" href="/events" />
-          <NavIcon src="/images/menu.svg" alt="menu" href="/events" />
-        </div>
-      </nav>
-    </header>
+    <>
+      <header className="relative flex justify-between w-full bg-white backdrop-blur-md">
+        <nav className="relative flex justify-between w-full py-[1.5rem] ">
+          <div className="flex flex-col justify-center">
+            <Link href="/">
+              <div className="text-2xl cursor-pointer">LOGO</div>
+            </Link>
+          </div>
+          <div className="flex justify-between  w-[15rem]">
+            <NavIcon src="/images/ticket.svg" alt="ticket" href="/events" />
+            <NavIcon src="/images/market.svg" alt="market" onClick={onClickMarketIcon} />
+            <NavIcon src="/images/notification.svg" alt="notification" onClick={onClickNotificationIcon} />
+            <NavIcon src="/images/login.svg" alt="login" onClick={onClickLoginIcon} />
+            <NavIcon src="/images/menu.svg" alt="menu" onClick={onClickMenuIcon} />
+          </div>
+        </nav>
+      </header>
+    </>
   );
 }
 

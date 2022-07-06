@@ -1,7 +1,9 @@
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import { RecoilRoot } from 'recoil';
 
 import Layout from '@components/Layout';
+import Modals from '@components/Modal';
 
 import '@styles/globals.css';
 
@@ -15,9 +17,12 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="description" content="" />
         <meta property="og:description" content="" />
       </Head>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <RecoilRoot>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+        <Modals />
+      </RecoilRoot>
     </>
   );
 }
