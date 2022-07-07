@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { MouseEvent } from 'react';
 
-import { useModal } from '~/stores/modal';
+import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 
 import KlipAuth from './klip/KlipAuth';
@@ -14,7 +14,7 @@ const MenuDescription = <span className="text-base font-semibold ">메뉴 기능
 export default function Header() {
   const isLoggedIn = useUserStore(state => state.isLoggedIn);
 
-  const { showModal } = useModal();
+  const { showModal } = useModalStore();
   const onClickMarketIcon = () => {
     showModal('Market', MarketDescription);
   };

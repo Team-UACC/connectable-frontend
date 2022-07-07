@@ -3,7 +3,7 @@ import axios from 'axios';
 type PostUserLoginResponseType = {
   status: 'completed' | 'prepared' | 'failed';
   address?: string;
-  jwt?: string;
+  auth?: string;
   isNew?: boolean;
 };
 

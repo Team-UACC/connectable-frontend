@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
   //  서버에  request
-  setCookie('jwt', 'jwt', { req, res, maxAge: 60 * 24, httpOnly: true, secure: true, sameSite: 'strict' });
+  setCookie('auth', 'jwt', { req, res, maxAge: 60 * 24, httpOnly: true, secure: true, sameSite: 'strict' });
 
   res.status(200).json({
     status: 'completed',

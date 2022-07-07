@@ -2,10 +2,10 @@ import { Dialog, Transition } from '@headlessui/react';
 import Image from 'next/image';
 import { Fragment } from 'react';
 
-import { useModal } from '~/stores/modal';
+import { useModalStore } from '~/stores/modal';
 
 export default function FullScreenModal() {
-  const { isOpen, modalName, children, setIsOpen, setModalContent } = useModal();
+  const { isOpen, modalName, children, setIsOpen, setModalContent } = useModalStore();
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>

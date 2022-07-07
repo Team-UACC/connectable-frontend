@@ -10,7 +10,7 @@ interface ModalState {
   hideModal: () => void;
 }
 
-export const useModal = create<ModalState>(set => ({
+export const useModalStore = create<ModalState>(set => ({
   isOpen: false,
   setIsOpen: (_isOpen: boolean) => set(state => ({ ...state, isOpen: _isOpen })),
   modalName: null,
