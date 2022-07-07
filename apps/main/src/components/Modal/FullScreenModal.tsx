@@ -1,17 +1,18 @@
 import { Dialog, Transition } from '@headlessui/react';
 import Image from 'next/image';
 import { Fragment } from 'react';
-import { useRecoilState } from 'recoil';
 
-import { modalState, modalOepnState } from '~/recoils/modal';
+import { useModalStore } from '~/stores/modal';
 
 export default function FullScreenModal() {
-  const [modal, setModal] = useRecoilState(modalState);
-  const [open, setOpen] = useRecoilState(modalOepnState);
+  // const [modal, setModal] = useRecoilState(modalState);
+  // const [open, setOpen] = useRecoilState(modalOepnState);
+
+  const { isOpen, modalName, children, setIsOpen, setModalContent } = useModalStore();
 
   return (
-    <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+    <Transition.Root show={isOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={setIsOpen}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -37,19 +38,19 @@ export default function FullScreenModal() {
             >
               <div className="relative flex flex-col w-full h-screen">
                 <div className="absolute flex justify-between w-full t-0 py-[1.5rem]">
-                  <div className="text-xl"> {modal?.modalName}</div>
+                  <div className="text-xl"> {modalName}</div>
                   <button
                     className="cursor-pointer h-[1.5rem]"
                     type="button"
                     onClick={() => {
-                      setOpen(false);
-                      setModal(null);
+                      setIsOpen(false);
+                      setModalContent(null, null);
                     }}
                   >
                     <Image src="/images/x.svg" alt="cancle" width={24} height={24} />
                   </button>
                 </div>
-                <div className="my-auto ">{modal?.children}</div>
+                <div className="my-auto ">{children}</div>
               </div>
             </Transition.Child>
           </div>

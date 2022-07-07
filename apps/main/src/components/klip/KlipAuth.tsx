@@ -1,9 +1,8 @@
 import QRCode from 'qrcode.react';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { useSetRecoilState } from 'recoil';
 
 import { postUserLogin } from '~/apis/users';
-import { LoginState } from '~/recoils/user';
+import { useUserStore } from '~/stores/user';
 import { getKlipAccessMethod, getKlipAccessUrl, getKlipRequestKey } from '~/utils/klip';
 
 import Spinner from '../Spinner';
@@ -43,7 +42,7 @@ const useKlipAuth = () => {
   const method = getKlipAccessMethod();
 
   const [qrvalue, setQrvalue] = useState('DEFAULT');
-  const setLoginState = useSetRecoilState(LoginState);
+  const setLoginState = useUserStore(state => state.setLoginState);
 
   useEffect(() => {
     let intervalId: NodeJS.Timer;

@@ -1,24 +1,24 @@
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useModalStore } from '~/stores/modal';
 
-import { FullScreenModalProps, modalOepnState, modalState } from '~/recoils/modal';
+type ModalProps = {
+  modalName: string;
+  children: React.ReactNode;
+};
 
 export default function useModal() {
-  const [modal, setModal] = useRecoilState(modalState);
-  const setOpen = useSetRecoilState(modalOepnState);
+  const { setIsOpen, setModalContent } = useModalStore();
 
-  const showModal = ({ modalName, children }: FullScreenModalProps) => {
-    setModal({ modalName, children });
-    setOpen(true);
+  const showModal = ({ modalName, children }: ModalProps) => {
+    setModalContent(modalName, children);
+    setIsOpen(true);
   };
 
   const hideModal = () => {
-    setOpen(false);
-    setModal(null);
+    setIsOpen(false);
+    setModalContent(null, null);
   };
 
   return {
-    modal,
-    setModal,
     showModal,
     hideModal,
   };

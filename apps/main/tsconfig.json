@@ -10,10 +10,10 @@
       "~/pages/*": ["src/pages/*"],
       "~/components/*": ["src/components/*"],
       "~/styles/*": ["src/styles/*"],
-      "~/recoils/*": ["src/recoils/*"],
       "~/hooks/*": ["src/hooks/*"],
       "~/utils/*": ["src/utils/*"],
-      "~/apis/*": ["src/apis/*"]
+      "~/apis/*": ["src/apis/*"],
+      "~/stores/*": ["src/stores/*"]
     }
   },
   "exclude": ["node_modules"],
