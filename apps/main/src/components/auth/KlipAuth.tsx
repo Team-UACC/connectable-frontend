@@ -1,11 +1,15 @@
+import { setCookie } from 'cookies-next';
 import QRCode from 'qrcode.react';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import { postUserLogin } from '~/apis/users';
+import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 import { getKlipAccessMethod, getKlipAccessUrl, getKlipRequestKey } from '~/utils/klip';
 
 import Spinner from '../Spinner';
+
+import SingUpForm from './SignUpForm';
 
 export default function KlipAuth() {
   const [method, qrvalue] = useKlipAuth();
@@ -42,7 +46,8 @@ const useKlipAuth = () => {
   const method = getKlipAccessMethod();
 
   const [qrvalue, setQrvalue] = useState('DEFAULT');
-  const setLoginState = useUserStore(state => state.setLoginState);
+  const { setLoginState } = useUserStore();
+  const { showModal } = useModalStore();
 
   useEffect(() => {
     let intervalId: NodeJS.Timer;
@@ -51,11 +56,16 @@ const useKlipAuth = () => {
       const requestKey = await getKlipRequest(method, setQrvalue);
 
       intervalId = setInterval(async () => {
-        const res = await postUserLogin(requestKey);
+        const { status, klaytnAddress, jwt, isNew } = await postUserLogin(requestKey);
 
-        if (res.status === 'completed') {
-          console.log(JSON.stringify(res));
-          setLoginState(true);
+        if (status === 'completed') {
+          console.log(JSON.stringify(klaytnAddress));
+          if (isNew) {
+            showModal('Sign Up', <SingUpForm />);
+          } else {
+            setCookie('auth', jwt, { maxAge: 60 * 24, httpOnly: true, secure: true, sameSite: 'strict' });
+            setLoginState(true);
+          }
           clearInterval(intervalId);
         }
       }, 1000);

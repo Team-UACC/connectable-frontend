@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect } from 'react';
 
+import { GetUserLoginRes } from '~/pages/api/users';
 import { useUserStore } from '~/stores/user';
 
 const getUser = async () => {
@@ -13,10 +14,9 @@ export default function useUser() {
   const { setLoginState } = useUserStore();
 
   const initializeUser = async () => {
-    const data = await getUser();
-    console.log(data);
+    const { status }: GetUserLoginRes = await getUser();
 
-    if (data.status === 'success') setLoginState(true);
+    if (status === 'success') setLoginState(true);
     else setLoginState(false);
   };
 

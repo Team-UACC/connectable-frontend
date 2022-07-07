@@ -23,7 +23,7 @@ export default function FullScreenModal() {
         </Transition.Child>
 
         <div className="fixed w-[min(100vw,428px)] m-auto inset-0 z-10 overflow-y-hidden">
-          <div className="relative flex items-end justify-center min-h-screen p-4 m-auto text-center">
+          <div className="relative flex items-end justify-center min-h-screen px-6 m-auto text-center">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"

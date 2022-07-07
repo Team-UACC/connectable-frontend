@@ -5,14 +5,14 @@ import { MouseEvent } from 'react';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 
-import KlipAuth from './klip/KlipAuth';
+import KlipAuth from './auth/KlipAuth';
 
 const MarketDescription = <span className="text-base font-semibold ">마켓플레이스 기능은 아직 준비 중이에요.</span>;
 const NotificationDescription = <span className="text-base font-semibold ">알림 기능은 아직 준비 중이에요.</span>;
 const MenuDescription = <span className="text-base font-semibold ">메뉴 기능은 아직 준비 중이에요.</span>;
 
 export default function Header() {
-  const isLoggedIn = useUserStore(state => state.isLoggedIn);
+  const { isLoggedIn } = useUserStore();
 
   const { showModal } = useModalStore();
   const onClickMarketIcon = () => {
@@ -44,7 +44,7 @@ export default function Header() {
             <NavIcon src="/images/ticket.svg" alt="ticket" href="/events" />
             <NavIcon src="/images/market.svg" alt="market" onClick={onClickMarketIcon} />
             <NavIcon src="/images/notification.svg" alt="notification" onClick={onClickNotificationIcon} />
-            {isLoggedIn ? (
+            {isLoggedIn === true ? (
               <NavIcon src="/images/defaultProfile.svg" alt="profile" href="/my" />
             ) : (
               <NavIcon src="/images/login.svg" alt="login" onClick={onClickLoginIcon} />
