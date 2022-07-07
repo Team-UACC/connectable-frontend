@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { MouseEvent } from 'react';
 
-import useModal from '~/hooks/useModal';
+import { useModal } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 
 import KlipAuth from './klip/KlipAuth';
@@ -15,21 +15,20 @@ export default function Header() {
   const isLoggedIn = useUserStore(state => state.isLoggedIn);
 
   const { showModal } = useModal();
-
   const onClickMarketIcon = () => {
-    showModal({ modalName: 'Market', children: MarketDescription });
+    showModal('Market', MarketDescription);
   };
 
   const onClickNotificationIcon = () => {
-    showModal({ modalName: 'Notification', children: NotificationDescription });
+    showModal('Notification', NotificationDescription);
   };
 
   const onClickLoginIcon = () => {
-    showModal({ modalName: 'Login', children: <KlipAuth /> });
+    showModal('Login', <KlipAuth />);
   };
 
   const onClickMenuIcon = () => {
-    showModal({ modalName: 'Menu', children: MenuDescription });
+    showModal('Menu', MenuDescription);
   };
 
   return (
