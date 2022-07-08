@@ -2,11 +2,11 @@ export type SignUpFromPage = 'UserName' | 'PhoneNumber' | 'Finish';
 import { ChangeEvent, KeyboardEvent, useRef, useState } from 'react';
 
 import { putUser } from '~/apis/users';
+import Button from '~/components/Button';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 
 import MoreDescription from './MoreDescription';
-import MoveButton from './MoveButton';
 import PageLabel from './PageLabel';
 
 const formatPhoneNumber = (value: string) => {
@@ -76,7 +76,9 @@ export default function SingUpForm() {
             onChange={onChangeNickNameInput}
             ref={userNameRef}
           />
-          <MoveButton text="다음" onClick={() => setPage('PhoneNumber')} disabled={isDisabledMoveToPhoneNumberPage} />
+          <Button py={8} onClick={() => setPage('PhoneNumber')} disabled={isDisabledMoveToPhoneNumberPage}>
+            다음
+          </Button>
         </div>
         <div className="w-full mb-4">
           <PageLabel text="전화번호" htmlFor="phonenumber" />
@@ -90,15 +92,23 @@ export default function SingUpForm() {
             ref={phoneNumberRef}
           />
           <div className="flex justify-around w-2/3 m-auto ">
-            <MoveButton text="이전" onClick={() => setPage('UserName')} disabled={false} />
-            <MoveButton text="다음" onClick={() => setPage('Finish')} disabled={isDisabledMoveToFinishPage} />
+            <Button py={8} onClick={() => setPage('UserName')} disabled={false}>
+              이전
+            </Button>
+            <Button py={8} onClick={() => setPage('Finish')} disabled={isDisabledMoveToFinishPage}>
+              다음
+            </Button>
           </div>
         </div>
         <div className="flex flex-col w-full mb-4">
           <PageLabel text="Connectable에 오신 걸 환영합니다." />
-          <MoveButton text="이전" onClick={() => setPage('PhoneNumber')} disabled={false} />
+          <Button py={8} onClick={() => setPage('PhoneNumber')} disabled={false}>
+            이전
+          </Button>
           <div className=" min-h-[14px]"></div>
-          <MoveButton text="회원가입 완료하기" onClick={onClickFinishButton} disabled={false} />
+          <Button py={8} onClick={onClickFinishButton} disabled={false}>
+            회원가입 완료하기
+          </Button>
         </div>
       </form>
       <MoreDescription page={page} />
