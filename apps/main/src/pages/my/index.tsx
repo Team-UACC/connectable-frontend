@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import toast, { Toaster } from 'react-hot-toast';
 
 import { Block } from '~/components/Block';
 import Button from '~/components/Button';
@@ -19,10 +20,11 @@ export default function MyPage() {
         010-5248-4170
       </UserInfoLine>
       <Block />
-      <div className="flex w-full  justify-self-end">
+      <div className="flex w-full justify-self-end">
         <Button>프로필 수정</Button>
         <Button color="white">로그아웃</Button>
       </div>
+      <Toaster containerStyle={{ top: 300 }} />
     </div>
   );
 }
@@ -49,7 +51,9 @@ const TextCopyButton = ({ text }: { text: string }) => (
   <button
     onClick={() => {
       navigator.clipboard.writeText(text);
+      toast.success('클립보드에 복사되었습니다.');
     }}
+    className="absolute right-[48px]"
   >
     <Image src="/images/duplicate.svg" alt="클립보드에 복사" width={24} height={24} />
   </button>

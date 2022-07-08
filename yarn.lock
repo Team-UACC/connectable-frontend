@@ -2438,6 +2438,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"goober@npm:^2.1.1":
+  version: 2.1.10
+  resolution: "goober@npm:2.1.10"
+  peerDependencies:
+    csstype: ^3.0.10
+  checksum: 55a353a477665ea3ae748153132a32184a6a0db42b24ec66cdca97d1e046a2b63af29f698e245fe2f51c05d0eaefeda2cce4a106bc2b6293ea67490c39b6b5c8
+  languageName: node
+  linkType: hard
+
 "graceful-fs@npm:^4.2.6":
   version: 4.2.10
   resolution: "graceful-fs@npm:4.2.10"
@@ -2940,6 +2949,7 @@ __metadata:
     qrcode.react: ^3.1.0
     react: ^18.2.0
     react-dom: ^18.2.0
+    react-hot-toast: ^2.2.0
     react-query: ^3.39.1
     tailwindcss: ^3.1.4
     typescript: ^4.7.4
@@ -3707,6 +3717,18 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
   checksum: 7d323310bea3a91be2965f9468d552f201b1c27891e45ddc2d6b8f717680c95a75ae0bc1e3f5cf41472446a2589a75aed4483aee8169287909fcd59ad149e8cc
+  languageName: node
+  linkType: hard
+
+"react-hot-toast@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "react-hot-toast@npm:2.2.0"
+  dependencies:
+    goober: ^2.1.1
+  peerDependencies:
+    react: ">=16"
+    react-dom: ">=16"
+  checksum: bb34ddc8ada14cbd75a37f14d2563412174e23276eb05e9fb23a031b6d8374ca190cefa1940692f4371529ddafeb2d4b8d3e5023187c2851ec8cb247461553ee
   languageName: node
   linkType: hard
 

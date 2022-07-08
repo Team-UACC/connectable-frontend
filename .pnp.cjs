@@ -3111,6 +3111,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["goober", [\
+        ["npm:2.1.10", {\
+          "packageLocation": "./.yarn/cache/goober-npm-2.1.10-8d98e7ad4b-55a353a477.zip/node_modules/goober/",\
+          "packageDependencies": [\
+            ["goober", "npm:2.1.10"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:6a0655ac8a6fd3670beef41501b66bfd27935830298cdd4888320955a24a518f6386cc542f2ec7ab4460495aefb6efef3bbbca12e33f743d7c8a6197238a0089#npm:2.1.10", {\
+          "packageLocation": "./.yarn/__virtual__/goober-virtual-bb470950e6/0/cache/goober-npm-2.1.10-8d98e7ad4b-55a353a477.zip/node_modules/goober/",\
+          "packageDependencies": [\
+            ["goober", "virtual:6a0655ac8a6fd3670beef41501b66bfd27935830298cdd4888320955a24a518f6386cc542f2ec7ab4460495aefb6efef3bbbca12e33f743d7c8a6197238a0089#npm:2.1.10"],\
+            ["@types/csstype", null],\
+            ["csstype", null]\
+          ],\
+          "packagePeers": [\
+            "@types/csstype",\
+            "csstype"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["graceful-fs", [\
         ["npm:4.2.10", {\
           "packageLocation": "./.yarn/cache/graceful-fs-npm-4.2.10-79c70989ca-3f109d70ae.zip/node_modules/graceful-fs/",\
@@ -3685,6 +3707,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["qrcode.react", "virtual:c23d35c484c37364ce76e6ad491963c83397206e744e6bebbfa198e142d80803c8386c05fb5bacfef11551e2eb5fc7b5a0b87e28f05cb1567288e5f703f596f6#npm:3.1.0"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:0befabf21d5aaf00e834658201df49f88a3274c73957b4b564b377a8829d746172dffcda89d96471de6df5578bbe3a39931311210c73f2d8402440efb584a8b6#npm:18.2.0"],\
+            ["react-hot-toast", "virtual:c23d35c484c37364ce76e6ad491963c83397206e744e6bebbfa198e142d80803c8386c05fb5bacfef11551e2eb5fc7b5a0b87e28f05cb1567288e5f703f596f6#npm:2.2.0"],\
             ["react-query", "virtual:c23d35c484c37364ce76e6ad491963c83397206e744e6bebbfa198e142d80803c8386c05fb5bacfef11551e2eb5fc7b5a0b87e28f05cb1567288e5f703f596f6#npm:3.39.1"],\
             ["tailwindcss", "virtual:c23d35c484c37364ce76e6ad491963c83397206e744e6bebbfa198e142d80803c8386c05fb5bacfef11551e2eb5fc7b5a0b87e28f05cb1567288e5f703f596f6#npm:3.1.4"],\
             ["typescript", "patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=7ad353"],\
@@ -4616,6 +4639,33 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "packagePeers": [\
             "@types/react",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["react-hot-toast", [\
+        ["npm:2.2.0", {\
+          "packageLocation": "./.yarn/cache/react-hot-toast-npm-2.2.0-bb9861336b-bb34ddc8ad.zip/node_modules/react-hot-toast/",\
+          "packageDependencies": [\
+            ["react-hot-toast", "npm:2.2.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:c23d35c484c37364ce76e6ad491963c83397206e744e6bebbfa198e142d80803c8386c05fb5bacfef11551e2eb5fc7b5a0b87e28f05cb1567288e5f703f596f6#npm:2.2.0", {\
+          "packageLocation": "./.yarn/__virtual__/react-hot-toast-virtual-6a0655ac8a/0/cache/react-hot-toast-npm-2.2.0-bb9861336b-bb34ddc8ad.zip/node_modules/react-hot-toast/",\
+          "packageDependencies": [\
+            ["react-hot-toast", "virtual:c23d35c484c37364ce76e6ad491963c83397206e744e6bebbfa198e142d80803c8386c05fb5bacfef11551e2eb5fc7b5a0b87e28f05cb1567288e5f703f596f6#npm:2.2.0"],\
+            ["@types/react", "npm:18.0.14"],\
+            ["@types/react-dom", null],\
+            ["goober", "virtual:6a0655ac8a6fd3670beef41501b66bfd27935830298cdd4888320955a24a518f6386cc542f2ec7ab4460495aefb6efef3bbbca12e33f743d7c8a6197238a0089#npm:2.1.10"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:0befabf21d5aaf00e834658201df49f88a3274c73957b4b564b377a8829d746172dffcda89d96471de6df5578bbe3a39931311210c73f2d8402440efb584a8b6#npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react",\
+            "react-dom",\
             "react"\
           ],\
           "linkType": "HARD"\
