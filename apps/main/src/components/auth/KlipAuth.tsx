@@ -47,7 +47,7 @@ const useKlipAuth = () => {
 
   const [qrvalue, setQrvalue] = useState('DEFAULT');
   const { setKlaytnAddress, setIsLoggedIn } = useUserStore();
-  const { showModal } = useModalStore();
+  const { showModal, hideModal } = useModalStore();
 
   useEffect(() => {
     let intervalId: NodeJS.Timer;
@@ -66,6 +66,7 @@ const useKlipAuth = () => {
             showModal('Sign Up', <SingUpForm />);
           } else {
             setIsLoggedIn(true);
+            hideModal();
           }
           clearInterval(intervalId);
         }

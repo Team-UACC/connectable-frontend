@@ -1,10 +1,13 @@
+export type SignUpFromPage = 'UserName' | 'PhoneNumber' | 'Finish';
 import { ChangeEvent, KeyboardEvent, useRef, useState } from 'react';
 
 import { putUser } from '~/apis/users';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 
-type SignUpFromPage = 'UserName' | 'PhoneNumber' | 'Finish';
+import MoreDescription from './MoreDescription';
+import MoveButton from './MoveButton';
+import PageLabel from './PageLabel';
 
 const formatPhoneNumber = (value: string) => {
   if (!value) return value;
@@ -102,51 +105,3 @@ export default function SingUpForm() {
     </div>
   );
 }
-
-const PageLabel = ({ text, htmlFor }: { text: string; htmlFor?: string }) => (
-  <label htmlFor={htmlFor} className="block mb-6 text-lg font-bold text-gray-700">
-    {text}
-  </label>
-);
-
-const MoveButton = ({ text, onClick, disabled }: { text: string; onClick: () => void; disabled: boolean }) => {
-  return (
-    <button
-      className={` ${
-        disabled && 'opacity-30'
-      }  gap-2 w-fit m-auto rounded-lg px-[16px] py-[8px] font-bold text-white bg-blue hover:shadow-red hover:drop-shadow-2xl focus:outline-none focus:shadow-outline`}
-      type="button"
-      onClick={onClick}
-      disabled={disabled}
-    >
-      {text}
-    </button>
-  );
-};
-
-const MoreDescription = ({ page }: { page: SignUpFromPage }) => {
-  return (
-    <>
-      {page === 'UserName' && (
-        <p className="text-sm font-light gray-500 ">
-          닉네임은 Connectable에서 보여질 이름입니다.
-          <br />
-          나중에 언제든지 수정할 수 있어요.
-        </p>
-      )}
-      {page === 'PhoneNumber' && (
-        <p className="text-sm font-light gray-500 ">
-          정책에 의하여 전화번호를 수집합니다.
-          <br />
-          약관를 확인해주세요.
-        </p>
-      )}
-      {page === 'Finish' && (
-        <p className="pb-5 text-sm font-semibold text-red ">
-          안녕하세요, 버튼을 눌러 회원가입을 완료하세요.
-          <br />
-        </p>
-      )}
-    </>
-  );
-};
