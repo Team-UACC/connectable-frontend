@@ -1,5 +1,5 @@
 export type SignUpFromPage = 'UserName' | 'PhoneNumber' | 'Finish';
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
 
 import Button from '~/components/Button';
 import useUserInfoForm from '~/hooks/useUserInfoForm';
@@ -24,12 +24,25 @@ export default function SingUpForm() {
   const onChangePhoneNumberInput = (e: ChangeEvent<HTMLInputElement>) =>
     setIsDisabledMoveToFinishPage(e.currentTarget.value.length < 13);
 
+  const onCheckEnter = (e: KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      if (page === 'UserName') !isDisabledMoveToPhoneNumberPage && setPage('PhoneNumber');
+      else if (page === 'PhoneNumber') !isDisabledMoveToFinishPage && setPage('Finish');
+      else onClickSubmitButton();
+    }
+  };
+
+  useEffect(() => {
+    userNameRef.current?.focus();
+  }, []);
+
   return (
     <div className="w-full mb-10">
       <form
         className={`flex ${page === 'PhoneNumber' && '-translate-x-1/3'} ${
           page === 'Finish' && '-translate-x-2/3'
-        } w-[300%] pt-6 pb-8 mb-4 bg-transparent rounded overflow-hidden transition-all ease-in-out duration-[1s]`}
+        } w-[300%] pt-6 pb-8 mb-4 bg-transparent rounded transition-all ease-in-out duration-[1s]`}
+        onKeyDown={onCheckEnter}
       >
         <div className="flex flex-col w-full mb-4">
           <PageLabel text="닉네임" htmlFor="username" />
@@ -39,6 +52,7 @@ export default function SingUpForm() {
             type="text"
             placeholder="닉네임을 입력해주세요"
             onChange={onChangeNickNameInput}
+            autoComplete="off"
             ref={userNameRef}
           />
           <Button onClick={() => setPage('PhoneNumber')} disabled={isDisabledMoveToPhoneNumberPage}>
@@ -54,6 +68,7 @@ export default function SingUpForm() {
             placeholder="전화번호를 입력해주세요"
             onKeyUp={onKeyUpPhoneNumberInput}
             onChange={onChangePhoneNumberInput}
+            autoComplete="off"
             ref={phoneNumberRef}
           />
           <div className="flex justify-around w-2/3 m-auto ">

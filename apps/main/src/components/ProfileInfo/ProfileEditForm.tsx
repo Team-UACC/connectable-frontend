@@ -35,6 +35,7 @@ export default function ProfileEditForm({ userName, phoneNumber }: ProfileEditFo
             placeholder="닉네임을 입력해주세요"
             defaultValue={userName}
             onChange={onChange}
+            autoComplete="off"
             ref={userNameRef}
           />
           <h1 className="block mb-4 text-lg font-bold text-gray-700">전화번호</h1>
@@ -46,6 +47,7 @@ export default function ProfileEditForm({ userName, phoneNumber }: ProfileEditFo
             defaultValue={phoneNumber}
             onKeyUp={onKeyUpPhoneNumberInput}
             onChange={onChange}
+            autoComplete="off"
             ref={phoneNumberRef}
           />
           <Button onClick={() => onClickSubmitButton()} disabled={isDisabledSubmit}>
