@@ -34,8 +34,8 @@ export default function FullScreenModal() {
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <div className="relative flex flex-col w-full h-screen">
-                <div className="absolute flex justify-between w-full t-0 py-[1.5rem]">
-                  <div className="text-xl"> {modalName}</div>
+                <div className="absolute mt-3 flex justify-between w-full t-0 py-[1.5rem]">
+                  <div className="text-xl font-bold"> {modalName}</div>
                   <button
                     className="cursor-pointer h-[1.5rem]"
                     type="button"

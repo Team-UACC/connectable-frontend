@@ -16,44 +16,42 @@ export default function Header() {
 
   const { showModal } = useModalStore();
   const onClickMarketIcon = () => {
-    showModal('Market', MarketDescription);
+    showModal('마켓플레이스', MarketDescription);
   };
 
   const onClickNotificationIcon = () => {
-    showModal('Notification', NotificationDescription);
+    showModal('알림', NotificationDescription);
   };
 
   const onClickLoginIcon = () => {
-    showModal('Login', <KlipAuth />);
+    showModal('로그인', <KlipAuth />);
   };
 
   const onClickMenuIcon = () => {
-    showModal('Menu', MenuDescription);
+    showModal(' ', MenuDescription);
   };
 
   return (
-    <>
-      <header className="relative flex justify-between w-full bg-white backdrop-blur-md">
-        <nav className="relative flex justify-between w-full py-[1.5rem] ">
-          <div className="flex flex-col justify-center">
-            <Link href="/">
-              <div className="ml-4 text-2xl cursor-pointer ">LOGO</div>
-            </Link>
-          </div>
-          <div className="flex justify-between  w-[15rem]">
-            <NavIcon src="/images/ticket.svg" alt="ticket" href="/events" />
-            <NavIcon src="/images/market.svg" alt="market" onClick={onClickMarketIcon} />
-            <NavIcon src="/images/notification.svg" alt="notification" onClick={onClickNotificationIcon} />
-            {isLoggedIn === true ? (
-              <NavIcon src="/images/defaultProfile.jpeg" alt="profile" href="/my" />
-            ) : (
-              <NavIcon src="/images/login.svg" alt="login" onClick={onClickLoginIcon} />
-            )}
-            <NavIcon src="/images/menu.svg" alt="menu" onClick={onClickMenuIcon} />
-          </div>
-        </nav>
-      </header>
-    </>
+    <header className="relative flex justify-between w-full px-3 bg-white backdrop-blur-md">
+      <nav className="relative flex justify-between w-full py-[1.5rem] ">
+        <div className="flex flex-col justify-center">
+          <Link href="/">
+            <div className="ml-4 text-2xl cursor-pointer ">LOGO</div>
+          </Link>
+        </div>
+        <div className="flex justify-between  w-[12rem]">
+          {/* <NavIcon src="/images/ticket.svg" alt="ticket" href="/events" /> */}
+          <NavIcon src="/images/market.svg" alt="market" onClick={onClickMarketIcon} />
+          <NavIcon src="/images/notification.svg" alt="notification" onClick={onClickNotificationIcon} />
+          {isLoggedIn === true ? (
+            <NavIcon src="/images/defaultProfile.jpeg" alt="profile" href="/my" />
+          ) : (
+            <NavIcon src="/images/login.svg" alt="login" onClick={onClickLoginIcon} />
+          )}
+          <NavIcon src="/images/menu.svg" alt="menu" onClick={onClickMenuIcon} />
+        </div>
+      </nav>
+    </header>
   );
 }
 
