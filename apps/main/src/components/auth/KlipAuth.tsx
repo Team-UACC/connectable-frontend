@@ -46,7 +46,7 @@ const useKlipAuth = () => {
   const method = getKlipAccessMethod();
 
   const [qrvalue, setQrvalue] = useState('DEFAULT');
-  const { setLoginState } = useUserStore();
+  const { setKlaytnAddress, setIsLoggedIn } = useUserStore();
   const { showModal } = useModalStore();
 
   useEffect(() => {
@@ -59,12 +59,13 @@ const useKlipAuth = () => {
         const { status, klaytnAddress, jwt, isNew } = await postUserLogin(requestKey);
 
         if (status === 'completed') {
-          console.log(JSON.stringify(klaytnAddress));
+          setCookie('auth', jwt, { maxAge: 60 * 24, httpOnly: true, secure: true, sameSite: 'strict' });
+
           if (isNew) {
+            setKlaytnAddress(klaytnAddress as string);
             showModal('Sign Up', <SingUpForm />);
           } else {
-            setCookie('auth', jwt, { maxAge: 60 * 24, httpOnly: true, secure: true, sameSite: 'strict' });
-            setLoginState(true);
+            setIsLoggedIn(true);
           }
           clearInterval(intervalId);
         }

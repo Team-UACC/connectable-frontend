@@ -11,13 +11,13 @@ const getUser = async () => {
 };
 
 export default function useUser() {
-  const { setLoginState } = useUserStore();
+  const { setIsLoggedIn } = useUserStore();
 
   const initializeUser = async () => {
     const { status }: GetUserLoginRes = await getUser();
 
-    if (status === 'success') setLoginState(true);
-    else setLoginState(false);
+    if (status === 'success') setIsLoggedIn(true);
+    else setIsLoggedIn(false);
   };
 
   useEffect(() => {

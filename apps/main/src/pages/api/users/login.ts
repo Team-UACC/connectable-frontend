@@ -1,12 +1,13 @@
+import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-export default (req: NextApiRequest, res: NextApiResponse) => {
-  //  서버에  request
+import { PostUserLoginRes } from '~/apis/users';
 
-  res.status(200).json({
-    status: 'completed',
-    klaytnAddress: '0xD466B3aafb86446FFC44868284a9FB76A0ae8BCb',
-    jwt: 'jwt',
-    isNew: true, // 회원가입이 된 유저 구분
-  });
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+  if (req.method === 'POST') {
+    const { requestKey } = req.body;
+
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/login`, { requestKey });
+    res.json(response.data as PostUserLoginRes);
+  }
 };

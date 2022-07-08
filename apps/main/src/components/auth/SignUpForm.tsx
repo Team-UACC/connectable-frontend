@@ -1,6 +1,8 @@
 import { ChangeEvent, KeyboardEvent, useRef, useState } from 'react';
 
 import { putUser } from '~/apis/users';
+import { useModalStore } from '~/stores/modal';
+import { useUserStore } from '~/stores/user';
 
 type SignUpFromPage = 'UserName' | 'PhoneNumber' | 'Finish';
 
@@ -21,6 +23,8 @@ const formatPhoneNumber = (value: string) => {
 };
 
 export default function SingUpForm() {
+  const { klaytnAddress, setIsLoggedIn, addUserState } = useUserStore();
+  const { hideModal } = useModalStore();
   const [page, setPage] = useState<SignUpFromPage>('UserName');
 
   const [isDisabledMoveToPhoneNumberPage, setIsDisabledMoveToPhoneNumberPage] = useState(true);
@@ -37,6 +41,19 @@ export default function SingUpForm() {
 
   const onKeyUpPhoneNumberInput = (e: KeyboardEvent<HTMLInputElement>) => {
     e.currentTarget.value = formatPhoneNumber(e.currentTarget.value);
+  };
+
+  const onClickFinishButton = async () => {
+    const phoneNumber = phoneNumberRef.current!.value;
+    const nickname = userNameRef.current!.value;
+
+    const data = await putUser(klaytnAddress, phoneNumber, nickname);
+
+    if (data.status === 'success') {
+      setIsLoggedIn(true);
+      addUserState(nickname, klaytnAddress, phoneNumber);
+      hideModal();
+    }
   };
 
   return (
@@ -78,11 +95,7 @@ export default function SingUpForm() {
           <PageLabel text="Connectable에 오신 걸 환영합니다." />
           <MoveButton text="이전" onClick={() => setPage('PhoneNumber')} disabled={false} />
           <div className=" min-h-[14px]"></div>
-          <MoveButton
-            text="회원가입 완료하기"
-            onClick={() => putUser('0x00', '010-0000-0000', 'UACC')}
-            disabled={false}
-          />
+          <MoveButton text="회원가입 완료하기" onClick={onClickFinishButton} disabled={false} />
         </div>
       </form>
       <MoreDescription page={page} />
