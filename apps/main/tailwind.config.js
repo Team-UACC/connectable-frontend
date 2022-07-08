@@ -8,7 +8,7 @@ module.exports = {
       },
       colors: {
         transparent: 'transparent',
-        blue: '#2A4365',
+        brand: '#2A4365',
         red: '#63171B',
       },
     },

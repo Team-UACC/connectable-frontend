@@ -45,7 +45,7 @@ export default function Header() {
             <NavIcon src="/images/market.svg" alt="market" onClick={onClickMarketIcon} />
             <NavIcon src="/images/notification.svg" alt="notification" onClick={onClickNotificationIcon} />
             {isLoggedIn === true ? (
-              <NavIcon src="/images/defaultProfile.svg" alt="profile" href="/my" />
+              <NavIcon src="/images/defaultProfile.jpeg" alt="profile" href="/my" />
             ) : (
               <NavIcon src="/images/login.svg" alt="login" onClick={onClickLoginIcon} />
             )}

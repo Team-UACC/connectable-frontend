@@ -8,6 +8,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const { requestKey } = req.body;
 
     const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/login`, { requestKey });
+
+    console.log(res);
     res.json(response.data as PostUserLoginRes);
   }
 };

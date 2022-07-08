@@ -76,7 +76,7 @@ export default function SingUpForm() {
             onChange={onChangeNickNameInput}
             ref={userNameRef}
           />
-          <Button py={8} onClick={() => setPage('PhoneNumber')} disabled={isDisabledMoveToPhoneNumberPage}>
+          <Button onClick={() => setPage('PhoneNumber')} disabled={isDisabledMoveToPhoneNumberPage}>
             다음
           </Button>
         </div>
@@ -92,21 +92,21 @@ export default function SingUpForm() {
             ref={phoneNumberRef}
           />
           <div className="flex justify-around w-2/3 m-auto ">
-            <Button py={8} onClick={() => setPage('UserName')} disabled={false}>
+            <Button onClick={() => setPage('UserName')} disabled={false}>
               이전
             </Button>
-            <Button py={8} onClick={() => setPage('Finish')} disabled={isDisabledMoveToFinishPage}>
+            <Button onClick={() => setPage('Finish')} disabled={isDisabledMoveToFinishPage}>
               다음
             </Button>
           </div>
         </div>
         <div className="flex flex-col w-full mb-4">
           <PageLabel text="Connectable에 오신 걸 환영합니다." />
-          <Button py={8} onClick={() => setPage('PhoneNumber')} disabled={false}>
+          <Button onClick={() => setPage('PhoneNumber')} disabled={false}>
             이전
           </Button>
           <div className=" min-h-[14px]"></div>
-          <Button py={8} onClick={onClickFinishButton} disabled={false}>
+          <Button onClick={onClickFinishButton} disabled={false}>
             회원가입 완료하기
           </Button>
         </div>
