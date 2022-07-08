@@ -14,9 +14,9 @@ interface UserState {
 
 export const useUserStore = create<UserState>(set => ({
   isLoggedIn: false,
-  userName: '',
-  klaytnAddress: '',
-  phoneNumber: '',
+  userName: 'iHoHyeon',
+  klaytnAddress: '0xD466B3aafb86446FFD466B3aafb86446FF',
+  phoneNumber: '010-5248-4170',
 
   setIsLoggedIn: (isLoggedIn: boolean) => set(state => ({ ...state, isLoggedIn })),
 
