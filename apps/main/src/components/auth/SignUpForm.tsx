@@ -1,4 +1,4 @@
-import { KeyboardEvent, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useRef, useState } from 'react';
 
 import { putUser } from '~/apis/users';
 
@@ -13,7 +13,7 @@ const formatPhoneNumber = (value: string) => {
 
   if (phoneNumberLength < 4) return phoneNumber;
 
-  if (phoneNumberLength < 7) {
+  if (phoneNumberLength < 8) {
     return `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(3)}`;
   }
 
@@ -23,16 +23,28 @@ const formatPhoneNumber = (value: string) => {
 export default function SingUpForm() {
   const [page, setPage] = useState<SignUpFromPage>('UserName');
 
+  const [isDisabledMoveToPhoneNumberPage, setIsDisabledMoveToPhoneNumberPage] = useState(true);
+  const [isDisabledMoveToFinishPage, setIsDisabledMoveToFinishPage] = useState(true);
+
+  const userNameRef = useRef<HTMLInputElement>(null);
+  const phoneNumberRef = useRef<HTMLInputElement>(null);
+
+  const onChangeNickNameInput = (e: ChangeEvent<HTMLInputElement>) =>
+    setIsDisabledMoveToPhoneNumberPage(e.currentTarget.value === '');
+
+  const onChangePhoneNumberInput = (e: ChangeEvent<HTMLInputElement>) =>
+    setIsDisabledMoveToFinishPage(e.currentTarget.value.length < 13);
+
   const onKeyUpPhoneNumberInput = (e: KeyboardEvent<HTMLInputElement>) => {
     e.currentTarget.value = formatPhoneNumber(e.currentTarget.value);
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full mb-10">
       <form
         className={`flex ${page === 'PhoneNumber' && '-translate-x-1/3'} ${
           page === 'Finish' && '-translate-x-2/3'
-        } w-[300%] pt-6 pb-8 mb-4 bg-white rounded overflow-visible transition-all ease-in-out duration-[1s]`}
+        } w-[300%] pt-6 pb-8 mb-4 bg-white rounded overflow-hidden transition-all ease-in-out duration-[1s]`}
       >
         <div className="flex flex-col w-full mb-4">
           <PageLabel text="닉네임" htmlFor="username" />
@@ -41,8 +53,10 @@ export default function SingUpForm() {
             id="username"
             type="text"
             placeholder="닉네임을 입력해주세요"
+            onChange={onChangeNickNameInput}
+            ref={userNameRef}
           />
-          <MoveButton text="다음" onClick={() => setPage('PhoneNumber')} />
+          <MoveButton text="다음" onClick={() => setPage('PhoneNumber')} disabled={isDisabledMoveToPhoneNumberPage} />
         </div>
         <div className="w-full mb-4">
           <PageLabel text="전화번호" htmlFor="phonenumber" />
@@ -52,17 +66,23 @@ export default function SingUpForm() {
             type="tel"
             placeholder="전화번호를 입력해주세요"
             onKeyUp={onKeyUpPhoneNumberInput}
+            onChange={onChangePhoneNumberInput}
+            ref={phoneNumberRef}
           />
           <div className="flex justify-around w-2/3 m-auto ">
-            <MoveButton text="이전" onClick={() => setPage('UserName')} />
-            <MoveButton text="다음" onClick={() => setPage('Finish')} />
+            <MoveButton text="이전" onClick={() => setPage('UserName')} disabled={false} />
+            <MoveButton text="다음" onClick={() => setPage('Finish')} disabled={isDisabledMoveToFinishPage} />
           </div>
         </div>
         <div className="flex flex-col w-full mb-4">
           <PageLabel text="Connectable에 오신 걸 환영합니다." />
-          <MoveButton text="이전" onClick={() => setPage('PhoneNumber')} />
+          <MoveButton text="이전" onClick={() => setPage('PhoneNumber')} disabled={false} />
           <div className=" min-h-[14px]"></div>
-          <MoveButton text="회원가입 완료하기" onClick={() => putUser('0x00', '010-0000-0000', 'UACC')} />
+          <MoveButton
+            text="회원가입 완료하기"
+            onClick={() => putUser('0x00', '010-0000-0000', 'UACC')}
+            disabled={false}
+          />
         </div>
       </form>
       <MoreDescription page={page} />
@@ -76,12 +96,15 @@ const PageLabel = ({ text, htmlFor }: { text: string; htmlFor?: string }) => (
   </label>
 );
 
-const MoveButton = ({ text, onClick }: { text: string; onClick: () => void }) => {
+const MoveButton = ({ text, onClick, disabled }: { text: string; onClick: () => void; disabled: boolean }) => {
   return (
     <button
-      className=" gap-2 w-fit m-auto rounded-lg px-[16px] py-[8px] font-bold text-white bg-blue hover:shadow-red hover:drop-shadow-2xl focus:outline-none focus:shadow-outline"
+      className={` ${
+        disabled && 'opacity-30'
+      }  gap-2 w-fit m-auto rounded-lg px-[16px] py-[8px] font-bold text-white bg-blue hover:shadow-red hover:drop-shadow-2xl focus:outline-none focus:shadow-outline`}
       type="button"
       onClick={onClick}
+      disabled={disabled}
     >
       {text}
     </button>
@@ -106,7 +129,7 @@ const MoreDescription = ({ page }: { page: SignUpFromPage }) => {
         </p>
       )}
       {page === 'Finish' && (
-        <p className="mb-5 text-sm font-semibold text-red ">
+        <p className="pb-5 text-sm font-semibold text-red ">
           안녕하세요, 버튼을 눌러 회원가입을 완료하세요.
           <br />
         </p>
