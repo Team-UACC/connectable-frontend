@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  main:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    restart: always
+    volumes:
+      - /usr/src/.yarn
+      - /usr/src/apps/main/.next
+      - .:/usr/src
+    ports:
+      - 3000:3000
