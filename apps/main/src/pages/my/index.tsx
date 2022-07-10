@@ -1,5 +1,3 @@
-import { Toaster } from 'react-hot-toast';
-
 import { Block } from '~/components/Block';
 import ProfileInfo from '~/components/ProfileInfo';
 import Tabs from '~/components/Tabs';
@@ -16,7 +14,6 @@ export default function MyPage() {
         <Tabs titles={titles} color="brand">
           <UserTicketCardList />
         </Tabs>
-        <Toaster containerStyle={{ top: 300 }} />
       </div>
     </div>
   );

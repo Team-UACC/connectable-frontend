@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Dispatch, SetStateAction } from 'react';
 
 const isIOS = () => /iPhone|iPad|iPod/i.test(navigator.userAgent);
 const isAndroid = () => /Android/i.test(navigator.userAgent);
@@ -27,4 +28,17 @@ export const getKlipAccessUrl = (method: 'QR' | 'iOS' | 'android', request_key: 
     default:
       return `kakaotalk://klipwallet/open?url=https://klipwallet.com/?target=/a2a?request_key=${request_key}`;
   }
+};
+
+export const getKlipRequest = async (
+  method: 'QR' | 'iOS' | 'android',
+  setQrvalue: Dispatch<SetStateAction<string>>
+) => {
+  const requestKey = await getKlipRequestKey();
+
+  if (method === 'QR') setQrvalue(() => getKlipAccessUrl('QR', requestKey));
+  else if (method === 'iOS') window.location.href = getKlipAccessUrl('iOS', requestKey);
+  else window.location.href = getKlipAccessUrl('android', requestKey); //
+
+  return requestKey;
 };

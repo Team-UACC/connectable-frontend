@@ -7,7 +7,7 @@ export interface PostUserLoginRes {
   isNew?: boolean;
 }
 
-export const postUserLogin = async (requestKey: string): Promise<PostUserLoginRes> => {
+export const postUserLogIn = async (requestKey: string): Promise<PostUserLoginRes> => {
   const response = await axios.post(`/api/users/login`, { requestKey });
   return response.data;
 };
