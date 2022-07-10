@@ -32,7 +32,7 @@ export default function Header() {
   };
 
   return (
-    <header className="relative flex justify-between w-full px-3 bg-white backdrop-blur-md">
+    <header className="relative flex justify-between w-full px-2 bg-white backdrop-blur-md">
       <nav className="relative flex justify-between w-full py-[1.5rem] ">
         <div className="flex flex-col justify-center">
           <Link href="/">
