@@ -1,4 +1,7 @@
+import { deleteCookie } from 'cookies-next';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useCallback } from 'react';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
@@ -10,8 +13,15 @@ import { useUserStore } from '~/stores/user';
 import ProfileEditForm from './ProfileEditForm';
 
 export default function ProfileInfo() {
-  const { userName, klaytnAddress, phoneNumber } = useUserStore();
+  const { userName, klaytnAddress, phoneNumber, resetUserState } = useUserStore();
+  const router = useRouter();
   const { showModal } = useModalStore();
+
+  const onClickLogout = useCallback(() => {
+    router.replace('/');
+    deleteCookie('auth');
+    resetUserState();
+  }, []);
 
   return (
     <div className="flex flex-col items-center w-full">
@@ -40,7 +50,9 @@ export default function ProfileInfo() {
         >
           프로필 수정
         </Button>
-        <Button color="white">로그아웃</Button>
+        <Button color="white" onClick={onClickLogout}>
+          로그아웃
+        </Button>
       </div>
       <Block />
     </div>
