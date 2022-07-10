@@ -1,29 +1,32 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Children, Dispatch, ReactNode, SetStateAction, useState } from 'react';
 
-type TabsProps = { color: string; titles: Array<string> };
+interface TabsProps {
+  color: string;
+  titles: Array<string>;
+  children: ReactNode | Array<ReactNode>;
+}
 
-export default function Tabs({ color, titles }: TabsProps) {
-  const [openTab, setOpenTab] = useState(1);
+export default function Tabs({ color, titles, children }: TabsProps) {
+  const [openTab, setOpenTab] = useState(0);
   return (
     <>
       <div className="flex flex-wrap">
         <div className="w-full">
           <ul className="flex flex-row flex-wrap pt-3 pb-4 mb-0 list-none" role="tablist">
             {titles.map((title, idx) => (
-              <TabNavButton key={title} color={color} openTab={openTab} setOpenTab={setOpenTab} idx={idx + 1}>
+              <TabNavButton key={title} color={color} openTab={openTab} setOpenTab={setOpenTab} idx={idx}>
                 {title}
               </TabNavButton>
             ))}
           </ul>
           <div className="relative flex flex-col w-full min-w-0 mb-6 break-words bg-white rounded ">
-            <div className="flex-auto px-2 py-5">
+            <div className="flex-auto px-2 py-2">
               <div className="tab-content tab-space">
-                <div className={openTab === 1 ? 'block' : 'hidden'} id="link1">
-                  <p>Ticket</p>
-                </div>
-                <div className={openTab === 2 ? 'block' : 'hidden'} id="link2">
-                  <p>Transaction</p>
-                </div>
+                {Children.toArray(children).map((child, idx) => (
+                  <div className={openTab === idx ? 'block' : 'hidden'} key={idx} id={`link${idx}`}>
+                    {child}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -54,7 +57,7 @@ const TabNavButton = ({ openTab, setOpenTab, color, children, idx }: TabNavButto
           setOpenTab(idx);
         }}
         data-toggle="tab"
-        href="#link1"
+        href={`#link${idx}`}
         role="tablist"
       >
         {children}
