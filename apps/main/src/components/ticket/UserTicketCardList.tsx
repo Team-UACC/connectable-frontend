@@ -10,7 +10,7 @@ export default function UserTicketCardList() {
   if (!data) return <div>loading</div>;
 
   return (
-    <ul className="divide-y-2 ">
+    <ul className="w-full divide-y-2 ">
       {data.tickets.map(ticketData => (
         <TicketCard data={ticketData} key={ticketData.tokenId} />
       ))}
