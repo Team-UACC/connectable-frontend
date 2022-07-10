@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
+    image: connectable-frontend-dev-main:latest
     restart: always
     volumes:
       - /usr/src/.yarn
