@@ -36,6 +36,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
     // const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users/tickets`, { withCredentials: true });
 
-    res.json({ status: 'success', tickets: [DUMMY_DATA] } as GetUserTicketRes);
+    res.json({ status: 'success', tickets: [DUMMY_DATA, DUMMY_DATA, DUMMY_DATA, DUMMY_DATA] } as GetUserTicketRes);
   }
 };

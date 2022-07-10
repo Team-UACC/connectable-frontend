@@ -1,5 +1,22 @@
-import { GetUserTicketRes } from '~/apis/users';
+import Image from 'next/image';
 
-export default function TicketCard({ data }: { data: GetUserTicketRes }) {
-  return <article>{JSON.stringify(data)}</article>;
+import { Ticket } from '~/apis/users';
+
+export default function TicketCard({ data }: { data: Ticket }) {
+  return (
+    <article className="flex justify-between px-2 py-4 transition-all ease-in-out hover:rounded-lg hover:border-[#EBF8FF] hover:scale-110 hover:bg-[#EBF8FF] ">
+      <Image
+        src={data.metadata.image}
+        alt="티켓 이미지"
+        width={100}
+        height={100}
+        className=" rounded-[10px] shadow-lg"
+      />
+      <div className="flex relative flex-col w-[calc(100%-132px)] h-[100px] justify-between">
+        <h2 className="text-lg font-bold ">{data.metadata.name}</h2>
+        <span className="mb-4 text-sm font-semibold ">{data.artistName}</span>
+        <span className="text-sm font-semibold opacity-50">{`2022년 11월 18일`}</span>
+      </div>
+    </article>
+  );
 }

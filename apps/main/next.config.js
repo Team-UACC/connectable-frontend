@@ -10,4 +10,7 @@ module.exports = {
     };
     return config;
   },
+  images: {
+    domains: ['assets.otherside.xyz'],
+  },
 };

@@ -24,7 +24,7 @@ export const putUser = async (klaytnAddress: string, phoneNumber: string, nickna
   return response.data;
 };
 
-type Ticket = {
+export type Ticket = {
   price: number;
   artistName: string;
   eventDate: Date;

@@ -20,7 +20,7 @@ export default function Tabs({ color, titles, children }: TabsProps) {
             ))}
           </ul>
           <div className="relative flex flex-col w-full min-w-0 mb-6 break-words bg-white rounded ">
-            <div className="flex-auto px-2 py-5">
+            <div className="flex-auto px-2 py-2">
               <div className="tab-content tab-space">
                 {Children.toArray(children).map((child, idx) => (
                   <div className={openTab === idx ? 'block' : 'hidden'} key={idx} id={`link${idx}`}>
