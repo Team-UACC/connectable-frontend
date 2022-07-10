@@ -1,5 +1,6 @@
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import { Toaster } from 'react-hot-toast';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 import Layout from '~/components/Layout';
@@ -34,6 +35,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <QueryClientProvider client={queryClient}>
         <Layout>
           <Component {...pageProps} />
+          <Toaster containerStyle={{ top: 300 }} />
           <Modals />
         </Layout>
       </QueryClientProvider>

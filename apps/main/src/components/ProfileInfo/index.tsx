@@ -1,27 +1,26 @@
-import { deleteCookie } from 'cookies-next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useCallback } from 'react';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
 import { Block } from '~/components/Block';
 import Button from '~/components/Button';
+import { useLogout } from '~/hooks/useAuth';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 
 import ProfileEditForm from './ProfileEditForm';
 
 export default function ProfileInfo() {
-  const { userName, klaytnAddress, phoneNumber, resetUserState } = useUserStore();
+  const { userName, klaytnAddress, phoneNumber } = useUserStore();
   const router = useRouter();
   const { showModal } = useModalStore();
+  const logOut = useLogout();
 
-  const onClickLogout = useCallback(() => {
+  const onClickLogout = () => {
     router.replace('/');
-    deleteCookie('auth');
-    resetUserState();
-  }, []);
+    logOut();
+  };
 
   return (
     <div className="flex flex-col items-center w-full">
