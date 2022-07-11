@@ -1822,6 +1822,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["dayjs", [\
+        ["npm:1.11.3", {\
+          "packageLocation": "./.yarn/cache/dayjs-npm-1.11.3-88985d494e-c87e06b562.zip/node_modules/dayjs/",\
+          "packageDependencies": [\
+            ["dayjs", "npm:1.11.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["debug", [\
         ["npm:2.6.9", {\
           "packageLocation": "./.yarn/cache/debug-npm-2.6.9-7d4cb597dc-d2f51589ca.zip/node_modules/debug/",\
@@ -3702,6 +3711,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["autoprefixer", "virtual:c23d35c484c37364ce76e6ad491963c83397206e744e6bebbfa198e142d80803c8386c05fb5bacfef11551e2eb5fc7b5a0b87e28f05cb1567288e5f703f596f6#npm:10.4.7"],\
             ["axios", "npm:0.27.2"],\
             ["cookies-next", "npm:2.1.1"],\
+            ["dayjs", "npm:1.11.3"],\
             ["next", "virtual:c23d35c484c37364ce76e6ad491963c83397206e744e6bebbfa198e142d80803c8386c05fb5bacfef11551e2eb5fc7b5a0b87e28f05cb1567288e5f703f596f6#npm:12.2.0"],\
             ["postcss", "npm:8.4.14"],\
             ["qrcode.react", "virtual:c23d35c484c37364ce76e6ad491963c83397206e744e6bebbfa198e142d80803c8386c05fb5bacfef11551e2eb5fc7b5a0b87e28f05cb1567288e5f703f596f6#npm:3.1.0"],\
