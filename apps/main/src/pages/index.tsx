@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import { Block } from '~/components/Block';
 import EventCard from '~/components/event/EventCard';
 
@@ -22,20 +24,23 @@ const EVENT_DUMMY = [
   },
 ];
 
-export default function HomePage() {
+export default function IndexPage() {
   return (
     <div>
+      <Block />
       <IntroContent />
       <Block />
       <ul className="">
         {EVENT_DUMMY.map(data => (
           <>
-            <li
-              key={data.id}
-              className="p-4 transition-all ease-in-out rounded-lg cursor-pointer hover:scale-110 hover:bg-zinc-100"
-            >
-              <EventCard data={data} />
-            </li>
+            <Link href={`/events/${data.id}`}>
+              <li
+                key={data.id}
+                className="p-4 transition-all ease-in-out rounded-lg cursor-pointer hover:scale-110 hover:bg-zinc-100"
+              >
+                <EventCard data={data} />
+              </li>
+            </Link>
             <Block />
             <Block />
           </>

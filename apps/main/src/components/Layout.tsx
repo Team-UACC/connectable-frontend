@@ -11,7 +11,6 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <div style={{ position: 'relative', width: 'min(428px, 100vw)', margin: 'auto' }}>
       <Header />
-      <Block />
       <div className="flex flex-col items-center px-4">{children}</div>
     </div>
   );
