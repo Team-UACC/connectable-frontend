@@ -9,7 +9,6 @@ services:
     restart: always
     volumes:
       - /usr/src/.yarn
-      - /usr/src/apps/main/.next
       - .:/usr/src
     ports:
       - 3000:3000

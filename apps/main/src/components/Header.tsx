@@ -68,16 +68,16 @@ const NavIcon = ({ src, alt, href, width = 24, height = 24, onClick }: NavIconBu
   if (!href)
     return (
       <button onClick={onClick}>
-        <div className="flex flex-col justify-center cursor-pointer h-[3rem] w-[3rem] rounded-full transition-all ease-in-out hover:scale-110 hover:bg-gray-100">
-          <Image src={src} alt={alt} width={width} height={height} />
+        <div className="flex flex-col justify-center transition-all ease-in-out rounded-full cursor-pointer hover:scale-125 ">
+          <Image src={src} alt={alt} width={width} height={height} className="p-6" />
         </div>
       </button>
     );
   else
     return (
       <Link href={href}>
-        <div className="flex flex-col justify-center cursor-pointer h-[3rem] w-[3rem] rounded-full transition-all ease-in-out hover:scale-110 hover:bg-gray-100">
-          <Image src={src} alt={alt} width={width} height={height} />
+        <div className="flex flex-col justify-center transition-all ease-in-out rounded-full cursor-pointer hover:scale-125 ">
+          <Image src={src} alt={alt} width={width} height={height} className="rounded-full" />
         </div>
       </Link>
     );
