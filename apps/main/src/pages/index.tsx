@@ -1,14 +1,46 @@
-import commonText from '@packages/common';
-import Image from 'next/image';
-
 import { Block } from '~/components/Block';
+import EventCard from '~/components/event/EventCard';
+
+const EVENT_DUMMY = [
+  {
+    id: 1,
+    name: '[콘서트] 밤 하늘의 별',
+    image: '/images/temp.jpeg',
+    date: new Date('2022-07-22').getTime(),
+    description: '디렌리의 전시',
+    salesFrom: new Date('2022-07-11').getTime(),
+    salesTo: new Date('2022-07-16').getTime(),
+  },
+  {
+    id: 2,
+    name: '[콘서트] 밤 하늘의 별',
+    image: '/images/temp.jpeg',
+    date: new Date('2022-07-22').getTime(),
+    description: '디렌리의 전시',
+    salesFrom: new Date('2022-07-11').getTime(),
+    salesTo: new Date('2022-07-15').getTime(),
+  },
+];
 
 export default function HomePage() {
   return (
     <div>
       <IntroContent />
       <Block />
-      <EventCard />
+      <ul className="">
+        {EVENT_DUMMY.map(data => (
+          <>
+            <li
+              key={data.id}
+              className="p-4 transition-all ease-in-out rounded-lg cursor-pointer hover:scale-110 hover:bg-zinc-100"
+            >
+              <EventCard data={data} />
+            </li>
+            <Block />
+            <Block />
+          </>
+        ))}
+      </ul>
     </div>
   );
 }
@@ -22,13 +54,3 @@ const IntroContent = () => (
     </span>
   </div>
 );
-
-const EventCard = () => {
-  return (
-    <>
-      <Image src={'/images/temp.jpeg'} alt="임시 이미지" width={388} height={388} style={{ borderRadius: '10px' }} />
-      <h2 className="font-bold ">[콘서트] 밤 하늘의 별</h2>
-      <span className="text-sm font-semibold opacity-50 ">판매 종료까지 03일 06시간 10분 00초 남았습니다.</span>
-    </>
-  );
-};
