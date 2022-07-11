@@ -32,6 +32,7 @@ export const useKlipLogin = () => {
             showModal('Sign Up', <SingUpForm />);
           } else {
             setIsLoggedIn(true);
+            console.log('hide');
             hideModal();
           }
           clearInterval(intervalId);

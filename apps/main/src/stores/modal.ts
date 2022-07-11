@@ -19,5 +19,5 @@ export const useModalStore = create<ModalState>(set => ({
 
   showModal: (_modalName, _children) =>
     set(state => ({ ...state, isOpen: true, modalName: _modalName, children: _children })),
-  hideModal: () => set(state => ({ ...state, modalName: null, children: null })),
+  hideModal: () => set(state => ({ ...state, isOpen: false, modalName: null, children: null })),
 }));
