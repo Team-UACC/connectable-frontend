@@ -32,8 +32,8 @@ export default function Header() {
   };
 
   return (
-    <header className="relative flex justify-between w-full px-2 bg-white backdrop-blur-md">
-      <nav className="relative flex justify-between w-full py-[1.5rem] ">
+    <header className="sticky top-0 z-10 flex justify-between w-full px-2 bg-transparent bg-white backdrop-blur-md">
+      <nav className="relative flex justify-between w-full py-4 ">
         <div className="flex flex-col justify-center">
           <Link href="/">
             <div className="ml-4 text-2xl cursor-pointer ">LOGO</div>
