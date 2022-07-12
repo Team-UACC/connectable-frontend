@@ -23,15 +23,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         klaytnAddress: '0xD466B3aafb86446FFC44868284a9FB76A0ae8BCb',
       } as GetUserLoginRes);
   }
-  if (req.method === 'PUT') {
-    const { klaytnAddress, phoneNumber, nickname } = req.body;
-
-    const response = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
-      klaytnAddress,
-      phoneNumber,
-      nickname,
-    });
-
-    res.json(response.data);
-  }
 };

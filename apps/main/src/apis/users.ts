@@ -1,27 +1,64 @@
-import axios from 'axios';
+import axios, { Axios } from 'axios';
+import { getCookie } from 'cookies-next';
 
-export interface PostUserLoginRes {
-  status: 'completed' | 'prepared' | 'failed';
-  klaytnAddress?: string;
-  jwt?: string;
-  isNew?: boolean;
-}
+const authorizationOptions = () => ({
+  headers: {
+    Authorization: `Bearer ${getCookie('auth')}`,
+  },
+});
 
-export const postUserLogIn = async (requestKey: string): Promise<PostUserLoginRes> => {
-  const response = await axios.post(`/api/users/login`, { requestKey });
-  return response.data;
+const userAxios = new Axios({
+  baseURL: `${process.env.NEXT_PUBLIC_API_URL}/users`,
+  headers: {
+    'Content-Type': 'application/json; charset=utf-8',
+  },
+  timeout: 1000,
+});
+
+type ResponseType<T = void> =
+  | {
+      status: 'success';
+      data: T;
+    }
+  | { status: 'prepared' }
+  | { status: 'failed' };
+
+type GetUserRes = {
+  nickname: string;
+  phoneNumber: string;
+  klaytnAddress: string;
 };
 
-export interface PutUserRes {
-  status: 'success' | 'fail';
-}
+export const getUser = async (): Promise<ResponseType<GetUserRes>> => {
+  const res = await userAxios.get(``, authorizationOptions());
 
-export const putUser = async (klaytnAddress: string, phoneNumber: string, nickname: string): Promise<PutUserRes> => {
-  // put user
+  return res.data;
+};
 
-  const response = await axios.put(`/api/users`, { klaytnAddress, phoneNumber, nickname });
+type PostUserLoginRes = {
+  klaytnAddress: string;
+  jwt: string;
+  isNew: boolean;
+};
 
-  return response.data;
+export const postUserLogIn = async (requestKey: string): Promise<ResponseType<PostUserLoginRes>> => {
+  const response = await userAxios.post(`/login`, JSON.stringify({ requestKey }));
+  const ret = JSON.parse(response.data);
+  if (ret.status === 'completed') return { ...ret, status: 'success' };
+  return ret;
+};
+
+export const putUser = async (phoneNumber: string, nickname: string): Promise<ResponseType> => {
+  const response = await userAxios.put(
+    ``,
+    JSON.stringify({
+      phoneNumber,
+      nickname,
+    }),
+    authorizationOptions()
+  );
+
+  return JSON.parse(response.data);
 };
 
 export type Ticket = {
@@ -40,13 +77,8 @@ export type Ticket = {
   };
 };
 
-export interface GetUserTicketRes {
-  status: 'success' | 'failed';
-  tickets: Array<Ticket>;
-}
-
-export const getUserTicket = async (): Promise<GetUserTicketRes> => {
+export const getUserTicket = async (): Promise<Array<Ticket>> => {
   const response = await axios.get(`/api/users/tickets`, { withCredentials: true });
 
-  return response.data;
+  return response.data.tickets;
 };

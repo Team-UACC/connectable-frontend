@@ -1,4 +1,4 @@
-import { deleteCookie, setCookie } from 'cookies-next';
+import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import { useCallback, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
@@ -20,19 +20,20 @@ export const useKlipLogin = () => {
 
     (async () => {
       const requestKey = await getKlipRequest(method, setQrvalue);
+      console.log(getCookie('auth'));
 
       intervalId = setInterval(async () => {
-        const { status, klaytnAddress, jwt, isNew } = await postUserLogIn(requestKey);
+        const response = await postUserLogIn(requestKey);
+        if (response.status === 'success') {
+          const { jwt, isNew, klaytnAddress } = response.data;
 
-        if (status === 'completed') {
-          setCookie('auth', jwt, { maxAge: 60 * 24, httpOnly: true, secure: true, sameSite: 'strict' });
+          setCookie('auth', jwt);
 
           if (isNew) {
             setKlaytnAddress(klaytnAddress as string);
             showModal('Sign Up', <SingUpForm />);
           } else {
             setIsLoggedIn(true);
-            console.log('hide');
             hideModal();
           }
           clearInterval(intervalId);

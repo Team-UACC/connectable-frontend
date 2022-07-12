@@ -1,23 +1,19 @@
-import axios from 'axios';
 import { useEffect } from 'react';
 
-import { GetUserLoginRes } from '~/pages/api/users';
+import { getUser } from '~/apis/users';
 import { useUserStore } from '~/stores/user';
 
-const getUser = async () => {
-  const res = await axios.get('/api/users');
-
-  return res.data;
-};
-
 export default function useUser() {
-  const { setIsLoggedIn } = useUserStore();
+  const { setIsLoggedIn, addUserState } = useUserStore();
 
   const initializeUser = async () => {
-    const { status }: GetUserLoginRes = await getUser();
+    const response = await getUser();
 
-    if (status === 'success') setIsLoggedIn(true);
-    else setIsLoggedIn(false);
+    if (response.status === 'success') {
+      const { nickname, klaytnAddress, phoneNumber } = response.data;
+      addUserState(nickname as string, klaytnAddress as string, phoneNumber as string);
+      setIsLoggedIn(true);
+    } else setIsLoggedIn(false);
   };
 
   useEffect(() => {

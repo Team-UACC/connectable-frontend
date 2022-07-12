@@ -11,7 +11,7 @@ export default function UserTicketCardList() {
 
   return (
     <ul className="w-full divide-y-2 ">
-      {data.tickets.map(ticketData => (
+      {data.map(ticketData => (
         <TicketCard data={ticketData} key={ticketData.tokenId} />
       ))}
     </ul>
