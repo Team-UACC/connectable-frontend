@@ -1,9 +1,10 @@
 import { Block } from '~/components/Block';
+import WithAuth from '~/components/HOC/WithAuth';
 import ProfileInfo from '~/components/ProfileInfo';
 import Tabs from '~/components/Tabs';
 import UserTicketCardList from '~/components/ticket/UserTicketCardList';
 
-export default function MyPage() {
+function MyPage() {
   const titles = ['마이 티켓', '거래 내역'];
 
   return (
@@ -18,3 +19,5 @@ export default function MyPage() {
     </div>
   );
 }
+
+export default WithAuth(MyPage);
