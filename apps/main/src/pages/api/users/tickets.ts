@@ -11,6 +11,7 @@ const DUMMY_DATA = {
   onSale: false,
   tokenId: 7,
   tokenURI: '',
+  contractAddress: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
   metadata: {
     name: '밤 하늘의 별 #7',
     description:

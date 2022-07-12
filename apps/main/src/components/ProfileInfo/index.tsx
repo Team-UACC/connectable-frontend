@@ -1,10 +1,8 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-// eslint-disable-next-line import/no-named-as-default
-import toast from 'react-hot-toast';
 
 import { Block } from '~/components/Block';
-import Button from '~/components/Button';
+import Button, { TextCopyButton } from '~/components/Button';
 import { useLogout } from '~/hooks/useAuth';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
@@ -67,15 +65,3 @@ const UserInfoLine = ({ title, children, hasCopy }: { title: string; children: s
     </div>
   );
 };
-
-const TextCopyButton = ({ text }: { text: string }) => (
-  <button
-    onClick={() => {
-      navigator.clipboard.writeText(text);
-      toast.success('Klip 주소가 클립보드에 복사되었습니다.');
-    }}
-    className="absolute right-[48px]"
-  >
-    <Image src="/images/duplicate.svg" alt="클립보드에 복사" width={24} height={24} />
-  </button>
-);

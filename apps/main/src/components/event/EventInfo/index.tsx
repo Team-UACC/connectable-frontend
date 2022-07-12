@@ -6,6 +6,7 @@ import EventSaleTimer from '~/components/event/EventSaleTimer';
 import { dayjsKO } from '~/utils/day';
 
 import LinkBox from './LinkBox';
+import TextInfo from './TextInfo';
 
 interface EventInfoProps {
   eventId: number;
@@ -111,6 +112,13 @@ export default function EventInfo({ eventId }: EventInfoProps) {
         ]}
       />
       <TextInfo
+        title="기타 안내"
+        contents={[
+          { header: '티켓 사용법', info: '-' },
+          { header: '안내사항', info: '-' },
+        ]}
+      />
+      <TextInfo
         title="NFT 컬렉션 상세"
         contents={[
           { header: 'Contract Address', info: '-' },
@@ -121,22 +129,3 @@ export default function EventInfo({ eventId }: EventInfoProps) {
     </div>
   );
 }
-
-interface TextInfoProps {
-  title: string;
-  contents: Array<{ header: string; info: string }>;
-}
-
-const TextInfo = ({ title, contents }: TextInfoProps) => {
-  return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold">{title}</h2>
-      {contents.map(({ header, info }) => (
-        <div key={header} className="flex mt-4">
-          <h3 className=" min-w-[40%] font-semibold ">{header}</h3>
-          <span className="text-sm ">{info}</span>
-        </div>
-      ))}
-    </div>
-  );
-};

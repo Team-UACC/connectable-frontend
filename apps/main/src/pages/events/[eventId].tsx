@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 
-import { Block } from '~/components/Block';
 import Button from '~/components/Button';
 import EventInfo from '~/components/event/EventInfo';
 

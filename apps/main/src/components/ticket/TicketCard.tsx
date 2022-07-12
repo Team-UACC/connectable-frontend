@@ -9,7 +9,7 @@ interface TicketCardProps {
 
 export default function TicketCard({ data }: TicketCardProps) {
   return (
-    <Link href={`tickets/${data.eventName}/${data.tokenId}`} className="relative w-full ">
+    <Link href={`tickets/${data.contractAddress}/${data.tokenId}`} className="relative w-full ">
       <article className="relative flex w-full justify-between px-2 py-4 transition-all cursor-pointer ease-in-out hover:rounded-lg hover:border-[#EBF8FF] hover:scale-110 hover:bg-[#EBF8FF] hover:z-10 ">
         <Image
           src={data.metadata.image}
