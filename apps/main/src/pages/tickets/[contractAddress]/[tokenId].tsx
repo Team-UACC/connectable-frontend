@@ -1,9 +1,11 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 import Button from '~/components/Button';
 import TextInfo from '~/components/event/EventInfo/TextInfo';
+import { useUserStore } from '~/stores/user';
 import { dayjsKO } from '~/utils/day';
 
 const EVENT = {
@@ -62,6 +64,8 @@ export default function TicketDetail() {
   const router = useRouter();
   const { contractAddress, tokenId } = router.query;
 
+  const { isLoggedIn } = useUserStore();
+
   const [ticketData, setTicketData] = useState(TICKET);
   const [eventData, setEventData] = useState(EVENT.data);
 
@@ -113,9 +117,34 @@ export default function TicketDetail() {
         ]}
       />
       <footer className="sticky bottom-0 flex justify-between w-[calc(100%+32px)] py-4 -translate-x-4 bg-transparent backdrop-blur-md">
-        <Button>공유하기</Button>
-        <Button>NFT 전송하기</Button>
-        <Button color="red">QR 입장</Button>
+        <Button
+          onClick={() => {
+            if (!isLoggedIn) {
+              toast.error('로그인 후 이용해주세요.');
+            } else toast.success('준비중입니다.');
+          }}
+        >
+          공유하기
+        </Button>
+        <Button
+          onClick={() => {
+            if (!isLoggedIn) {
+              toast.error('로그인 후 이용해주세요.');
+            } else toast.success('준비중입니다.');
+          }}
+        >
+          NFT 전송하기
+        </Button>
+        <Button
+          onClick={() => {
+            if (!isLoggedIn) {
+              toast.error('로그인 후 이용해주세요.');
+            } else toast.success('준비중입니다.');
+          }}
+          color="red"
+        >
+          QR 입장
+        </Button>
       </footer>
     </div>
   );
