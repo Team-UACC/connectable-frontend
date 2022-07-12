@@ -10,7 +10,7 @@ export default function useUser() {
     const response = await getUser();
 
     if (response.status === 'success') {
-      const { nickname, klaytnAddress, phoneNumber } = response.data;
+      const { nickname, klaytnAddress, phoneNumber } = response;
       addUserState(nickname as string, klaytnAddress as string, phoneNumber as string);
       setIsLoggedIn(true);
     } else setIsLoggedIn(false);

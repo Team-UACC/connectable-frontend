@@ -15,40 +15,46 @@ const userAxios = new Axios({
   timeout: 1000,
 });
 
-type ResponseType<T = void> =
+type GetUserRes =
   | {
       status: 'success';
-      data: T;
+      nickname: string;
+      phoneNumber: string;
+      klaytnAddress: string;
     }
-  | { status: 'prepared' }
-  | { status: 'failed' };
+  | {
+      status: 'failed';
+    };
 
-type GetUserRes = {
-  nickname: string;
-  phoneNumber: string;
-  klaytnAddress: string;
-};
-
-export const getUser = async (): Promise<ResponseType<GetUserRes>> => {
+export const getUser = async (): Promise<GetUserRes> => {
   const res = await userAxios.get(``, authorizationOptions());
 
   return res.data;
 };
 
-type PostUserLoginRes = {
-  klaytnAddress: string;
-  jwt: string;
-  isNew: boolean;
-};
+type PostUserLoginRes =
+  | {
+      status: 'completed';
+      klaytnAddress: string;
+      jwt: string;
+      isNew: boolean;
+    }
+  | { status: 'prepared' }
+  | { status: 'failed' };
 
-export const postUserLogIn = async (requestKey: string): Promise<ResponseType<PostUserLoginRes>> => {
+export const postUserLogIn = async (requestKey: string): Promise<PostUserLoginRes> => {
   const response = await userAxios.post(`/login`, JSON.stringify({ requestKey }));
-  const ret = JSON.parse(response.data);
-  if (ret.status === 'completed') return { ...ret, status: 'success' };
-  return ret;
+
+  return JSON.parse(response.data);
 };
 
-export const putUser = async (phoneNumber: string, nickname: string): Promise<ResponseType> => {
+type PutUserRes =
+  | {
+      status: 'success';
+    }
+  | { status: 'failed' };
+
+export const putUser = async (phoneNumber: string, nickname: string): Promise<PutUserRes> => {
   const response = await userAxios.put(
     ``,
     JSON.stringify({

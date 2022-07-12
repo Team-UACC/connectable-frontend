@@ -1,4 +1,4 @@
-import { deleteCookie, getCookie, setCookie } from 'cookies-next';
+import { deleteCookie, setCookie } from 'cookies-next';
 import { useCallback, useEffect, useState } from 'react';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
@@ -21,12 +21,12 @@ export const useKlipLogin = () => {
 
     (async () => {
       const requestKey = await getKlipRequest(method, setQrvalue);
-      console.log(getCookie('auth'));
 
       intervalId = setInterval(async () => {
         const response = await postUserLogIn(requestKey);
-        if (response.status === 'success') {
-          const { jwt, isNew, klaytnAddress } = response.data;
+
+        if (response.status === 'completed') {
+          const { jwt, isNew, klaytnAddress } = response;
 
           setCookie('auth', jwt);
 
