@@ -1,5 +1,6 @@
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import { useCallback, useEffect, useState } from 'react';
+// eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
 import { postUserLogIn } from '~/apis/users';

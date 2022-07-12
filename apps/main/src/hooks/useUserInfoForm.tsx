@@ -1,4 +1,4 @@
-import { KeyboardEvent, RefObject, useRef } from 'react';
+import { KeyboardEvent, RefObject } from 'react';
 
 import { putUser } from '~/apis/users';
 import { useModalStore } from '~/stores/modal';
@@ -26,7 +26,7 @@ export default function useUserInfoForm({
     const phoneNumber = phoneNumberRef.current!.value;
     const nickname = userNameRef.current!.value;
 
-    const data = await putUser(klaytnAddress, phoneNumber, nickname);
+    const data = await putUser(klaytnAddress, phoneNumber);
 
     if (data.status === 'success') {
       setIsLoggedIn(true);
