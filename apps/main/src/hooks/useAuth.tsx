@@ -1,5 +1,5 @@
 import { deleteCookie, setCookie } from 'cookies-next';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
@@ -51,12 +51,12 @@ export const useKlipLogin = () => {
 };
 
 export const useLogout = () => {
-  const { resetUserState } = useUserStore();
-  const logOut = useCallback(() => {
+  const { setIsLoggedIn } = useUserStore();
+  const logOut = () => {
     deleteCookie('auth');
-    resetUserState();
+    setIsLoggedIn(false);
     toast.success('로그아웃 되었습니다.');
-  }, []);
+  };
 
   return logOut;
 };

@@ -4,7 +4,7 @@ import { getUser } from '~/apis/users';
 import { useUserStore } from '~/stores/user';
 
 export default function useUser() {
-  const { setIsLoggedIn, addUserState } = useUserStore();
+  const { setIsLoggedIn, addUserState, resetUserState, isLoggedIn } = useUserStore();
 
   const initializeUser = async () => {
     const response = await getUser();
@@ -13,10 +13,13 @@ export default function useUser() {
       const { nickname, klaytnAddress, phoneNumber } = response;
       addUserState(nickname as string, klaytnAddress as string, phoneNumber as string);
       setIsLoggedIn(true);
-    } else setIsLoggedIn(false);
+    } else {
+      resetUserState();
+      setIsLoggedIn(false);
+    }
   };
 
   useEffect(() => {
     initializeUser();
-  }, []);
+  }, [isLoggedIn]);
 }
