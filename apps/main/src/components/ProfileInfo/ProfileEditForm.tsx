@@ -3,12 +3,12 @@ import { KeyboardEvent, useRef, useState } from 'react';
 import Button from '~/components/Button';
 import useUserInfoForm from '~/hooks/useUserInfoForm';
 
-interface ProfileEditFormProps {
+interface Props {
   userName: string;
   phoneNumber: string;
 }
 
-export default function ProfileEditForm({ userName, phoneNumber }: ProfileEditFormProps) {
+export default function ProfileEditForm({ userName, phoneNumber }: Props) {
   const [isDisabledSubmit, setIsDisabledSubmit] = useState(true);
 
   const userNameRef = useRef<HTMLInputElement>(null);

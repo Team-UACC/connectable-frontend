@@ -1,6 +1,8 @@
 import axios, { Axios } from 'axios';
 import { getCookie } from 'cookies-next';
 
+import { TicketType } from '~/types/ticketType';
+
 const authorizationOptions = () => ({
   headers: {
     Authorization: `Bearer ${getCookie('auth')}`,
@@ -29,7 +31,7 @@ type GetUserRes =
 export const getUser = async (): Promise<GetUserRes> => {
   const res = await userAxios.get(``, authorizationOptions());
 
-  return res.data;
+  return JSON.parse(res.data);
 };
 
 type PostUserLoginRes =
@@ -54,12 +56,12 @@ type PutUserRes =
     }
   | { status: 'failed' };
 
-export const putUser = async (phoneNumber: string, nickname: string): Promise<PutUserRes> => {
+export const putUser = async (nickname: string, phoneNumber: string): Promise<PutUserRes> => {
   const response = await userAxios.put(
     ``,
     JSON.stringify({
-      phoneNumber,
       nickname,
+      phoneNumber,
     }),
     authorizationOptions()
   );
@@ -67,24 +69,7 @@ export const putUser = async (phoneNumber: string, nickname: string): Promise<Pu
   return JSON.parse(response.data);
 };
 
-export type Ticket = {
-  price: number;
-  artistName: string;
-  eventDate: Date;
-  eventName: string;
-  onSale: boolean;
-  tokenId: number;
-  tokenURI: string;
-  contractAddress: string;
-  metadata: {
-    name: string;
-    description: string;
-    image: string;
-    attributes: Array<{ trait_type: string; value: string }>;
-  };
-};
-
-export const getUserTicket = async (): Promise<Array<Ticket>> => {
+export const getUserTicket = async (): Promise<Array<TicketType>> => {
   const response = await axios.get(`/api/users/tickets`, { withCredentials: true });
 
   return response.data.tickets;

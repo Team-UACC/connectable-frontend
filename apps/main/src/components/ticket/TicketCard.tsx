@@ -1,13 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { Ticket } from '~/apis/users';
+import { TicketType } from '~/types/ticketType';
 
-interface TicketCardProps {
-  data: Ticket;
+interface Props {
+  data: TicketType;
 }
 
-export default function TicketCard({ data }: TicketCardProps) {
+export default function TicketCard({ data }: Props) {
   return (
     <Link href={`tickets/${data.contractAddress}/${data.tokenId}`} className="relative w-full ">
       <article className="relative flex w-full justify-between px-2 py-4 transition-all cursor-pointer ease-in-out hover:rounded-lg hover:border-[#EBF8FF] hover:scale-110 hover:bg-[#EBF8FF] hover:z-10 ">

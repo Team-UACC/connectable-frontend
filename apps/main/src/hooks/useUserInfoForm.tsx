@@ -6,7 +6,7 @@ import { useUserStore } from '~/stores/user';
 
 import { formatPhoneNumber } from '../utils';
 
-interface UseUserInfoFormProps {
+interface Props {
   userNameRef: RefObject<HTMLInputElement>;
   phoneNumberRef: RefObject<HTMLInputElement>;
 }
@@ -14,7 +14,7 @@ interface UseUserInfoFormProps {
 export default function useUserInfoForm({
   userNameRef,
   phoneNumberRef,
-}: UseUserInfoFormProps): [(e: KeyboardEvent<HTMLInputElement>) => void, () => Promise<void>] {
+}: Props): [(e: KeyboardEvent<HTMLInputElement>) => void, () => Promise<void>] {
   const { setIsLoggedIn, addUserState, klaytnAddress } = useUserStore();
   const { hideModal } = useModalStore();
 
@@ -26,7 +26,7 @@ export default function useUserInfoForm({
     const phoneNumber = phoneNumberRef.current!.value;
     const nickname = userNameRef.current!.value;
 
-    const data = await putUser(klaytnAddress, phoneNumber);
+    const data = await putUser(nickname, phoneNumber);
 
     if (data.status === 'success') {
       setIsLoggedIn(true);

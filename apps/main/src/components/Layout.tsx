@@ -1,13 +1,12 @@
 import { ReactNode } from 'react';
 
-import { Block } from './Block';
 import Header from './Header';
 
-type LayoutProps = {
+interface Props {
   children: ReactNode;
-};
+}
 
-export default function Layout({ children }: LayoutProps) {
+export default function Layout({ children }: Props) {
   return (
     <div style={{ position: 'relative', width: 'min(428px, 100vw)', margin: 'auto' }}>
       <Header />

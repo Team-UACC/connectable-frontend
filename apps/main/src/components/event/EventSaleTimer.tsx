@@ -1,10 +1,10 @@
 import Timer from '../Timer';
 
-interface EventSaleTimerProps {
+interface Props {
   endTime: number;
 }
 
-export default function EventSaleTimer({ endTime }: EventSaleTimerProps) {
+export default function EventSaleTimer({ endTime }: Props) {
   return (
     <span className="text-sm font-semibold opacity-70 ">
       판매 종료까지{' '}

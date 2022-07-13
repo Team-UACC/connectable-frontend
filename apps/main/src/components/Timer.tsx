@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react';
 
 import { calculateRemaingTime } from '~/utils/index';
 
-interface TimerProps {
+interface Props {
   endTime: number;
   format?: string;
 }
 
-export default function Timer({ endTime, format = 'DD일 hh시간 mm분 ss초' }: TimerProps) {
+export default function Timer({ endTime, format = 'DD일 hh시간 mm분 ss초' }: Props) {
   const [finish, setFinish] = useState(false);
 
   const [remaingTime, setRemaingTime] = useState(0);
