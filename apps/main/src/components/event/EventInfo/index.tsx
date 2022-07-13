@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Block } from '~/components/Block';
 import EventSaleTimer from '~/components/event/EventSaleTimer';
@@ -15,6 +15,11 @@ interface Props {
 
 export default function EventInfo({ eventDetail }: Props) {
   const [data, setData] = useState(eventDetail);
+
+  const [eventStart, setEventStart] = useState('');
+  useEffect(() => {
+    setEventStart(dayjsKO(data.startTime).format('YYYY.MM.DD (ddd) A hh시 mm분'));
+  }, []);
   return (
     <div className="w-full mb-10 ">
       <div className=" relative w-[calc(100%+32px)] -translate-x-4 h-[140px] bg-gray-100">
@@ -52,7 +57,7 @@ export default function EventInfo({ eventDetail }: Props) {
         title="공연정보"
         contents={[
           { header: '장소', info: '예술의 전당' },
-          { header: '공연 일시', info: dayjsKO(data.startTime).format('YYYY.MM.DD (ddd) A hh시 mm분') },
+          { header: '공연 일시', info: eventStart },
           { header: '공연 시간', info: `${(data.endTime - data.startTime) / 1000 / 60}분` },
         ]}
       />

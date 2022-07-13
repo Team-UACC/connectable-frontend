@@ -597,6 +597,33 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tosspayments/payment-sdk@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@tosspayments/payment-sdk@npm:1.1.0"
+  dependencies:
+    "@tosspayments/payment__types": ^1.10.1
+  checksum: fdfbfa1a04ec5631f284f0e73225277adcedf7ee49e436243ad1a68d32dff4ad518e2566ba21e693ce0391ad46c326f8c3805c1f812397278b24f4d747de2831
+  languageName: node
+  linkType: hard
+
+"@tosspayments/payment__types@npm:^1.10.1":
+  version: 1.10.1
+  resolution: "@tosspayments/payment__types@npm:1.10.1"
+  dependencies:
+    "@tosspayments/sdk-constants": ^0.2.0
+  checksum: 3e490ca3b1e7c55e165e461e58f01ed57e9ee097bc0327e23e0aedf90a14b89ff43a57542870ea6f394d99abe9359eff020986b2a37c0f0378dc9ba1dcf39feb
+  languageName: node
+  linkType: hard
+
+"@tosspayments/sdk-constants@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "@tosspayments/sdk-constants@npm:0.2.0"
+  dependencies:
+    type-fest: ^2.8.0
+  checksum: b5961c8efba12ba1d0fc051b5be570829d18c8622cdfac7075ee0d7e8e446d3327e0ad3fd3af29734ea89c1f6e089647f86c01f7cd24072ff3fd28ad6672a66b
+  languageName: node
+  linkType: hard
+
 "@types/cookie@npm:^0.4.1":
   version: 0.4.1
   resolution: "@types/cookie@npm:0.4.1"
@@ -3145,6 +3172,7 @@ __metadata:
   dependencies:
     "@headlessui/react": ^1.6.5
     "@packages/common": "workspace:*"
+    "@tosspayments/payment-sdk": ^1.1.0
     "@types/node": ^18.0.0
     "@types/react": ^18.0.14
     autoprefixer: ^10.4.7
@@ -4702,6 +4730,13 @@ __metadata:
   version: 0.21.3
   resolution: "type-fest@npm:0.21.3"
   checksum: e6b32a3b3877f04339bae01c193b273c62ba7bfc9e325b8703c4ee1b32dc8fe4ef5dfa54bf78265e069f7667d058e360ae0f37be5af9f153b22382cd55a9afe0
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^2.8.0":
+  version: 2.16.0
+  resolution: "type-fest@npm:2.16.0"
+  checksum: 897fc5f6833de5ade5c4841d034bdfb6aaa168f24f725354ad13320b2a463b9df03a7a664b836b4c3bc7d9f92b22a25c26fe24668a35caf3b7a9ea5fcb847b8d
   languageName: node
   linkType: hard
 
