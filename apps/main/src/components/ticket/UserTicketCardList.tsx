@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useQuery } from 'react-query';
 
 import { getUserTicket } from '~/apis/users';
@@ -12,7 +13,17 @@ export default function UserTicketCardList() {
   return (
     <ul className="w-full divide-y-2 ">
       {data.map(ticketData => (
-        <TicketCard data={ticketData} key={ticketData.tokenId} />
+        <>
+          <Link
+            key={ticketData.tokenId}
+            href={`tickets/${ticketData.contractAddress}/${ticketData.tokenId}`}
+            className="relative w-full "
+          >
+            <a>
+              <TicketCard data={ticketData} />
+            </a>
+          </Link>
+        </>
       ))}
     </ul>
   );

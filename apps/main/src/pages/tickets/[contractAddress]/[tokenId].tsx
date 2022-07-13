@@ -1,11 +1,11 @@
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
 import Button from '~/components/Button';
-import TextInfo from '~/components/event/EventInfo/TextInfo';
+import { StickyBlurFooter } from '~/components/Footer';
+import TextInfo, { TextInfoSimple } from '~/components/TextInfo';
 import { useUserStore } from '~/stores/user';
 import { EventDetailType } from '~/types/eventType';
 import { dayjsKO } from '~/utils/day';
@@ -63,13 +63,10 @@ const TICKET = {
 };
 
 export default function TicketDetail() {
-  const router = useRouter();
-  const { contractAddress, tokenId } = router.query;
-
   const { isLoggedIn } = useUserStore();
 
-  const [ticketData, setTicketData] = useState(TICKET);
-  const [eventData, setEventData] = useState(EVENT);
+  const [ticketData] = useState(TICKET);
+  const [eventData] = useState(EVENT);
 
   return (
     <div className="w-full ">
@@ -102,12 +99,12 @@ export default function TicketDetail() {
           { header: '안내사항', info: '-' },
         ]}
       />
-      <div className="w-full p-4">
-        <h2 className="text-xl font-bold">소유 이력</h2>
+      <TextInfoSimple title="소유 이력">
         <TempTransaction />
         <TempTransaction />
         <TempTransaction />
-      </div>
+      </TextInfoSimple>
+
       <TextInfo
         title="NFT 상세"
         contents={[
@@ -118,7 +115,7 @@ export default function TicketDetail() {
           { header: 'BlockChain', info: 'Klaytn' },
         ]}
       />
-      <footer className="sticky bottom-0 flex justify-between w-[calc(100%+32px)] py-4 -translate-x-4 bg-transparent backdrop-blur-md">
+      <StickyBlurFooter>
         <Button
           onClick={() => {
             if (!isLoggedIn) {
@@ -147,7 +144,7 @@ export default function TicketDetail() {
         >
           QR 입장
         </Button>
-      </footer>
+      </StickyBlurFooter>
     </div>
   );
 }

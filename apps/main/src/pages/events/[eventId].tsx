@@ -1,14 +1,24 @@
 import { loadTossPayments, TossPaymentsInstance } from '@tosspayments/payment-sdk';
 import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
+import { getEvents } from '~/apis/events';
+import { Block } from '~/components/Block';
 import Button from '~/components/Button';
-import EventInfo from '~/components/event/EventInfo';
+import { ArtistImageBox, ArtistName, PriceText, RemainingTicketStatus } from '~/components/event/EventInfo';
+import EventSaleTimer from '~/components/event/EventInfo/EventSaleTimer';
+import LinkBox from '~/components/event/EventInfo/LinkBox';
+import { StickyBlurFooter } from '~/components/Footer';
+import TextInfo, { TextInfoSimple } from '~/components/TextInfo';
 import { useUserStore } from '~/stores/user';
 import { EventDetailType } from '~/types/eventType';
+import { dayjsKO } from '~/utils/day';
+
+import { EVENT_DUMMY } from '..';
 
 const EVENT: EventDetailType = {
   id: 1,
@@ -34,14 +44,12 @@ const EVENT: EventDetailType = {
 
 export async function getStaticPaths() {
   // fetch id list
-  const events = [1, 2, 3];
-  const paths = events.map(e => ({ params: { eventId: e.toString() } }));
-  console.log(paths);
+  const events = [...EVENT_DUMMY, ...(await getEvents())];
+  const paths = events.map(e => ({ params: { eventId: e.id.toString() } }));
   return { paths, fallback: false };
 }
 
 export async function getStaticProps({ params }: GetStaticPropsContext) {
-  console.log(params);
   const eventDetail = EVENT;
   return {
     props: {
@@ -57,6 +65,11 @@ interface Props {
 export default function EventDetailPage({ eventDetail }: Props) {
   const { isLoggedIn } = useUserStore();
   const [tossPayments, setTossPayment] = useState<TossPaymentsInstance>();
+
+  const [eventStart, setEventStart] = useState('');
+  useEffect(() => {
+    setEventStart(dayjsKO(eventDetail.startTime * 1000).format('YYYY.MM.DD (ddd) A hh시 mm분'));
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -84,22 +97,75 @@ export default function EventDetailPage({ eventDetail }: Props) {
       <Head>
         <title>컬렉션 | {eventDetail.name}</title>
       </Head>
-      <div className="relative w-full ">
-        <EventInfo eventDetail={eventDetail}></EventInfo>
-
-        <footer className="sticky bottom-0 flex justify-between w-[calc(100%+32px)] py-4 -translate-x-4 bg-transparent backdrop-blur-md">
-          <Button
-            onClick={() => {
-              if (isLoggedIn) {
-                if (!tossPayments) return toast.error('오류가 발생했습니다. 다시 시도해 주세요.');
-                onTransfer(tossPayments);
-              } else toast.error('로그인 후 이용해주세요.');
-            }}
-          >
-            결제하기
-          </Button>
-        </footer>
-      </div>
+      <article className="relative w-full mb-10 ">
+        {/* 아트스트 이미지 data 필요 */}
+        <ArtistImageBox src={'/images/temp.jpeg'} />
+        <section className="flex flex-col justify-between h-40 mt-4">
+          <div className="flex justify-between mb-4">
+            <ArtistName artistName={eventDetail.artistName} />
+            <LinkBox
+              twitterUrl={eventDetail.twitterUrl}
+              instagramUrl={eventDetail.instagramUrl}
+              webpageUrl={eventDetail.webpageUrl}
+            />
+          </div>
+          <h1 className="text-2xl font-bold ">{eventDetail.name}</h1>
+          <EventSaleTimer endTime={eventDetail.salesTo * 1000} />
+          <div className="flex justify-between leading-6">
+            <RemainingTicketStatus
+              totalTicketCount={eventDetail.totalTicketCount}
+              onSaleTicketCount={eventDetail.onSaleTicketCount}
+            />
+            <PriceText>270,000원</PriceText>
+          </div>
+        </section>
+        <Block />
+        <Image src={eventDetail.image} width={388} height={388} />
+        <TextInfo
+          title="공연정보"
+          contents={[
+            { header: '장소', info: '예술의 전당' },
+            { header: '공연 일시', info: eventStart },
+            { header: '공연 시간', info: `${Math.floor((eventDetail.endTime - eventDetail.startTime) / 60)}분` },
+          ]}
+        />
+        <TextInfoSimple title={`공연 설명`}>{eventDetail.description}</TextInfoSimple>
+        <TextInfo
+          title="NFT 티켓 정보"
+          contents={[
+            { header: '혜택', info: '-' },
+            { header: '티켓 사용법', info: '-' },
+            { header: '안내사항', info: '-' },
+          ]}
+        />
+        <TextInfo
+          title="기타 안내"
+          contents={[
+            { header: '티켓 사용법', info: '-' },
+            { header: '안내사항', info: '-' },
+          ]}
+        />
+        <TextInfo
+          title="NFT 컬렉션 상세"
+          contents={[
+            { header: 'Contract Address', info: '-' },
+            { header: 'Token Standard', info: '-' },
+            { header: 'BlockChain', info: '-' },
+          ]}
+        />
+      </article>
+      <StickyBlurFooter>
+        <Button
+          onClick={() => {
+            if (isLoggedIn) {
+              if (!tossPayments) return toast.error('오류가 발생했습니다. 다시 시도해 주세요.');
+              onTransfer(tossPayments);
+            } else toast.error('로그인 후 이용해주세요.');
+          }}
+        >
+          결제하기
+        </Button>
+      </StickyBlurFooter>
     </>
   );
 }

@@ -5,7 +5,7 @@ import { getEvents, GetEventRes } from '~/apis/events';
 import { Block } from '~/components/Block';
 import EventCard from '~/components/event/EventCard';
 
-const EVENT_DUMMY = [
+export const EVENT_DUMMY = [
   {
     id: 2,
     name: '[콘서트] 밤 하늘의 별',
@@ -49,11 +49,8 @@ export default function IndexPage({ posts }: Props) {
       <ul className="">
         {data!.map(data => (
           <>
-            <Link href={`/events/${data.id}`}>
-              <li
-                key={data.id}
-                className="p-4 transition-all ease-in-out rounded-lg cursor-pointer hover:scale-110 hover:bg-zinc-100"
-              >
+            <Link key={data.id} href={`/events/${data.id}`}>
+              <li className="p-4 transition-all ease-in-out rounded-lg cursor-pointer hover:scale-110 hover:bg-zinc-100">
                 <EventCard data={data} />
               </li>
             </Link>
