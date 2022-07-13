@@ -1,11 +1,11 @@
 import { TextCopyButton } from '~/components/Button';
 
-interface TextInfoProps {
+interface Props {
   title: string;
   contents: Array<{ header: string; info: string; hasCopy?: boolean }>;
 }
 
-export default function TextInfo({ title, contents }: TextInfoProps) {
+export default function TextInfo({ title, contents }: Props) {
   return (
     <div className="w-full p-4">
       <h2 className="text-xl font-bold">{title}</h2>

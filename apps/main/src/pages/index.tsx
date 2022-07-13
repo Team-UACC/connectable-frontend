@@ -42,11 +42,11 @@ export async function getStaticProps() {
   };
 }
 
-type IndexPageProps = {
+interface Props {
   posts: GetEventRes;
-};
+}
 
-export default function IndexPage({ posts }: IndexPageProps) {
+export default function IndexPage({ posts }: Props) {
   const { data, isLoading } = useQuery(['posts'], getEvents, { initialData: posts });
 
   if (isLoading) return 'loading';

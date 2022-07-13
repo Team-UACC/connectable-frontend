@@ -1,10 +1,8 @@
 import Image from 'next/image';
 
-import Timer from '../Timer';
-
 import EventSaleTimer from './EventSaleTimer';
 
-interface EventCardProps {
+interface Props {
   data: {
     id: number;
     name: string;
@@ -16,7 +14,7 @@ interface EventCardProps {
   };
 }
 
-export default function EventCard({ data }: EventCardProps) {
+export default function EventCard({ data }: Props) {
   return (
     <article>
       <Image src={data.image} alt="임시 이미지" width={388} height={388} style={{ borderRadius: '10px' }} />

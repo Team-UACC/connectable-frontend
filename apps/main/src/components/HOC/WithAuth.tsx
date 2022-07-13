@@ -2,6 +2,7 @@ import { deleteCookie, getCookie } from 'cookies-next';
 import { NextComponentType } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+// eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
 import { getUser } from '~/apis/users';

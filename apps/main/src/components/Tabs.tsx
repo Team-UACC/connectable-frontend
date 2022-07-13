@@ -1,12 +1,12 @@
 import { Children, Dispatch, ReactNode, SetStateAction, useState } from 'react';
 
-interface TabsProps {
+interface Props {
   color: string;
   titles: Array<string>;
   children: ReactNode | Array<ReactNode>;
 }
 
-export default function Tabs({ color, titles, children }: TabsProps) {
+export default function Tabs({ color, titles, children }: Props) {
   const [openTab, setOpenTab] = useState(0);
   return (
     <>

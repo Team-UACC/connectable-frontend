@@ -1,4 +1,5 @@
 import Image from 'next/image';
+// eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
 type ButtonColor = 'white' | 'brand' | 'red';
@@ -9,17 +10,14 @@ const buttonColorTheme = {
   red: `text-white bg-red`,
 };
 
-export default function Button({
-  children,
-  onClick,
-  disabled,
-  color = 'brand',
-}: {
+interface Props {
   children: string;
   onClick?: () => void;
   disabled?: boolean;
   color?: ButtonColor;
-}) {
+}
+
+export default function Button({ children, onClick, disabled, color = 'brand' }: Props) {
   return (
     <button
       className={` ${disabled && 'opacity-30'} ${

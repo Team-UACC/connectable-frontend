@@ -1,12 +1,12 @@
 import Image from 'next/image';
 
-interface LinkBoxProps {
+interface Props {
   twitterUrl: string;
   instagramUrl: string;
   webpageUrl: string;
 }
 
-export default function LinkBox({ twitterUrl, instagramUrl, webpageUrl }: LinkBoxProps) {
+export default function LinkBox({ twitterUrl, instagramUrl, webpageUrl }: Props) {
   return (
     <div className="flex ">
       <a href={twitterUrl} target="_blank" rel="noreferrer">

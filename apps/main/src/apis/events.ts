@@ -1,5 +1,7 @@
 import { Axios } from 'axios';
 
+import { EventSimpleType } from '~/types/eventType';
+
 const eventAxios = new Axios({
   baseURL: `${process.env.NEXT_PUBLIC_API_URL}/events`,
   headers: {
@@ -8,15 +10,7 @@ const eventAxios = new Axios({
   timeout: 1000,
 });
 
-export type GetEventRes = Array<{
-  id: number;
-  name: string;
-  image: string;
-  date: number;
-  description: string;
-  salesFrom: number;
-  salesTo: number;
-}>;
+export type GetEventRes = Array<EventSimpleType>;
 
 export const getEvents = async (): Promise<GetEventRes> => {
   const response = await eventAxios.get(``);

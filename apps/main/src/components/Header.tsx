@@ -55,14 +55,14 @@ export default function Header() {
   );
 }
 
-type NavIconButtonProps = {
+interface NavIconButtonProps {
   src: string;
   alt: string;
   href?: string;
   width?: number;
   height?: number;
   onClick?: (e: MouseEvent) => void;
-};
+}
 
 const NavIcon = ({ src, alt, href, width = 24, height = 24, onClick }: NavIconButtonProps) => {
   if (!href)
