@@ -1,37 +1,62 @@
 import Link from 'next/link';
+import { useQuery } from 'react-query';
 
+import { getEvents, GetEventRes } from '~/apis/events';
 import { Block } from '~/components/Block';
 import EventCard from '~/components/event/EventCard';
 
-const EVENT_DUMMY = [
-  {
-    id: 1,
-    name: '[콘서트] 밤 하늘의 별',
-    image: '/images/temp.jpeg',
-    date: new Date('2022-07-22').getTime(),
-    description: '디렌리의 전시',
-    salesFrom: new Date('2022-07-11').getTime(),
-    salesTo: new Date('2022-07-16').getTime(),
-  },
-  {
-    id: 2,
-    name: '[콘서트] 밤 하늘의 별',
-    image: '/images/temp.jpeg',
-    date: new Date('2022-07-22').getTime(),
-    description: '디렌리의 전시',
-    salesFrom: new Date('2022-07-11').getTime(),
-    salesTo: new Date('2022-07-15').getTime(),
-  },
-];
+// const EVENT_DUMMY = [
+//   {
+//     id: 1,
+//     name: '[콘서트] 밤 하늘의 별',
+//     image: '/images/temp.jpeg',
+//     date: new Date('2022-07-22').getTime(),
+//     description: '디렌리의 전시',
+//     salesFrom: new Date('2022-07-11').getTime(),
+//     salesTo: new Date('2022-07-16').getTime(),
+//   },
+//   {
+//     id: 2,
+//     name: '[콘서트] 밤 하늘의 별',
+//     image: '/images/temp.jpeg',
+//     date: new Date('2022-07-22').getTime(),
+//     description: '디렌리의 전시',
+//     salesFrom: new Date('2022-07-11').getTime(),
+//     salesTo: new Date('2022-07-15').getTime(),
+//   },
+//   {
+//     id: 3,
+//     name: '조엘의 콘서트',
+//     image: 'https://connectable-events.s3.ap-northeast-2.amazonaws.com/image_0xtest.jpeg',
+//     date: 1659344400,
+//     description: '조엘의 콘서트 at Connectable',
+//     salesFrom: 1657551600,
+//     salesTo: 1659106800,
+//   },
+// ];
 
-export default function IndexPage() {
+export async function getStaticProps() {
+  const posts = await getEvents();
+  return {
+    props: { posts },
+  };
+}
+
+type IndexPageProps = {
+  posts: GetEventRes;
+};
+
+export default function IndexPage({ posts }: IndexPageProps) {
+  const { data, isLoading } = useQuery(['posts'], getEvents, { initialData: posts });
+
+  if (isLoading) return 'loading';
   return (
     <div>
       <Block />
       <IntroContent />
       <Block />
       <ul className="">
-        {EVENT_DUMMY.map(data => (
+        {data!.map(data => (
           <>
             <Link href={`/events/${data.id}`}>
               <li

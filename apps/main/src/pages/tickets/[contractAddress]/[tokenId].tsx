@@ -27,6 +27,7 @@ const EVENT = {
     startTime: new Date('2022-07-22 19:30').getTime(),
     endTime: new Date('2022-07-22 21:30').getTime(),
     salesOption: 'string',
+    location: '예술의 전당',
   },
 };
 
@@ -80,7 +81,7 @@ export default function TicketDetail() {
       <TextInfo
         title="공연정보"
         contents={[
-          { header: '장소', info: '예술의 전당' },
+          { header: '장소', info: eventData.location },
           { header: '공연 일시', info: dayjsKO(eventData.startTime).format('YYYY.MM.DD (ddd) A hh시 mm분') },
           { header: '공연 시간', info: `${(eventData.endTime - eventData.startTime) / 1000 / 60}분` },
         ]}

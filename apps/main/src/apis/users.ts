@@ -29,7 +29,7 @@ type GetUserRes =
 export const getUser = async (): Promise<GetUserRes> => {
   const res = await userAxios.get(``, authorizationOptions());
 
-  return res.data;
+  return JSON.parse(res.data);
 };
 
 type PostUserLoginRes =
