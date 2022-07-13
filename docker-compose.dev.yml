@@ -9,6 +9,7 @@ services:
     restart: always
     volumes:
       - /usr/src/.yarn
+      - ./.yarn/cache:/usr/src/.yarn/cache
       - .:/usr/src
     ports:
       - 3000:3000

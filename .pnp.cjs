@@ -833,6 +833,36 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@tosspayments/payment-sdk", [\
+        ["npm:1.1.0", {\
+          "packageLocation": "./.yarn/cache/@tosspayments-payment-sdk-npm-1.1.0-38146d6e6d-fdfbfa1a04.zip/node_modules/@tosspayments/payment-sdk/",\
+          "packageDependencies": [\
+            ["@tosspayments/payment-sdk", "npm:1.1.0"],\
+            ["@tosspayments/payment__types", "npm:1.10.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@tosspayments/payment__types", [\
+        ["npm:1.10.1", {\
+          "packageLocation": "./.yarn/cache/@tosspayments-payment__types-npm-1.10.1-0909c0793e-3e490ca3b1.zip/node_modules/@tosspayments/payment__types/",\
+          "packageDependencies": [\
+            ["@tosspayments/payment__types", "npm:1.10.1"],\
+            ["@tosspayments/sdk-constants", "npm:0.2.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@tosspayments/sdk-constants", [\
+        ["npm:0.2.0", {\
+          "packageLocation": "./.yarn/cache/@tosspayments-sdk-constants-npm-0.2.0-7ef5397922-b5961c8efb.zip/node_modules/@tosspayments/sdk-constants/",\
+          "packageDependencies": [\
+            ["@tosspayments/sdk-constants", "npm:0.2.0"],\
+            ["type-fest", "npm:2.16.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@types/cookie", [\
         ["npm:0.4.1", {\
           "packageLocation": "./.yarn/cache/@types-cookie-npm-0.4.1-274a704dc6-3275534ed6.zip/node_modules/@types/cookie/",\
@@ -3933,6 +3963,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["main", "workspace:apps/main"],\
             ["@headlessui/react", "virtual:c23d35c484c37364ce76e6ad491963c83397206e744e6bebbfa198e142d80803c8386c05fb5bacfef11551e2eb5fc7b5a0b87e28f05cb1567288e5f703f596f6#npm:1.6.5"],\
             ["@packages/common", "workspace:packages/common"],\
+            ["@tosspayments/payment-sdk", "npm:1.1.0"],\
             ["@types/node", "npm:18.0.0"],\
             ["@types/react", "npm:18.0.14"],\
             ["autoprefixer", "virtual:c23d35c484c37364ce76e6ad491963c83397206e744e6bebbfa198e142d80803c8386c05fb5bacfef11551e2eb5fc7b5a0b87e28f05cb1567288e5f703f596f6#npm:10.4.7"],\
@@ -5767,6 +5798,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/type-fest-npm-0.21.3-5ff2a9c6fd-e6b32a3b38.zip/node_modules/type-fest/",\
           "packageDependencies": [\
             ["type-fest", "npm:0.21.3"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:2.16.0", {\
+          "packageLocation": "./.yarn/cache/type-fest-npm-2.16.0-8d42df3332-897fc5f683.zip/node_modules/type-fest/",\
+          "packageDependencies": [\
+            ["type-fest", "npm:2.16.0"]\
           ],\
           "linkType": "HARD"\
         }]\
