@@ -60,8 +60,8 @@ const UserInfoLine = ({ title, children, hasCopy }: { title: string; children: s
   return (
     <div className="flex w-full px-12 ">
       <span className="w-1/3 mr-12 font-bold ">{title}</span>
-      <span className="block w-2/3 overflow-hidden text-ellipsis ">{children}</span>
-      {hasCopy && <TextCopyButton text={children} />}
+      <span className={'block w-2/3 overflow-hidden text-ellipsis '}>{children}</span>
+      {hasCopy ? <TextCopyButton text={children} /> : <div className="mr-5"> </div>}
     </div>
   );
 };
