@@ -19,7 +19,8 @@ export default function EventCard({ data }: Props) {
     <article>
       <Image src={data.image} alt="임시 이미지" width={388} height={388} style={{ borderRadius: '10px' }} />
       <h2 className="font-bold ">{data.name}</h2>
-      <EventSaleTimer endTime={data.salesTo} />
+      <EventSaleTimer endTime={data.salesTo * 1000} />
+      <br />
     </article>
   );
 }

@@ -18,7 +18,7 @@ export default function EventInfo({ eventDetail }: Props) {
 
   const [eventStart, setEventStart] = useState('');
   useEffect(() => {
-    setEventStart(dayjsKO(data.startTime).format('YYYY.MM.DD (ddd) A hh시 mm분'));
+    setEventStart(dayjsKO(data.startTime * 1000).format('YYYY.MM.DD (ddd) A hh시 mm분'));
   }, []);
   return (
     <div className="w-full mb-10 ">
@@ -38,7 +38,7 @@ export default function EventInfo({ eventDetail }: Props) {
         <div>
           <h1 className="text-2xl font-bold ">[콘서트] 밤 하늘의 별</h1>
           <Block />
-          <EventSaleTimer endTime={data.salesTo} />
+          <EventSaleTimer endTime={data.salesTo * 1000} />
           <Block />
           <div className="flex justify-between leading-6">
             <span className="text-sm font-semibold leading-6 opacity-40">
@@ -58,7 +58,7 @@ export default function EventInfo({ eventDetail }: Props) {
         contents={[
           { header: '장소', info: '예술의 전당' },
           { header: '공연 일시', info: eventStart },
-          { header: '공연 시간', info: `${(data.endTime - data.startTime) / 1000 / 60}분` },
+          { header: '공연 시간', info: `${Math.floor((data.endTime - data.startTime) / 60)}분` },
         ]}
       />
       <div className="p-4">

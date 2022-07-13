@@ -5,38 +5,29 @@ import { getEvents, GetEventRes } from '~/apis/events';
 import { Block } from '~/components/Block';
 import EventCard from '~/components/event/EventCard';
 
-// const EVENT_DUMMY = [
-//   {
-//     id: 1,
-//     name: '[콘서트] 밤 하늘의 별',
-//     image: '/images/temp.jpeg',
-//     date: new Date('2022-07-22').getTime(),
-//     description: '디렌리의 전시',
-//     salesFrom: new Date('2022-07-11').getTime(),
-//     salesTo: new Date('2022-07-16').getTime(),
-//   },
-//   {
-//     id: 2,
-//     name: '[콘서트] 밤 하늘의 별',
-//     image: '/images/temp.jpeg',
-//     date: new Date('2022-07-22').getTime(),
-//     description: '디렌리의 전시',
-//     salesFrom: new Date('2022-07-11').getTime(),
-//     salesTo: new Date('2022-07-15').getTime(),
-//   },
-//   {
-//     id: 3,
-//     name: '조엘의 콘서트',
-//     image: 'https://connectable-events.s3.ap-northeast-2.amazonaws.com/image_0xtest.jpeg',
-//     date: 1659344400,
-//     description: '조엘의 콘서트 at Connectable',
-//     salesFrom: 1657551600,
-//     salesTo: 1659106800,
-//   },
-// ];
+const EVENT_DUMMY = [
+  {
+    id: 2,
+    name: '[콘서트] 밤 하늘의 별',
+    image: '/images/temp.jpeg',
+    date: new Date(2022, 6, 22).getTime() / 1000 - 9 * 60 * 60,
+    description: '디렌리의 전시',
+    salesFrom: new Date(2022, 6, 11).getTime() / 1000 - 9 * 60 * 60,
+    salesTo: new Date(2022, 6, 17).getTime() / 1000 - 9 * 60 * 60,
+  },
+  {
+    id: 3,
+    name: '[콘서트] 밤 하늘의 별',
+    image: '/images/temp.jpeg',
+    date: new Date(2022, 6, 22).getTime() / 1000 - 9 * 60 * 60,
+    description: '디렌리의 전시',
+    salesFrom: new Date(2022, 6, 11).getTime() / 1000 - 9 * 60 * 60,
+    salesTo: new Date(2022, 6, 17).getTime() / 1000 - 9 * 60 * 60,
+  },
+];
 
 export async function getStaticProps() {
-  const posts = await getEvents();
+  const posts = [...EVENT_DUMMY, ...(await getEvents())];
   return {
     props: { posts },
   };

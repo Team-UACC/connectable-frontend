@@ -1,14 +1,13 @@
-import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 
+import { timeFormatter } from '~/utils/day';
 import { calculateRemaingTime } from '~/utils/index';
 
 interface Props {
   endTime: number;
-  format?: string;
 }
 
-export default function Timer({ endTime, format = 'DD일 hh시간 mm분 ss초' }: Props) {
+export default function Timer({ endTime }: Props) {
   const [finish, setFinish] = useState(false);
 
   const [remaingTime, setRemaingTime] = useState(0);
@@ -31,5 +30,5 @@ export default function Timer({ endTime, format = 'DD일 hh시간 mm분 ss초' }
 
   if (remaingTime === 0) return <>...</>;
 
-  return <>{dayjs(remaingTime).format(format)}</>;
+  return <>{timeFormatter(remaingTime)}</>;
 }
