@@ -5,11 +5,12 @@ import { dayjsKO } from '~/utils/day';
 
 interface Props {
   data: TicketType;
+  className?: string;
 }
 
-export default function TicketCard({ data }: Props) {
+export default function TicketCard({ data, className }: Props) {
   return (
-    <article className="relative flex w-full justify-between px-2 py-4 transition-all cursor-pointer ease-in-out hover:rounded-lg hover:border-[#EBF8FF] hover:scale-110 hover:bg-[#EBF8FF] hover:z-10 ">
+    <article className={'relative flex justify-between w-full px-2 py-4 ' + className}>
       <Image
         src={data.metadata.image}
         alt="티켓 이미지"

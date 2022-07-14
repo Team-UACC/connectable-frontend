@@ -4,6 +4,9 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 
 import Button from '~/components/Button';
+import { PriceText } from '~/components/event/EventInfo';
+import EventSaleTimer from '~/components/event/EventInfo/EventSaleTimer';
+import OrderButton from '~/components/event/OrderButton';
 import { StickyBlurFooter } from '~/components/Footer';
 import TextInfo, { TextInfoSimple } from '~/components/TextInfo';
 import { useUserStore } from '~/stores/user';
@@ -35,9 +38,9 @@ const EVENT: EventDetailType = {
 const TICKET = {
   price: 10000,
   artistName: '디렌디',
-  eventDate: new Date('2022-11-18'),
+  eventDate: new Date(2022, 11, 18),
   eventName: '밤 하늘의 별',
-  onSale: false,
+  onSale: true,
   tokenId: 7,
   tokenURI: '',
   contractAddress: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
@@ -60,92 +63,113 @@ const TICKET = {
       { trait_type: 'Plot', value: '1' },
     ],
   },
+  ownedBy: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
 };
 
 export default function TicketDetail() {
-  const { isLoggedIn } = useUserStore();
+  const { isLoggedIn, klaytnAddress } = useUserStore();
 
-  const [ticketData] = useState(TICKET);
-  const [eventData] = useState(EVENT);
+  const [ticketDetail] = useState(TICKET);
+  const [eventDetail] = useState(EVENT);
+
+  console.log(ticketDetail.ownedBy, klaytnAddress);
 
   return (
-    <div className="w-full ">
-      <div className=" relative w-[calc(100%+2rem)] -translate-x-4 px-8 py-4 bg-gray-100 ">
-        <div className="m-auto max-w-fit drop-shadow-2xl">
-          <Image src={ticketData.metadata.image} width={392} height={392} className="rounded-[10px] " />
+    <>
+      <div className="w-full ">
+        <div className=" relative w-[calc(100%+2rem)] -translate-x-4 px-8 py-4 bg-gray-100 ">
+          <div className="m-auto max-w-fit drop-shadow-2xl">
+            <Image src={ticketDetail.metadata.image} width={392} height={392} className="rounded-[10px] " />
+          </div>
         </div>
+        <h1 className="p-4 mt-2 text-lg font-bold">{ticketDetail.metadata.name}</h1>
+        {ticketDetail.onSale && (
+          <div className="px-4">
+            <div className="mb-2 text-sm font-bold text-red">아직 판매되지 않은 티켓입니다.</div>
+            <EventSaleTimer endTime={eventDetail.salesTo} />
+            <div className="flex justify-between mt-2">
+              <div />
+              <PriceText>{`${eventDetail.price.toLocaleString('ko-KR')}원`}</PriceText>
+            </div>
+          </div>
+        )}
+        <TextInfo
+          title="공연정보"
+          contents={[
+            { header: '장소', info: eventDetail.location },
+            { header: '공연 일시', info: dayjsKO(eventDetail.startTime).format('YYYY.MM.DD (ddd) A hh시 mm분') },
+            { header: '공연 시간', info: `${(eventDetail.endTime - eventDetail.startTime) / 1000 / 60}분` },
+          ]}
+        />
+        <TextInfoSimple title={`공연 설명`}>{eventDetail.description}</TextInfoSimple>
+        <TextInfo
+          title="NFT 티켓 정보"
+          contents={[
+            { header: '혜택', info: '-' },
+            { header: '티켓 사용법', info: '-' },
+            { header: '안내사항', info: '-' },
+          ]}
+        />
+        <TextInfo
+          title="기타 안내"
+          contents={[
+            { header: '티켓 사용법', info: '-' },
+            { header: '안내사항', info: '-' },
+          ]}
+        />
+        <TextInfoSimple title="소유 이력">
+          <TempTransaction />
+          <TempTransaction />
+          <TempTransaction />
+        </TextInfoSimple>
+        <TextInfo
+          title="NFT 상세"
+          contents={[
+            { header: 'Owned By', info: ticketDetail.ownedBy, hasCopy: true },
+            { header: 'Contract Address', info: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D', hasCopy: true },
+            { header: 'Token ID', info: '7' },
+            { header: 'Token Standard', info: 'KIP-17' },
+            { header: 'BlockChain', info: 'Klaytn' },
+          ]}
+        />
       </div>
-      <h1 className="p-4 mt-4 text-lg font-bold">{ticketData.metadata.name}</h1>
-      <TextInfo
-        title="공연정보"
-        contents={[
-          { header: '장소', info: eventData.location },
-          { header: '공연 일시', info: dayjsKO(eventData.startTime).format('YYYY.MM.DD (ddd) A hh시 mm분') },
-          { header: '공연 시간', info: `${(eventData.endTime - eventData.startTime) / 1000 / 60}분` },
-        ]}
-      />
-      <TextInfo
-        title="NFT 티켓 정보"
-        contents={[
-          { header: '혜택', info: '-' },
-          { header: '티켓 사용법', info: '-' },
-          { header: '안내사항', info: '-' },
-        ]}
-      />
-      <TextInfo
-        title="기타 안내"
-        contents={[
-          { header: '티켓 사용법', info: '-' },
-          { header: '안내사항', info: '-' },
-        ]}
-      />
-      <TextInfoSimple title="소유 이력">
-        <TempTransaction />
-        <TempTransaction />
-        <TempTransaction />
-      </TextInfoSimple>
-
-      <TextInfo
-        title="NFT 상세"
-        contents={[
-          { header: 'Owned By', info: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D', hasCopy: true },
-          { header: 'Contract Address', info: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D', hasCopy: true },
-          { header: 'Token ID', info: '7' },
-          { header: 'Token Standard', info: 'KIP-17' },
-          { header: 'BlockChain', info: 'Klaytn' },
-        ]}
-      />
       <StickyBlurFooter>
-        <Button
-          onClick={() => {
-            if (!isLoggedIn) {
-              toast.error('로그인 후 이용해주세요.');
-            } else toast.success('준비중입니다.');
-          }}
-        >
-          공유하기
-        </Button>
-        <Button
-          onClick={() => {
-            if (!isLoggedIn) {
-              toast.error('로그인 후 이용해주세요.');
-            } else toast.success('준비중입니다.');
-          }}
-        >
-          NFT 전송하기
-        </Button>
-        <Button
-          onClick={() => {
-            if (!isLoggedIn) {
-              toast.error('로그인 후 이용해주세요.');
-            } else toast.success('준비중입니다.');
-          }}
-          color="red"
-        >
-          QR 입장
-        </Button>
+        {klaytnAddress === ticketDetail.ownedBy ? (
+          <>
+            <Button
+              onClick={() => {
+                if (!isLoggedIn) {
+                  toast.error('로그인 후 이용해주세요.');
+                } else toast.success('준비중입니다.');
+              }}
+            >
+              공유하기
+            </Button>
+            <Button
+              onClick={() => {
+                if (!isLoggedIn) {
+                  toast.error('로그인 후 이용해주세요.');
+                } else toast.success('준비중입니다.');
+              }}
+            >
+              NFT 전송하기
+            </Button>
+            <Button
+              onClick={() => {
+                if (!isLoggedIn) {
+                  toast.error('로그인 후 이용해주세요.');
+                } else toast.success('준비중입니다.');
+              }}
+              color="red"
+            >
+              QR 입장
+            </Button>
+          </>
+        ) : (
+          <OrderButton amount={ticketDetail.price} orderName={ticketDetail.metadata.name} />
+        )}
       </StickyBlurFooter>
-    </div>
+    </>
   );
 }
 
