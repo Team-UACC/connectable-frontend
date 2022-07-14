@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
-import { getEvents } from '~/apis/events';
+import { getEvents, getEventsDetail } from '~/apis/events';
 import { Block } from '~/components/Block';
 import Button from '~/components/Button';
 import { ArtistImageBox, ArtistName, PriceText, RemainingTicketStatus } from '~/components/event/EventInfo';
@@ -51,7 +51,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }: GetStaticPropsContext) {
-  const eventDetail = EVENT;
+  const eventDetail = params?.eventId === '1' ? await getEventsDetail(params?.eventId) : EVENT;
   return {
     props: {
       eventDetail,
@@ -120,7 +120,7 @@ export default function EventDetailPage({ eventDetail }: Props) {
               totalTicketCount={eventDetail.totalTicketCount}
               onSaleTicketCount={eventDetail.onSaleTicketCount}
             />
-            <PriceText>270,000원</PriceText>
+            <PriceText>{`${eventDetail.price.toLocaleString('ko-KR')}원`}</PriceText>
           </div>
         </section>
         <Block />
