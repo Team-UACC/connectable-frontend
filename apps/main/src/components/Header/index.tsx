@@ -4,11 +4,12 @@ import KlipAuth from '~/components/auth/KlipAuth';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 
+import MoreMenu from '../MoreMenu';
+
 import NavIcons from './NavIcons';
 
 const MarketDescription = <span className="text-base font-semibold ">마켓플레이스 기능은 아직 준비 중이에요.</span>;
 const NotificationDescription = <span className="text-base font-semibold ">알림 기능은 아직 준비 중이에요.</span>;
-const MenuDescription = <span className="text-base font-semibold ">메뉴 기능은 아직 준비 중이에요.</span>;
 
 export default function Header() {
   const { isLoggedIn } = useUserStore();
@@ -38,7 +39,7 @@ const LoggedOnIcons = () => {
   };
 
   const onClickMenuIcon = () => {
-    showModal(' ', MenuDescription);
+    showModal(' ', <MoreMenu />);
   };
   return (
     <div className={`flex justify-between w-[12rem]`}>
@@ -58,7 +59,7 @@ const LoggedOffIcons = () => {
   };
 
   const onClickMenuIcon = () => {
-    showModal(' ', MenuDescription);
+    showModal(' ', <MoreMenu />);
   };
 
   return (
