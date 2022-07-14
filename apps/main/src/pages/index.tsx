@@ -4,6 +4,7 @@ import { useQuery } from 'react-query';
 import { getEvents, GetEventRes } from '~/apis/events';
 import { Block } from '~/components/Block';
 import EventCard from '~/components/event/EventCard';
+import Footer from '~/components/Footer';
 
 export const EVENT_DUMMY = [
   {
@@ -42,33 +43,36 @@ export default function IndexPage({ posts }: Props) {
 
   if (isLoading) return 'loading';
   return (
-    <div>
-      <Block />
-      <IntroContent />
-      <Block />
-      <ul className="">
-        {data!.map(data => (
-          <>
-            <Link key={data.id} href={`/events/${data.id}`}>
-              <li className="p-4 transition-all ease-in-out rounded-lg cursor-pointer hover:scale-110 hover:bg-zinc-100">
-                <EventCard data={data} />
-              </li>
-            </Link>
-            <Block />
-            <Block />
-          </>
-        ))}
-      </ul>
-    </div>
+    <>
+      <div>
+        <Block />
+        <IntroContent />
+        <Block />
+        <ul className="">
+          {data!.map(data => (
+            <>
+              <Link key={data.id} href={`/events/${data.id}`}>
+                <li className="p-4 transition-all ease-in-out rounded-lg cursor-pointer hover:scale-110 hover:bg-[zinc-100]">
+                  <EventCard data={data} />
+                </li>
+              </Link>
+              <Block />
+              <Block />
+            </>
+          ))}
+        </ul>
+      </div>
+      <Footer />
+    </>
   );
 }
 
 const IntroContent = () => (
-  <div className="relative flex flex-col w-[90%] m-auto">
-    <span className="text-[1.25rem] font-semibold  text-red mb-6 ">아티스트와 더 가깝게</span>
-    <span className="text-end text-[1.25rem] font-semibold  text-brand mb-6">디지털 티켓의 새로운 패러다임</span>
-    <span className="mb-6 text-4xl font-bold text-center text-transparent bg-gradient-to-r bg-clip-text from-[#63171B] via-white to-[#1A365D] animate-text ">
+  <section className="relative flex flex-col w-[90%] m-auto">
+    <span className="text-[1.3rem] font-semibold  text-red mb-6 ">아티스트와 더 가깝게</span>
+    <span className="text-end text-[1.3rem] font-semibold  text-brand mb-6">디지털 티켓의 새로운 패러다임</span>
+    <span className="text-[3rem] font-bold text-center text-transparent bg-gradient-to-r bg-clip-text from-[#63171B] via-white to-[#1A365D] animate-text ">
       Connectable
     </span>
-  </div>
+  </section>
 );

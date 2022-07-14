@@ -70,7 +70,7 @@ export default function TicketDetail() {
 
   return (
     <div className="w-full ">
-      <div className=" relative w-[calc(100%+32px)] -translate-x-4 px-8 py-4 bg-gray-100 ">
+      <div className=" relative w-[calc(100%+2rem)] -translate-x-4 px-8 py-4 bg-gray-100 ">
         <div className="m-auto max-w-fit drop-shadow-2xl">
           <Image src={ticketData.metadata.image} width={392} height={392} className="rounded-[10px] " />
         </div>

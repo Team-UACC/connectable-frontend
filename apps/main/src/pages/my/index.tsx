@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 
 import { Block } from '~/components/Block';
 import Button from '~/components/Button';
+import Footer from '~/components/Footer';
 import WithAuth from '~/components/HOC/WithAuth';
 import Tabs from '~/components/Tabs';
 import { TextInfoLine } from '~/components/TextInfo';
@@ -27,8 +28,8 @@ function MyPage() {
   };
 
   return (
-    <div className="flex flex-col items-center w-full divide-y-[1px] divide-brand">
-      <div className="flex flex-col items-center justify-evenly w-full h-[24rem]">
+    <div className="flex flex-col items-center w-full">
+      <div className="flex flex-col items-center justify-evenly w-full h-[24rem] border-b-[1px] border-brand">
         <Image
           src="/images/defaultProfile.jpeg"
           alt={'프로필 이미지'}
@@ -58,6 +59,7 @@ function MyPage() {
           <UserTicketCardList />
         </Tabs>
       </div>
+      <Footer />
     </div>
   );
 }

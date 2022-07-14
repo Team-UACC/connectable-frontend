@@ -2,6 +2,7 @@ import { loadTossPayments, TossPaymentsInstance } from '@tosspayments/payment-sd
 import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
@@ -18,7 +19,7 @@ import { useUserStore } from '~/stores/user';
 import { EventDetailType } from '~/types/eventType';
 import { dayjsKO } from '~/utils/day';
 
-import { EVENT_DUMMY } from '..';
+import { EVENT_DUMMY } from '../../';
 
 const EVENT: EventDetailType = {
   id: 1,
@@ -66,6 +67,9 @@ export default function EventDetailPage({ eventDetail }: Props) {
   const { isLoggedIn } = useUserStore();
   const [tossPayments, setTossPayment] = useState<TossPaymentsInstance>();
 
+  const router = useRouter();
+  const { eventId } = router.query;
+
   const [eventStart, setEventStart] = useState('');
   useEffect(() => {
     setEventStart(dayjsKO(eventDetail.startTime * 1000).format('YYYY.MM.DD (ddd) A hh시 mm분'));
@@ -87,8 +91,8 @@ export default function EventDetailPage({ eventDetail }: Props) {
       amount: eventDetail.price,
       orderId: 'QhVBczmUBer1Oq6fjjxld',
       orderName: eventDetail.name,
-      successUrl: `${process.env.NEXT_PUBLIC_API_URL}/order/success`,
-      failUrl: `${process.env.NEXT_PUBLIC_API_URL}/order/fail`,
+      successUrl: `${process.env.NEXT_PUBLIC_ORDER_REDIRECT_URL}/events/${eventId}/order/success`,
+      failUrl: `${process.env.NEXT_PUBLIC_ORDER_REDIRECT_URL}/events/${eventId}/order/fail`,
     });
   };
 
@@ -163,7 +167,7 @@ export default function EventDetailPage({ eventDetail }: Props) {
             } else toast.error('로그인 후 이용해주세요.');
           }}
         >
-          결제하기
+          구매하기
         </Button>
       </StickyBlurFooter>
     </>

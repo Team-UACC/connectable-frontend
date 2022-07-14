@@ -1,7 +1,7 @@
 export type TicketType = {
   price: number;
   artistName: string;
-  eventDate: Date;
+  eventDate: number;
   eventName: string;
   onSale: boolean;
   tokenId: number;

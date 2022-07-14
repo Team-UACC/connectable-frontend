@@ -2,8 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
+html {
+  color: rgb(51, 61, 75);
+}
+
+body,
+#__next {
+  position: relative;
   width: min(428px, 100vw);
   min-height: 100vh;
   margin: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+p,
+div {
+  word-break: keep-all;
+  white-space: pre-wrap;
 }

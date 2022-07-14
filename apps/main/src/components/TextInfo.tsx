@@ -46,7 +46,7 @@ export function TextInfoSimple({ title, children }: TextInfoSimpleProps) {
     <div className="p-4">
       <h2 className="text-xl font-bold">{title}</h2>
       <div className="mt-4">
-        <span className="text-sm leading-4 break-words">{children}</span>
+        <span className="text-sm leading-4">{children}</span>
       </div>
     </div>
   );
