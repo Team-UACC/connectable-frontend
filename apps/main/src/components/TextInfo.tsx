@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 import { TextCopyButton } from '~/components/Button';
 
-type Contents = { header: string; info: string; hasCopy?: boolean };
+type Contents = { term: string; description: string; hasCopy?: boolean };
 
 interface Props {
   title: string;
@@ -13,24 +13,24 @@ export default function TextInfo({ title, contents }: Props) {
   return (
     <div className="w-full p-4">
       <h2 className="text-xl font-bold">{title}</h2>
-      {contents.map(({ header, info, hasCopy = false }) => (
-        <TextInfoLine key={header} header={header} info={info} hasCopy={hasCopy} />
+      {contents.map(({ term, description, hasCopy = false }) => (
+        <TextInfoLine key={term} term={term} description={description} hasCopy={hasCopy} />
       ))}
     </div>
   );
 }
 
-export function TextInfoLine({ header, info, hasCopy }: Contents) {
+export function TextInfoLine({ term, description, hasCopy }: Contents) {
   return (
-    <div key={header} className="flex w-full mt-4">
-      <h3 className=" w-[40%] font-semibold ">{header}</h3>
+    <div key={term} className="flex w-full mt-4">
+      <h3 className=" w-[40%] font-semibold ">{term}</h3>
       {hasCopy ? (
         <div className="w-[60%] flex text-sm ">
-          <span className="overflow-hidden text-ellipsis">{info}</span>
-          <TextCopyButton size={32} text={info} />
+          <span className="overflow-hidden text-ellipsis">{description}</span>
+          <TextCopyButton size={32} text={description} />
         </div>
       ) : (
-        <span className="text-sm ">{info}</span>
+        <span className="text-sm ">{description}</span>
       )}
     </div>
   );

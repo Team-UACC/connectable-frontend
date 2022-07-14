@@ -99,33 +99,33 @@ export default function EventDetailPage({ eventDetail }: Props) {
         <TextInfo
           title="공연정보"
           contents={[
-            { header: '장소', info: '예술의 전당' },
-            { header: '공연 일시', info: eventStart },
-            { header: '공연 시간', info: `${Math.floor((eventDetail.endTime - eventDetail.startTime) / 60)}분` },
+            { term: '장소', description: '예술의 전당' },
+            { term: '공연 일시', description: eventStart },
+            { term: '공연 시간', description: `${Math.floor((eventDetail.endTime - eventDetail.startTime) / 60)}분` },
           ]}
         />
         <TextInfoSimple title={`공연 설명`}>{eventDetail.description}</TextInfoSimple>
         <TextInfo
           title="NFT 티켓 정보"
           contents={[
-            { header: '혜택', info: '-' },
-            { header: '티켓 사용법', info: '-' },
-            { header: '안내사항', info: '-' },
+            { term: '혜택', description: '-' },
+            { term: '티켓 사용법', description: '-' },
+            { term: '안내사항', description: '-' },
           ]}
         />
         <TextInfo
           title="기타 안내"
           contents={[
-            { header: '티켓 사용법', info: '-' },
-            { header: '안내사항', info: '-' },
+            { term: '티켓 사용법', description: '-' },
+            { term: '안내사항', description: '-' },
           ]}
         />
         <TextInfo
           title="NFT 컬렉션 상세"
           contents={[
-            { header: 'Contract Address', info: '-' },
-            { header: 'Token Standard', info: '-' },
-            { header: 'BlockChain', info: '-' },
+            { term: 'Contract Address', description: '-' },
+            { term: 'Token Standard', description: '-' },
+            { term: 'BlockChain', description: '-' },
           ]}
         />
       </article>

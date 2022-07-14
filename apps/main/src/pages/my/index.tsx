@@ -39,8 +39,8 @@ function MyPage() {
         />
         <h1 className="text-3xl font-bold text-center ">{userName}</h1>
         <div className="w-full px-12 ">
-          <TextInfoLine header="Klip 주소" info={klaytnAddress} hasCopy={true} />
-          <TextInfoLine header="전화번호" info={phoneNumber} />
+          <TextInfoLine term="Klip 주소" description={klaytnAddress} hasCopy={true} />
+          <TextInfoLine term="전화번호" description={phoneNumber} />
         </div>
         <div className="flex w-full ">
           <Button

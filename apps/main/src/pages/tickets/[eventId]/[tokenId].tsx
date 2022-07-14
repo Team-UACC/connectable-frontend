@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import Image from 'next/image';
 import { useState } from 'react';
 // eslint-disable-next-line import/no-named-as-default
@@ -72,10 +73,11 @@ export default function TicketDetail() {
   const [ticketDetail] = useState(TICKET);
   const [eventDetail] = useState(EVENT);
 
-  console.log(ticketDetail.ownedBy, klaytnAddress);
-
   return (
     <>
+      <Head>
+        <title> NFT 티켓 | {ticketDetail.metadata.name}</title>
+      </Head>
       <div className="w-full ">
         <div className=" relative w-[calc(100%+2rem)] -translate-x-4 px-8 py-4 bg-gray-100 ">
           <div className="m-auto max-w-fit drop-shadow-2xl">
@@ -96,25 +98,25 @@ export default function TicketDetail() {
         <TextInfo
           title="공연정보"
           contents={[
-            { header: '장소', info: eventDetail.location },
-            { header: '공연 일시', info: dayjsKO(eventDetail.startTime).format('YYYY.MM.DD (ddd) A hh시 mm분') },
-            { header: '공연 시간', info: `${(eventDetail.endTime - eventDetail.startTime) / 1000 / 60}분` },
+            { term: '장소', description: eventDetail.location },
+            { term: '공연 일시', description: dayjsKO(eventDetail.startTime).format('YYYY.MM.DD (ddd) A hh시 mm분') },
+            { term: '공연 시간', description: `${(eventDetail.endTime - eventDetail.startTime) / 1000 / 60}분` },
           ]}
         />
         <TextInfoSimple title={`공연 설명`}>{eventDetail.description}</TextInfoSimple>
         <TextInfo
           title="NFT 티켓 정보"
           contents={[
-            { header: '혜택', info: '-' },
-            { header: '티켓 사용법', info: '-' },
-            { header: '안내사항', info: '-' },
+            { term: '혜택', description: '-' },
+            { term: '티켓 사용법', description: '-' },
+            { term: '안내사항', description: '-' },
           ]}
         />
         <TextInfo
           title="기타 안내"
           contents={[
-            { header: '티켓 사용법', info: '-' },
-            { header: '안내사항', info: '-' },
+            { term: '티켓 사용법', description: '-' },
+            { term: '안내사항', description: '-' },
           ]}
         />
         <TextInfoSimple title="소유 이력">
@@ -125,11 +127,11 @@ export default function TicketDetail() {
         <TextInfo
           title="NFT 상세"
           contents={[
-            { header: 'Owned By', info: ticketDetail.ownedBy, hasCopy: true },
-            { header: 'Contract Address', info: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D', hasCopy: true },
-            { header: 'Token ID', info: '7' },
-            { header: 'Token Standard', info: 'KIP-17' },
-            { header: 'BlockChain', info: 'Klaytn' },
+            { term: 'Owned By', description: ticketDetail.ownedBy, hasCopy: true },
+            { term: 'Contract Address', description: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D', hasCopy: true },
+            { term: 'Token ID', description: '7' },
+            { term: 'Token Standard', description: 'KIP-17' },
+            { term: 'BlockChain', description: 'Klaytn' },
           ]}
         />
       </div>

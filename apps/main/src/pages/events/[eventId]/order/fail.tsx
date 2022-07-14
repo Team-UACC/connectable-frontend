@@ -12,8 +12,6 @@ export default function Fail() {
   const router = useRouter();
   const { eventId, code, orderId, message } = router.query;
 
-  console.log({ eventId, code, orderId, message });
-
   return (
     <section className="absolute text-center -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 min-w-[320px]">
       <h1 className=" m-auto text-[1.5rem] font-bold ">결제 요청에 실패했습니다</h1>
