@@ -1,11 +1,7 @@
-import { loadTossPayments, TossPaymentsInstance } from '@tosspayments/payment-sdk';
 import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-// eslint-disable-next-line import/no-named-as-default
-import toast from 'react-hot-toast';
 
 import { getEvents, getEventsDetail } from '~/apis/events';
 import { Block } from '~/components/Block';
@@ -13,9 +9,10 @@ import Button from '~/components/Button';
 import { ArtistImageBox, ArtistName, PriceText, RemainingTicketStatus } from '~/components/event/EventInfo';
 import EventSaleTimer from '~/components/event/EventInfo/EventSaleTimer';
 import LinkBox from '~/components/event/EventInfo/LinkBox';
+import OrderButton from '~/components/event/OrderButton';
+import OrderListButton from '~/components/event/OrderListButton';
 import { StickyBlurFooter } from '~/components/Footer';
 import TextInfo, { TextInfoSimple } from '~/components/TextInfo';
-import { useUserStore } from '~/stores/user';
 import { EventDetailType } from '~/types/eventType';
 import { dayjsKO } from '~/utils/day';
 
@@ -36,10 +33,10 @@ const EVENT: EventDetailType = {
   webpageUrl: 'https://nextjs.org/',
   totalTicketCount: 20,
   onSaleTicketCount: 6,
-  price: 10000,
+  price: 0,
   startTime: new Date(2022, 6, 22, 19, 30).getTime() / 1000 - 9 * 60 * 60,
   endTime: new Date(2022, 6, 22, 21, 30).getTime() / 1000 - 9 * 60 * 60,
-  salesOption: 'FLAT_PRICE',
+  salesOption: 'FLEXIBLE_PRICE',
   location: '예술의 전당',
 };
 
@@ -64,37 +61,10 @@ interface Props {
 }
 
 export default function EventDetailPage({ eventDetail }: Props) {
-  const { isLoggedIn } = useUserStore();
-  const [tossPayments, setTossPayment] = useState<TossPaymentsInstance>();
-
-  const router = useRouter();
-  const { eventId } = router.query;
-
   const [eventStart, setEventStart] = useState('');
   useEffect(() => {
     setEventStart(dayjsKO(eventDetail.startTime * 1000).format('YYYY.MM.DD (ddd) A hh시 mm분'));
   }, []);
-
-  useEffect(() => {
-    (async () => {
-      const testClientKey = process.env.NEXT_PUBLIC_TOSS_TEST_CLIENT_KEY;
-      if (!testClientKey) return;
-      const _tossPayments = await loadTossPayments(testClientKey);
-      setTossPayment(_tossPayments);
-    })();
-  }, []);
-
-  const onTransfer = (tossPayments: TossPaymentsInstance) => {
-    tossPayments.requestPayment('계좌이체', {
-      // 결제 수단 파라미터
-      // 결제 정보 파라미터
-      amount: eventDetail.price,
-      orderId: 'QhVBczmUBer1Oq6fjjxld',
-      orderName: eventDetail.name,
-      successUrl: `${process.env.NEXT_PUBLIC_ORDER_REDIRECT_URL}/events/${eventId}/order/success`,
-      failUrl: `${process.env.NEXT_PUBLIC_ORDER_REDIRECT_URL}/events/${eventId}/order/fail`,
-    });
-  };
 
   return (
     <>
@@ -120,7 +90,9 @@ export default function EventDetailPage({ eventDetail }: Props) {
               totalTicketCount={eventDetail.totalTicketCount}
               onSaleTicketCount={eventDetail.onSaleTicketCount}
             />
-            <PriceText>{`${eventDetail.price.toLocaleString('ko-KR')}원`}</PriceText>
+            {eventDetail.salesOption === 'FLAT_PRICE' && (
+              <PriceText>{`${eventDetail.price.toLocaleString('ko-KR')}원`}</PriceText>
+            )}
           </div>
         </section>
         <Block />
@@ -159,16 +131,11 @@ export default function EventDetailPage({ eventDetail }: Props) {
         />
       </article>
       <StickyBlurFooter>
-        <Button
-          onClick={() => {
-            if (isLoggedIn) {
-              if (!tossPayments) return toast.error('오류가 발생했습니다. 다시 시도해 주세요.');
-              onTransfer(tossPayments);
-            } else toast.error('로그인 후 이용해주세요.');
-          }}
-        >
-          구매하기
-        </Button>
+        {eventDetail.salesOption === 'FLAT_PRICE' ? (
+          <OrderButton amount={eventDetail.price} orderName={eventDetail.name} />
+        ) : (
+          <OrderListButton />
+        )}
       </StickyBlurFooter>
     </>
   );

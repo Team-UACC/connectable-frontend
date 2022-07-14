@@ -16,11 +16,14 @@ export default function UserTicketCardList() {
         <>
           <Link
             key={ticketData.tokenId}
-            href={`tickets/${ticketData.contractAddress}/${ticketData.tokenId}`}
+            href={`tickets/${ticketData.eventId}/${ticketData.tokenId}`}
             className="relative w-full "
           >
             <a>
-              <TicketCard data={ticketData} />
+              <TicketCard
+                data={ticketData}
+                className="transition-all cursor-pointer ease-in-out hover:rounded-lg hover:border-[#EBF8FF] hover:scale-110 hover:bg-[#EBF8FF] hover:z-10"
+              />
             </a>
           </Link>
         </>

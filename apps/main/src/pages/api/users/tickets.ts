@@ -10,6 +10,7 @@ const DUMMY_DATA = {
   tokenId: 7,
   tokenURI: '',
   contractAddress: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
+  eventId: 2,
   metadata: {
     name: '밤 하늘의 별 #7',
     description:
@@ -35,6 +36,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
     // const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users/tickets`, { withCredentials: true });
 
-    res.json({ status: 'success', tickets: [DUMMY_DATA, DUMMY_DATA, DUMMY_DATA, DUMMY_DATA] });
+    res.json({
+      status: 'success',
+      tickets: [DUMMY_DATA, DUMMY_DATA, DUMMY_DATA, DUMMY_DATA, DUMMY_DATA, DUMMY_DATA, DUMMY_DATA, DUMMY_DATA],
+    });
   }
 };
