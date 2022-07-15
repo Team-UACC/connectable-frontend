@@ -30,7 +30,7 @@ export function TextInfoLine({ term, description, hasCopy }: Contents) {
           <TextCopyButton size={32} text={description} />
         </div>
       ) : (
-        <span className="text-sm ">{description}</span>
+        <span className="w-[60%] text-sm ">{description}</span>
       )}
     </div>
   );

@@ -23,7 +23,7 @@ export default function TicketDetail() {
   const { eventId, tokenId } = router.query;
   const { isLoggedIn, klaytnAddress } = useUserStore();
 
-  const { data: ticketDetail, isLoading: isLoadingTicketDetail } = useQuery(['eventTicket', eventId, tokenId], () =>
+  const { data: ticketDetail, isLoading: isLoadingTicketDetail } = useQuery(['ticketDetail', eventId, tokenId], () =>
     getTicketsDetail(eventId as string, tokenId as string)
   );
 

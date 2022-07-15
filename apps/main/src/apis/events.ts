@@ -19,6 +19,14 @@ export const getAllEvents = async (): Promise<GetEventRes> => {
   return JSON.parse(response.data);
 };
 
+export const getEventsAllTickets = async (eventId: string): Promise<Array<TicketType>> => {
+  const response = await eventAxios.get(`/${eventId}/tickets`);
+
+  if (eventId !== '1') return new Array(10).fill(TICKET); // 더미데이터
+
+  return JSON.parse(response.data);
+};
+
 export const getEventsDetail = async (eventId: string): Promise<EventDetailType> => {
   const response = await eventAxios.get(`/${eventId}`);
 
@@ -32,8 +40,8 @@ export const getTicketsDetail = async (eventId: string, tokenId: string): Promis
 
   if (eventId !== '1') return TICKET; // 더미데이터
 
-  return JSON.parse({
-    ...response.data,
+  return {
+    ...JSON.parse(response.data),
     metadata: {
       name: '밤 하늘의 별 #7',
       description:
@@ -41,7 +49,8 @@ export const getTicketsDetail = async (eventId: string, tokenId: string): Promis
       image:
         'https://assets.otherside.xyz/otherdeeds/871079decce602d36188f532fe6623a15d8c6817ecd3bcd9b0c3a2933bb51c3b.jpg',
     },
-  });
+    ownedBy: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
+  };
 };
 
 const TICKET: TicketType = {

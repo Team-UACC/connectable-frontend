@@ -18,7 +18,7 @@ import { dayjsKO } from '~/utils/day';
 import { EVENT_DUMMY } from '../../';
 
 const EVENT: EventDetailType = {
-  id: 1,
+  id: 2,
   image: 'https://assets.otherside.xyz/otherdeeds/871079decce602d36188f532fe6623a15d8c6817ecd3bcd9b0c3a2933bb51c3b.jpg',
   name: '밤 하늘의 별',
   artistName: '디렌리',
@@ -133,7 +133,7 @@ export default function EventDetailPage({ eventDetail }: Props) {
         {eventDetail.salesOption === 'FLAT_PRICE' ? (
           <OrderButton amount={eventDetail.price} orderName={eventDetail.name} />
         ) : (
-          <OrderListButton />
+          <OrderListButton eventId={String(eventDetail.id)} />
         )}
       </StickyBlurFooter>
     </>
