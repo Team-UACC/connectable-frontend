@@ -1,4 +1,4 @@
-import axios, { Axios } from 'axios';
+import { Axios } from 'axios';
 import { getCookie } from 'cookies-next';
 
 import { TicketType } from '~/types/ticketType';
@@ -70,7 +70,7 @@ export const putUser = async (nickname: string, phoneNumber: string): Promise<Pu
 };
 
 export const getUserTicket = async (): Promise<Array<TicketType>> => {
-  const response = await axios.get(`/api/users/tickets`, { withCredentials: true });
+  const response = await userAxios.get(`/tickets`, authorizationOptions());
 
-  return response.data.tickets;
+  return JSON.parse(response.data).tickets;
 };
