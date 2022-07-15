@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
-import { getEvents, getEventsDetail } from '~/apis/events';
+import { getAllEvents, getEventsDetail } from '~/apis/events';
 import { Block } from '~/components/Block';
 import { ArtistImageBox, ArtistName, PriceText, RemainingTicketStatus } from '~/components/event/EventInfo';
 import EventSaleTimer from '~/components/event/EventInfo/EventSaleTimer';
@@ -41,7 +41,7 @@ const EVENT: EventDetailType = {
 
 export async function getStaticPaths() {
   // fetch id list
-  const events = [...EVENT_DUMMY, ...(await getEvents())];
+  const events = [...EVENT_DUMMY, ...(await getAllEvents())];
   const paths = events.map(e => ({ params: { eventId: e.id.toString() } }));
   return { paths, fallback: false };
 }

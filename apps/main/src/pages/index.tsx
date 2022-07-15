@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useQuery } from 'react-query';
 
-import { getEvents, GetEventRes } from '~/apis/events';
+import { getAllEvents, GetEventRes } from '~/apis/events';
 import { Block } from '~/components/Block';
 import EventCard from '~/components/event/EventCard';
 import Footer from '~/components/Footer';
@@ -28,7 +28,7 @@ export const EVENT_DUMMY = [
 ];
 
 export async function getStaticProps() {
-  const posts = [...EVENT_DUMMY, ...(await getEvents())];
+  const posts = [...EVENT_DUMMY, ...(await getAllEvents())];
   return {
     props: { posts },
   };
@@ -39,7 +39,7 @@ interface Props {
 }
 
 export default function IndexPage({ posts }: Props) {
-  const { data, isLoading } = useQuery(['posts'], getEvents, { initialData: posts });
+  const { data, isLoading } = useQuery(['posts'], getAllEvents, { initialData: posts });
 
   if (isLoading) return 'loading';
   return (
