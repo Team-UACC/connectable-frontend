@@ -22,7 +22,7 @@ export default function FullScreenModal() {
           <div className="fixed m-auto inset-0 transition-opacity bg-white bg-opacity-70 backdrop-blur-[6px]" />
         </Transition.Child>
 
-        <div className="fixed w-[min(100vw,428px)] m-auto inset-0 z-10 overflow-y-hidden">
+        <div className="fixed w-[min(100vw,428px)] m-auto inset-0 z-10 ">
           <div className="relative flex items-end justify-center min-h-screen px-4 m-auto text-center">
             <Transition.Child
               as={Fragment}
@@ -47,7 +47,7 @@ export default function FullScreenModal() {
                     <Image src="/images/x.svg" alt="cancle" width={24} height={24} />
                   </button>
                 </div>
-                <div className="my-auto ">{children}</div>
+                <div className="my-auto max-h-[80vh] overflow-y-scroll scrollbar">{children}</div>
               </div>
             </Transition.Child>
           </div>

@@ -10,7 +10,7 @@
     "dev:main": "yarn workspace main dev",
     "build:main": "yarn workspace main build",
     "start:main": "yarn workspace main start",
-    "lint:main": "eslint ./apps/main/src --ext .ts,.tsx,.js,.jsx --cache --fix && tsc -p ./apps/main/tsconfig.json --noEmit",
+    "lint:main": "eslint ./apps/main/src --ext .ts,.tsx,.js,.jsx --cache --fix",
     "dev:admin-artist": "yarn workspace admin-artist dev",
     "build:admin-artist": "yarn workspace admin-artist build",
     "dev:admin-service": "yarn workspace admin-service dev",

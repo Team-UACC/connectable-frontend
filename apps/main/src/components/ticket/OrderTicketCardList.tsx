@@ -14,8 +14,8 @@ export default function OrderTicketCardList() {
   if (!data) return <div>loading</div>;
 
   return (
-    <section className=" max-h-[80vh] overflow-scroll">
-      <ul className="w-full divide-y-2 ">
+    <section>
+      <ul className="w-full ">
         {data.map(ticketData => (
           <Link
             key={ticketData.tokenId}
@@ -25,7 +25,7 @@ export default function OrderTicketCardList() {
             <a onClick={() => hideModal()}>
               <TicketCard
                 data={ticketData}
-                className="transition-all ease-in-out cursor-pointer hover:rounded-lg hover:bg-blue-50 hover:z-10"
+                className="mb-1 ease-in-out bg-transparent border-gray-300 shadow-lg cursor-pointer "
               />
             </a>
           </Link>

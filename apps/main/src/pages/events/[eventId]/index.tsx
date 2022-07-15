@@ -95,7 +95,7 @@ export default function EventDetailPage({ eventDetail }: Props) {
           </div>
         </section>
         <Block />
-        <Image src={eventDetail.image} width={388} height={388} />
+        <Image src={eventDetail.image} width={388} height={388} layout="responsive" />
         <TextInfo
           title="공연정보"
           contents={[
