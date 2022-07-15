@@ -1,22 +1,28 @@
 import Link from 'next/link';
 import { useQuery } from 'react-query';
 
-import { getUserTicket } from '~/apis/users';
+import { getEventsAllTickets } from '~/apis/events';
 import { useModalStore } from '~/stores/modal';
 
 import TicketCard from './TicketCard';
 
-export default function OrderTicketCardList() {
-  const { data } = useQuery('userTicket', getUserTicket);
+interface Props {
+  eventId: string;
+}
+
+export default function OrderTicketCardList({ eventId }: Props) {
+  const { data: ticketList } = useQuery('allTickets', () => getEventsAllTickets(eventId));
 
   const { hideModal } = useModalStore();
 
-  if (!data) return <div>loading</div>;
+  if (!ticketList) return <div>loading</div>;
+
+  console.log(ticketList);
 
   return (
     <section>
       <ul className="w-full ">
-        {data.map(ticketData => (
+        {ticketList.map(ticketData => (
           <Link
             key={ticketData.tokenId}
             href={`/tickets/${ticketData.eventId}/${ticketData.tokenId}`}

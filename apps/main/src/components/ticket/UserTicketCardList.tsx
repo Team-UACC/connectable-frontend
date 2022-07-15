@@ -6,13 +6,15 @@ import { getUserTicket } from '~/apis/users';
 import TicketCard from './TicketCard';
 
 export default function UserTicketCardList() {
-  const { data } = useQuery('userTicket', getUserTicket);
+  const { data, isLoading, error } = useQuery('userTicket', getUserTicket);
 
-  if (!data) return <div>loading</div>;
+  if (error) return <div>error</div>;
+
+  if (isLoading) return <div>loading</div>;
 
   return (
     <ul className="w-full divide-y-2 ">
-      {data.map(ticketData => (
+      {data?.map(ticketData => (
         <>
           <Link
             key={ticketData.tokenId}
