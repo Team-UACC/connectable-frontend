@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
-import { postUserLogIn } from '~/apis/users';
+import { requestUserLogin } from '~/apis/users';
 import SingUpForm from '~/components/auth/SignUpForm';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
@@ -23,7 +23,7 @@ export const useKlipLogin = () => {
       const requestKey = await getKlipRequest(method, setQrvalue);
 
       intervalId = setInterval(async () => {
-        const response = await postUserLogIn(requestKey);
+        const response = await requestUserLogin(requestKey);
 
         if (response.status === 'completed') {
           const { jwt, isNew, klaytnAddress } = response;

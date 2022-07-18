@@ -1,17 +1,11 @@
 import Image from 'next/image';
 
+import { EventSimpleType } from '~/types/eventType';
+
 import EventSaleTimer from './EventInfo/EventSaleTimer';
 
 interface Props {
-  data: {
-    id: number;
-    name: string;
-    image: string;
-    date: number;
-    description: string;
-    salesFrom: number;
-    salesTo: number;
-  };
+  data: EventSimpleType;
 }
 
 export default function EventCard({ data }: Props) {
@@ -19,7 +13,7 @@ export default function EventCard({ data }: Props) {
     <article>
       <Image src={data.image} alt="임시 이미지" width={388} height={388} style={{ borderRadius: '10px' }} />
       <h2 className="font-bold ">{data.name}</h2>
-      <EventSaleTimer endTime={data.salesTo * 1000} />
+      <EventSaleTimer endTime={data.salesTo} />
       <br />
     </article>
   );

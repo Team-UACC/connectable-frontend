@@ -13,6 +13,7 @@ export type EventDetailType = {
   name: string;
   image: string;
   artistName: string;
+  artistImage: string;
   date: number;
   description: string;
   salesFrom: number;

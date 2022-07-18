@@ -47,7 +47,7 @@ export default function FullScreenModal() {
                     <Image src="/images/x.svg" alt="cancle" width={24} height={24} />
                   </button>
                 </div>
-                <div className="my-auto max-h-[80vh] overflow-y-scroll scrollbar">{children}</div>
+                <div className="my-auto max-h-[80vh] overflow-y-scroll">{children}</div>
               </div>
             </Transition.Child>
           </div>

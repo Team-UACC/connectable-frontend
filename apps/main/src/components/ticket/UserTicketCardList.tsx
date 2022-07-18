@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import { useQuery } from 'react-query';
 
-import { getUserTicket } from '~/apis/users';
+import { fetchTicketsOwnedByUser } from '~/apis/users';
 
 import TicketCard from './TicketCard';
 
 export default function UserTicketCardList() {
-  const { data, isLoading, error } = useQuery('userTicket', getUserTicket);
+  const { data, isLoading, error } = useQuery('userTicket', fetchTicketsOwnedByUser);
 
   if (error) return <div>error</div>;
 

@@ -1,5 +1,7 @@
 import Image from 'next/image';
 
+import Text from '~/components/Text';
+
 export function ArtistImageBox({ src }: { src: string }) {
   return (
     <div className=" relative w-[calc(100%+2rem)] -translate-x-4 h-[140px] bg-gray-100">
@@ -12,10 +14,12 @@ export function ArtistImageBox({ src }: { src: string }) {
 
 export function ArtistName({ artistName }: { artistName: string }) {
   return (
-    <span className="font-bold ">
-      <span className="mr-2 text-xs opacity-40">아티스트</span>
-      <span className="text-sm">{artistName}</span>
-    </span>
+    <div>
+      <Text weight="bold" size="xs" className="mr-2 opacity-40">
+        아티스트
+      </Text>
+      <Text weight="bold">{artistName}</Text>
+    </div>
   );
 }
 
@@ -27,17 +31,21 @@ export function RemainingTicketStatus({
   onSaleTicketCount: number;
 }) {
   return (
-    <span className="text-sm font-semibold leading-6 opacity-40">
+    <Text weight="semibold" className=" opacity-40">
       총 {totalTicketCount}개 중 {onSaleTicketCount}개 판매 완료
-    </span>
+    </Text>
   );
 }
 
 export function PriceText({ children }: { children: string }) {
   return (
-    <div className="font-bold leading-6 text-md text-brand">
-      <span className="mr-4">판매가</span>
-      <span>{children}</span>
+    <div>
+      <Text size="base" weight="bold" className="mr-4">
+        판매가
+      </Text>
+      <Text size="base" weight="bold">
+        {children}
+      </Text>
     </div>
   );
 }

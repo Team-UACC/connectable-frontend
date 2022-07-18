@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 
-import { getUser } from '~/apis/users';
+import { fetchUser } from '~/apis/users';
 import { useUserStore } from '~/stores/user';
 
 export default function useUser() {
   const { setIsLoggedIn, addUserState, resetUserState, isLoggedIn } = useUserStore();
 
   const initializeUser = async () => {
-    const response = await getUser();
+    const response = await fetchUser();
 
     if (response.status === 'success') {
       const { nickname, klaytnAddress, phoneNumber } = response;

@@ -1,63 +1,59 @@
 import Link from 'next/link';
 import { useQuery } from 'react-query';
 
-import { getAllEvents, GetEventRes } from '~/apis/events';
-import { Block } from '~/components/Block';
+import { fetchAllEvents } from '~/apis/events';
 import EventCard from '~/components/event/EventCard';
 import Footer from '~/components/Footer';
+import { EventSimpleType } from '~/types/eventType';
 
 export const EVENT_DUMMY = [
   {
     id: 2,
     name: '[콘서트] 밤 하늘의 별',
     image: '/images/temp.jpeg',
-    date: new Date(2022, 6, 22).getTime() / 1000 - 9 * 60 * 60,
+    date: new Date(2022, 6, 22).getTime(),
     description: '디렌리의 전시',
-    salesFrom: new Date(2022, 6, 11).getTime() / 1000 - 9 * 60 * 60,
-    salesTo: new Date(2022, 6, 17).getTime() / 1000 - 9 * 60 * 60,
+    salesFrom: new Date(2022, 6, 11).getTime(),
+    salesTo: new Date(2022, 6, 17).getTime(),
   },
   {
     id: 3,
     name: '[콘서트] 밤 하늘의 별',
     image: '/images/temp.jpeg',
-    date: new Date(2022, 6, 22).getTime() / 1000 - 9 * 60 * 60,
+    date: new Date(2022, 6, 22).getTime(),
     description: '디렌리의 전시',
-    salesFrom: new Date(2022, 6, 11).getTime() / 1000 - 9 * 60 * 60,
-    salesTo: new Date(2022, 6, 17).getTime() / 1000 - 9 * 60 * 60,
+    salesFrom: new Date(2022, 6, 11).getTime(),
+    salesTo: new Date(2022, 6, 17).getTime(),
   },
 ];
 
 export async function getStaticProps() {
-  const posts = [...EVENT_DUMMY, ...(await getAllEvents())];
+  const posts = await fetchAllEvents();
   return {
     props: { posts },
   };
 }
 
 interface Props {
-  posts: GetEventRes;
+  posts: Array<EventSimpleType>;
 }
 
 export default function IndexPage({ posts }: Props) {
-  const { data, isLoading } = useQuery(['posts'], getAllEvents, { initialData: posts });
+  const { data: EventsList, isLoading } = useQuery(['posts'], fetchAllEvents, { initialData: posts });
 
   if (isLoading) return 'loading';
   return (
     <>
       <div>
-        <Block />
         <IntroContent />
-        <Block />
         <ul className="">
-          {data!.map(data => (
+          {EventsList?.map(eventSimple => (
             <>
-              <Link key={data.id} href={`/events/${data.id}`}>
-                <li className="p-4 transition-all ease-in-out rounded-lg cursor-pointer hover:scale-110 hover:bg-[zinc-100]">
-                  <EventCard data={data} />
+              <Link key={eventSimple.id} href={`/events/${eventSimple.id}`}>
+                <li className="p-4 mb-6 transition-all ease-in-out rounded-lg cursor-pointer hover:scale-110 hover:bg-[zinc-100]">
+                  <EventCard data={eventSimple} />
                 </li>
               </Link>
-              <Block />
-              <Block />
             </>
           ))}
         </ul>
@@ -68,7 +64,7 @@ export default function IndexPage({ posts }: Props) {
 }
 
 const IntroContent = () => (
-  <section className="relative flex flex-col w-[90%] m-auto">
+  <section className="relative flex flex-col w-[90%] m-auto my-4">
     <span className="text-[1.3rem] font-semibold  text-red mb-6 ">아티스트와 더 가깝게</span>
     <span className="text-end text-[1.3rem] font-semibold  text-brand mb-6">디지털 티켓의 새로운 패러다임</span>
     <span className="text-[3rem] font-bold text-center text-transparent bg-gradient-to-r bg-clip-text from-[#63171B] via-white to-[#1A365D] animate-text ">

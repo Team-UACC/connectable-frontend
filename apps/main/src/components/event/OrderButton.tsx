@@ -1,6 +1,7 @@
 import { loadTossPayments, TossPaymentsInstance } from '@tosspayments/payment-sdk';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+// eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
 import { useUserStore } from '~/stores/user';
@@ -29,7 +30,7 @@ export default function OrderButton({ amount, orderName }: Props) {
     })();
   }, []);
 
-  const onTransfer = (tossPayments: TossPaymentsInstance) => {
+  const handleTransfer = (tossPayments: TossPaymentsInstance) => {
     tossPayments.requestPayment('계좌이체', {
       amount,
       orderId: 'QhVBczmUBer1Oq6fjjxld',
@@ -44,7 +45,7 @@ export default function OrderButton({ amount, orderName }: Props) {
       onClick={() => {
         if (isLoggedIn) {
           if (!tossPayments) return toast.error('오류가 발생했습니다. 다시 시도해 주세요.');
-          onTransfer(tossPayments);
+          handleTransfer(tossPayments);
         } else toast.error('로그인 후 이용해주세요.');
       }}
     >

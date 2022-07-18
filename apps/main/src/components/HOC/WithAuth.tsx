@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
-import { getUser } from '~/apis/users';
+import { fetchUser } from '~/apis/users';
 
 type Props = any;
 
@@ -22,7 +22,7 @@ export default function WithAuth(WrappedCompnent: NextComponentType<Props>) {
         toast.error('로그인을 해주세요.');
       } else {
         (async () => {
-          const data = await getUser();
+          const data = await fetchUser();
           if (data.status === 'success') {
             setVerified(true);
           } else {

@@ -9,6 +9,8 @@ interface Props {
 }
 
 export default function TicketCard({ data, className }: Props) {
+  if (!data.metadata) return null;
+
   return (
     <article className={'relative flex justify-between w-full px-2 py-4 ' + className}>
       <Image
@@ -20,7 +22,7 @@ export default function TicketCard({ data, className }: Props) {
       />
       <div className="flex relative flex-col w-[calc(100%-132px)] h-[100px] justify-between">
         <h2 className="text-lg font-bold ">{data.metadata.name}</h2>
-        <span className="mb-4 text-sm font-semibold ">{data.artistName}</span>
+        <span className="mb-4 font-semibold ">{data.artistName}</span>
         <span className="text-sm font-semibold opacity-50">{dayjsKO(data.eventDate).format('YYYY년 MM월 DD일')}</span>
       </div>
     </article>

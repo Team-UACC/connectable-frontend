@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useQuery } from 'react-query';
 
-import { getEventsAllTickets } from '~/apis/events';
+import { fetchEventsAllTickets } from '~/apis/events';
 import { useModalStore } from '~/stores/modal';
 
 import TicketCard from './TicketCard';
@@ -11,13 +11,11 @@ interface Props {
 }
 
 export default function OrderTicketCardList({ eventId }: Props) {
-  const { data: ticketList } = useQuery('allTickets', () => getEventsAllTickets(eventId));
+  const { data: ticketList } = useQuery('allTickets', () => fetchEventsAllTickets(eventId));
 
   const { hideModal } = useModalStore();
 
   if (!ticketList) return <div>loading</div>;
-
-  console.log(ticketList);
 
   return (
     <section>
@@ -25,7 +23,7 @@ export default function OrderTicketCardList({ eventId }: Props) {
         {ticketList.map(ticketData => (
           <Link
             key={ticketData.tokenId}
-            href={`/tickets/${ticketData.eventId}/${ticketData.tokenId}`}
+            href={`/tickets/${eventId}/${ticketData.tokenId}`}
             className="relative w-full "
           >
             <a onClick={() => hideModal()}>

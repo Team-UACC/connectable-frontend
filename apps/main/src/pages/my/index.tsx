@@ -1,12 +1,11 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-import { Block } from '~/components/Block';
 import Button from '~/components/Button';
 import Footer from '~/components/Footer';
 import WithAuth from '~/components/HOC/WithAuth';
 import Tabs from '~/components/Tabs';
-import { TextInfoLine } from '~/components/TextInfo';
+import TextInfo from '~/components/TextInfo';
 import UserTicketCardList from '~/components/ticket/UserTicketCardList';
 import ProfileEditForm from '~/components/user/ProfileEditForm';
 import { useLogout } from '~/hooks/useAuth';
@@ -22,7 +21,7 @@ function MyPage() {
 
   const titles = ['마이 티켓', '거래 내역'];
 
-  const onClickLogout = () => {
+  const handleClickLogout = () => {
     router.replace('/');
     logOut();
   };
@@ -39,8 +38,8 @@ function MyPage() {
         />
         <h1 className="text-3xl font-bold text-center ">{userName}</h1>
         <div className="w-full px-12 ">
-          <TextInfoLine term="Klip 주소" description={klaytnAddress} hasCopy={true} />
-          <TextInfoLine term="전화번호" description={phoneNumber} />
+          <TextInfo.Line term="Klip 주소" description={klaytnAddress} hasCopy={true} />
+          <TextInfo.Line term="전화번호" description={phoneNumber} />
         </div>
         <div className="flex w-full ">
           <Button
@@ -48,13 +47,12 @@ function MyPage() {
           >
             프로필 수정
           </Button>
-          <Button color="white" onClick={onClickLogout}>
+          <Button color="white" onClick={handleClickLogout}>
             로그아웃
           </Button>
         </div>
       </div>
-      <div className="w-full">
-        <Block />
+      <div className="w-full mt-6">
         <Tabs titles={titles} color="brand">
           <UserTicketCardList />
         </Tabs>

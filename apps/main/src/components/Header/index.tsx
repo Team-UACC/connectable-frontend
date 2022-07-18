@@ -30,23 +30,23 @@ export default function Header() {
 
 const LoggedOnIcons = () => {
   const { showModal } = useModalStore();
-  const onClickMarketIcon = () => {
+  const handleClickMarketIcon = () => {
     showModal('마켓플레이스', MarketDescription);
   };
 
-  const onClickNotificationIcon = () => {
+  const handleClickNotificationIcon = () => {
     showModal('알림', NotificationDescription);
   };
 
-  const onClickMenuIcon = () => {
+  const handleClickMenuIcon = () => {
     showModal(' ', <MoreMenu />);
   };
   return (
     <div className={`flex justify-between w-[12rem]`}>
-      <NavIcons src="/images/market.svg" alt="market" onClick={onClickMarketIcon} />
-      <NavIcons src="/images/notification.svg" alt="notification" onClick={onClickNotificationIcon} />
+      <NavIcons src="/images/market.svg" alt="market" onClick={handleClickMarketIcon} />
+      <NavIcons src="/images/notification.svg" alt="notification" onClick={handleClickNotificationIcon} />
       <NavIcons src="/images/defaultProfile.jpeg" alt="profile" href="/my" />
-      <NavIcons src="/images/menu.svg" alt="menu" onClick={onClickMenuIcon} />
+      <NavIcons src="/images/menu.svg" alt="menu" onClick={handleClickMenuIcon} />
     </div>
   );
 };
@@ -54,18 +54,18 @@ const LoggedOnIcons = () => {
 const LoggedOffIcons = () => {
   const { showModal } = useModalStore();
 
-  const onClickLoginIcon = () => {
+  const handleClickLoginIcon = () => {
     showModal('로그인', <KlipAuth />);
   };
 
-  const onClickMenuIcon = () => {
+  const handleClickMenuIcon = () => {
     showModal(' ', <MoreMenu />);
   };
 
   return (
     <div className={`flex justify-between w-[5rem]`}>
-      <NavIcons src="/images/login.svg" alt="login" onClick={onClickLoginIcon} />
-      <NavIcons src="/images/menu.svg" alt="menu" onClick={onClickMenuIcon} />
+      <NavIcons src="/images/login.svg" alt="login" onClick={handleClickLoginIcon} />
+      <NavIcons src="/images/menu.svg" alt="menu" onClick={handleClickMenuIcon} />
     </div>
   );
 };

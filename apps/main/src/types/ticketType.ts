@@ -6,7 +6,6 @@ export type TicketType = {
   onSale: boolean;
   tokenId: number;
   tokenURI: string;
-  eventId: number;
   contractAddress: string;
   metadata: {
     name: string;

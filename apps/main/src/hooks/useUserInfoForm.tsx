@@ -1,6 +1,6 @@
 import { KeyboardEvent, RefObject } from 'react';
 
-import { putUser } from '~/apis/users';
+import { updateUser } from '~/apis/users';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 
@@ -18,15 +18,15 @@ export default function useUserInfoForm({
   const { setIsLoggedIn, addUserState, klaytnAddress } = useUserStore();
   const { hideModal } = useModalStore();
 
-  const onKeyUpPhoneNumberInput = (e: KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyUp = (e: KeyboardEvent<HTMLInputElement>) => {
     e.currentTarget.value = formatPhoneNumber(e.currentTarget.value);
   };
 
-  const onClickSubmitButton = async () => {
+  const handleClickSubmitButton = async () => {
     const phoneNumber = phoneNumberRef.current!.value;
     const nickname = userNameRef.current!.value;
 
-    const data = await putUser(nickname, phoneNumber);
+    const data = await updateUser(nickname, phoneNumber);
 
     if (data.status === 'success') {
       setIsLoggedIn(true);
@@ -35,5 +35,5 @@ export default function useUserInfoForm({
     }
   };
 
-  return [onKeyUpPhoneNumberInput, onClickSubmitButton];
+  return [handleKeyUp, handleClickSubmitButton];
 }

@@ -1,5 +1,7 @@
 import { Children, Dispatch, ReactNode, SetStateAction, useState } from 'react';
 
+import Text from './Text';
+
 interface Props {
   color: string;
   titles: Array<string>;
@@ -49,7 +51,7 @@ const TabNavButton = ({ openTab, setOpenTab, color, children, idx }: TabNavButto
     <li className="flex-auto mr-2 -mb-px text-center last:mr-0">
       <a
         className={
-          'text-sm font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal ' +
+          'px-5 py-3 shadow-lg rounded block ' +
           (openTab === idx ? 'text-white bg-' + color : 'text-' + color + ' bg-white')
         }
         onClick={e => {
@@ -60,7 +62,9 @@ const TabNavButton = ({ openTab, setOpenTab, color, children, idx }: TabNavButto
         href={`#link${idx}`}
         role="tablist"
       >
-        {children}
+        <Text weight="bold" className="leading-normal uppercase ">
+          {children}
+        </Text>
       </a>
     </li>
   );

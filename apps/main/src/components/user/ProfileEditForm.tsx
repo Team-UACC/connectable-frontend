@@ -14,18 +14,18 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
   const userNameRef = useRef<HTMLInputElement>(null);
   const phoneNumberRef = useRef<HTMLInputElement>(null);
 
-  const [onKeyUpPhoneNumberInput, onClickSubmitButton] = useUserInfoForm({ userNameRef, phoneNumberRef });
+  const [handleKeyUpPhoneNumberInput, handleClickSubmitButton] = useUserInfoForm({ userNameRef, phoneNumberRef });
 
-  const onChange = () =>
+  const handleChange = () =>
     setIsDisabledSubmit(userNameRef.current!.value === '' || phoneNumberRef.current!.value.length < 13);
 
-  const onCheckEnter = (e: KeyboardEvent) => {
-    if (e.key === 'Enter') onClickSubmitButton();
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Enter') handleClickSubmitButton();
   };
 
   return (
     <div className="w-full mb-10">
-      <form onKeyDown={onCheckEnter} className={`flex w-full pt-6 pb-8 mb-4 bg-transparent rounded overflow-hidden `}>
+      <form onKeyDown={handleKeyDown} className={`flex w-full pt-6 pb-8 mb-4 bg-transparent rounded overflow-hidden `}>
         <div className="flex flex-col w-full mb-4">
           <h1 className="block mb-4 text-lg font-bold text-gray-700">닉네임</h1>
           <input
@@ -34,7 +34,7 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
             type="text"
             placeholder="닉네임을 입력해주세요"
             defaultValue={userName}
-            onChange={onChange}
+            onChange={handleChange}
             autoComplete="off"
             ref={userNameRef}
           />
@@ -45,12 +45,12 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
             type="tel"
             placeholder="전화번호를 입력해주세요"
             defaultValue={phoneNumber}
-            onKeyUp={onKeyUpPhoneNumberInput}
-            onChange={onChange}
+            onKeyUp={handleKeyUpPhoneNumberInput}
+            onChange={handleChange}
             autoComplete="off"
             ref={phoneNumberRef}
           />
-          <Button onClick={() => onClickSubmitButton()} disabled={isDisabledSubmit}>
+          <Button onClick={() => handleClickSubmitButton()} disabled={isDisabledSubmit}>
             수정하기
           </Button>
         </div>

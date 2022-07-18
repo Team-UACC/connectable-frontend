@@ -32,7 +32,7 @@ export default function Button({ children, onClick, disabled, color = 'brand' }:
   );
 }
 
-export const TextCopyButton = ({ text, size = 24 }: { text: string; size?: number }) => (
+Button.TextCopy = ({ text, size = 24 }: { text: string; size?: number }) => (
   <button
     onClick={() => {
       navigator.clipboard.writeText(text);

@@ -5,14 +5,14 @@ import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import { useQuery } from 'react-query';
 
-import { getEventsDetail, getTicketsDetail } from '~/apis/events';
+import { fetchEventsDetail, fetchTicketsDetail } from '~/apis/events';
 import Button from '~/components/Button';
 import { PriceText } from '~/components/event/EventInfo';
 import EventSaleTimer from '~/components/event/EventInfo/EventSaleTimer';
 import OrderButton from '~/components/event/OrderButton';
 import { StickyBlurFooter } from '~/components/Footer';
 import Spinner from '~/components/Spinner';
-import TextInfo, { TextInfoSimple } from '~/components/TextInfo';
+import TextInfo from '~/components/TextInfo';
 import NotFoundPage from '~/pages/404';
 import { useUserStore } from '~/stores/user';
 import { dayjsKO } from '~/utils/day';
@@ -24,11 +24,11 @@ export default function TicketDetail() {
   const { isLoggedIn, klaytnAddress } = useUserStore();
 
   const { data: ticketDetail, isLoading: isLoadingTicketDetail } = useQuery(['ticketDetail', eventId, tokenId], () =>
-    getTicketsDetail(eventId as string, tokenId as string)
+    fetchTicketsDetail(eventId as string, tokenId as string)
   );
 
   const { data: eventDetail, isLoading: isLoadingEventDetail } = useQuery(['event', eventId], () =>
-    getEventsDetail(eventId as string)
+    fetchEventsDetail(eventId as string)
   );
 
   if (isLoadingTicketDetail || isLoadingEventDetail)
@@ -72,7 +72,7 @@ export default function TicketDetail() {
             { term: '공연 시간', description: `${(eventDetail.endTime - eventDetail.startTime) / 1000 / 60}분` },
           ]}
         />
-        <TextInfoSimple title={`공연 설명`}>{eventDetail.description}</TextInfoSimple>
+        <TextInfo.Simple title={`공연 설명`}>{eventDetail.description}</TextInfo.Simple>
         <TextInfo
           title="NFT 티켓 정보"
           contents={[
@@ -88,11 +88,11 @@ export default function TicketDetail() {
             { term: '안내사항', description: '-' },
           ]}
         />
-        <TextInfoSimple title="소유 이력">
+        <TextInfo.Simple title="소유 이력">
           <TempTransaction />
           <TempTransaction />
           <TempTransaction />
-        </TextInfoSimple>
+        </TextInfo.Simple>
         <TextInfo
           title="NFT 상세"
           contents={[
@@ -136,8 +136,18 @@ export default function TicketDetail() {
               QR 입장
             </Button>
           </>
-        ) : (
+        ) : ticketDetail.onSale ? (
           <OrderButton amount={ticketDetail.price} orderName={ticketDetail.metadata.name} />
+        ) : (
+          <Button
+            onClick={() => {
+              if (!isLoggedIn) {
+                toast.error('로그인 후 이용해주세요.');
+              } else toast.success('준비중입니다.');
+            }}
+          >
+            공유하기
+          </Button>
         )}
       </StickyBlurFooter>
     </>

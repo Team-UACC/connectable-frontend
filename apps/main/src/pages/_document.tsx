@@ -10,8 +10,6 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <title>Connectable</title>
-          <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
           <meta property="og:title" content="Connectable" />
           <meta property="og:image" content="" />
           <meta name="description" content="디지털 티켓의 새로운 패러다임" />

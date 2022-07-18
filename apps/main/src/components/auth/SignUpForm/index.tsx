@@ -16,33 +16,36 @@ export default function SingUpForm() {
   const userNameRef = useRef<HTMLInputElement>(null);
   const phoneNumberRef = useRef<HTMLInputElement>(null);
 
-  const [onKeyUpPhoneNumberInput, onClickSubmitButton] = useUserInfoForm({ userNameRef, phoneNumberRef });
+  const [handleKeyUpPhoneNumberInput, handleClickSubmitButton] = useUserInfoForm({ userNameRef, phoneNumberRef });
 
-  const onChangeNickNameInput = (e: ChangeEvent<HTMLInputElement>) =>
+  const handleChangeNickNameInput = (e: ChangeEvent<HTMLInputElement>) =>
     setIsDisabledMoveToPhoneNumberPage(e.currentTarget.value === '');
 
-  const onChangePhoneNumberInput = (e: ChangeEvent<HTMLInputElement>) =>
+  const handleChangePhoneNumberInput = (e: ChangeEvent<HTMLInputElement>) =>
     setIsDisabledMoveToFinishPage(e.currentTarget.value.length < 13);
 
-  const onCheckEnter = (e: KeyboardEvent) => {
+  const handleCheckEnter = (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
       if (page === 'UserName') !isDisabledMoveToPhoneNumberPage && setPage('PhoneNumber');
       else if (page === 'PhoneNumber') !isDisabledMoveToFinishPage && setPage('Finish');
-      else onClickSubmitButton();
+      else handleClickSubmitButton();
     }
   };
 
   useEffect(() => {
-    userNameRef.current?.focus();
-  }, []);
+    setTimeout(() => {
+      if (page === 'UserName') userNameRef.current?.focus();
+      if (page === 'PhoneNumber') phoneNumberRef.current?.focus();
+    }, 500);
+  }, [page]);
 
   return (
-    <div className="w-full mb-10">
+    <div className="w-full mb-10 overflow-hidden">
       <form
         className={`flex ${page === 'PhoneNumber' && '-translate-x-1/3'} ${
           page === 'Finish' && '-translate-x-2/3'
-        } w-[300%] pt-6 pb-8 mb-4 bg-transparent rounded transition-all ease-in-out duration-[1s]`}
-        onKeyDown={onCheckEnter}
+        } w-[300%] pt-6 pb-8 mb-4 bg-transparent rounded transition-all ease-in-out duration-[0.5s]`}
+        onKeyDown={handleCheckEnter}
       >
         <div className="flex flex-col w-full mb-4">
           <PageLabel text="닉네임" htmlFor="username" />
@@ -51,8 +54,9 @@ export default function SingUpForm() {
             id="username"
             type="text"
             placeholder="닉네임을 입력해주세요"
-            onChange={onChangeNickNameInput}
+            onChange={handleChangeNickNameInput}
             autoComplete="off"
+            spellCheck={false}
             ref={userNameRef}
           />
           <Button onClick={() => setPage('PhoneNumber')} disabled={isDisabledMoveToPhoneNumberPage}>
@@ -66,9 +70,10 @@ export default function SingUpForm() {
             id="phonenumber"
             type="tel"
             placeholder="전화번호를 입력해주세요"
-            onKeyUp={onKeyUpPhoneNumberInput}
-            onChange={onChangePhoneNumberInput}
+            onKeyUp={handleKeyUpPhoneNumberInput}
+            onChange={handleChangePhoneNumberInput}
             autoComplete="off"
+            spellCheck={false}
             ref={phoneNumberRef}
           />
           <div className="flex justify-around w-2/3 m-auto ">
@@ -86,7 +91,7 @@ export default function SingUpForm() {
             이전
           </Button>
           <div className=" min-h-[14px]"></div>
-          <Button onClick={() => onClickSubmitButton()} disabled={false}>
+          <Button onClick={() => handleClickSubmitButton()} disabled={false}>
             회원가입 완료하기
           </Button>
         </div>
