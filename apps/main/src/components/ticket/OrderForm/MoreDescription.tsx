@@ -1,3 +1,7 @@
+import toast from 'react-hot-toast';
+
+import { ACCOUNT } from 'src/constants/account';
+
 import { OrderFormPageType } from '.';
 
 export default function MoreDescription({
@@ -33,9 +37,21 @@ export default function MoreDescription({
       {page === 'NumberOfPeople' && <p className="text-sm min-h-[5rem] gray-600">구매할 예매 티켓 개수를 적어주세요</p>}
       {page === 'DepositCheck' && (
         <p className="text-sm min-h-[5rem] text-red font-bold ">
-          카카오뱅크 3333-03-9223680 (이호현) 으로
+          <span
+            className="underline cursor-pointer"
+            onClick={() => {
+              navigator.clipboard.writeText(`${ACCOUNT.FLAT_NUMBER} ${ACCOUNT.BANK}`);
+              toast.success('클립보드에 복사되었습니다.');
+            }}
+          >
+            {ACCOUNT.BANK} {ACCOUNT.NUMBERL} ({ACCOUNT.OWNER})
+          </span>{' '}
+          으로
           <br />
           {(amount * numberOfPeople).toLocaleString('ko-KR')}원을 입금하시고 {'완료'}를 입력해주세요.
+          <br />
+          <br />
+          <span className="text-xs text-gray-600 ">계좌번호를 클릭하면 복사됩니다.</span>
         </p>
       )}
       {page === 'Finish' && (

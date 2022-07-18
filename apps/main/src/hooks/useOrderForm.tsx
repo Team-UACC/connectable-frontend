@@ -1,6 +1,7 @@
 import { KeyboardEvent, RefObject } from 'react';
 import toast from 'react-hot-toast';
 
+import { postOrderForm } from '~/apis/orders';
 import { useModalStore } from '~/stores/modal';
 
 import { formatPhoneNumber } from '../utils';
@@ -18,7 +19,6 @@ export default function useOrderForm({
   phoneNumberRef,
   agreementRef,
   numberOfPeopleRef,
-  depositCheckRef,
 }: Props): [(e: KeyboardEvent<HTMLInputElement>) => void, () => Promise<void>] {
   const { hideModal } = useModalStore();
 
@@ -28,14 +28,17 @@ export default function useOrderForm({
 
   const handleClickSubmitButton = async () => {
     const phoneNumber = phoneNumberRef.current!.value;
-    const nickname = userNameRef.current!.value;
-    const agreement = agreementRef.current!.value;
-    const numberOfPeople = numberOfPeopleRef.current!.value;
-    const depositCheck = depositCheckRef.current!.value;
+    const userName = userNameRef.current!.value;
+    const agreement = agreementRef.current!.value === '동의';
+    const numberOfPeople = Number(numberOfPeopleRef.current!.value);
 
     // form 데이터 제출
+    const response = await postOrderForm({ userName, phoneNumber, agreement, numberOfPeople });
 
-    toast.success('제출 완료');
+    if (response.status === 'success') {
+      toast.success('제출 완료');
+    }
+
     hideModal();
   };
 

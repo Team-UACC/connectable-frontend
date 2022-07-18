@@ -106,10 +106,10 @@ export default function OrderForm({ amount, numberLimit }: Props) {
           page === 'Agreement' && '-translate-x-[33.333%]'
         } ${page === 'NumberOfPeople' && '-translate-x-[50%]'} ${page === 'DepositCheck' && '-translate-x-[66.667%]'} ${
           page === 'Finish' && '-translate-x-[83.333%]'
-        } w-[600%] pt-6 pb-8 mb-4 bg-transparent rounded transition-all ease-in-out duration-[0.5s]`}
+        } w-[600%] py-[12rem] bg-transparent rounded transition-all ease-in-out duration-[0.5s]`}
         onKeyDown={handleCheckEnter}
       >
-        <div className="flex flex-col w-full mb-4">
+        <div className="relative w-full mb-4 ">
           <PageLabel text="예매자 성함" htmlFor="username" />
           <input
             className={` w-3/4 px-3 py-3 m-auto mb-6 leading-tight font-semibold text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline`}
@@ -121,11 +121,16 @@ export default function OrderForm({ amount, numberLimit }: Props) {
             spellCheck={false}
             ref={userNameRef}
           />
-          <Button onClick={() => setPage('PhoneNumber')} disabled={isDisabledMoveToPhoneNumberPage}>
-            다음
-          </Button>
+          <div className="flex justify-around w-2/3 m-auto ">
+            <Button onClick={() => setPage('PhoneNumber')} disabled={isDisabledMoveToPhoneNumberPage}>
+              다음
+            </Button>
+          </div>
+          <section className="absolute text-center -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 min-w-[320px] mt-44">
+            <MoreDescription page="UserName" amount={amount} numberOfPeople={numberOfPeople} />
+          </section>
         </div>
-        <div className="w-full mb-4">
+        <div className="relative w-full mb-4 ">
           <PageLabel text="전화번호" htmlFor="phonenumber" />
           <input
             className="w-3/4 px-3 py-3 m-auto mb-6 font-semibold leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
@@ -146,8 +151,11 @@ export default function OrderForm({ amount, numberLimit }: Props) {
               다음
             </Button>
           </div>
+          <section className="absolute text-center -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 min-w-[320px] mt-44">
+            <MoreDescription page="PhoneNumber" amount={amount} numberOfPeople={numberOfPeople} />
+          </section>
         </div>
-        <div className="w-full mb-4">
+        <div className="relative w-full mb-4 ">
           <PageLabel text="개인정보 수집 및 이용 동의" htmlFor="agreement" />
           <input
             className="w-3/4 px-3 py-3 m-auto mb-6 font-semibold leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
@@ -167,8 +175,11 @@ export default function OrderForm({ amount, numberLimit }: Props) {
               다음
             </Button>
           </div>
+          <section className="absolute text-center -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 min-w-[320px] mt-44">
+            <MoreDescription page="Agreement" amount={amount} numberOfPeople={numberOfPeople} />
+          </section>
         </div>
-        <div className="w-full mb-4">
+        <div className="relative w-full mb-4 ">
           <PageLabel text={`예매자 인원 수 (1 ~ ${numberLimit} 사이의 숫자)`} htmlFor="numberOfPeople" />
           <input
             className="w-3/4 px-3 py-3 m-auto mb-6 font-semibold leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
@@ -188,8 +199,11 @@ export default function OrderForm({ amount, numberLimit }: Props) {
               다음
             </Button>
           </div>
+          <section className="absolute text-center -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 min-w-[320px] mt-44">
+            <MoreDescription page="NumberOfPeople" amount={amount} numberOfPeople={numberOfPeople} />
+          </section>
         </div>
-        <div className="w-full mb-4">
+        <div className="relative w-full mb-4 ">
           <PageLabel text="입금 확인" htmlFor="depositCheck" />
           <input
             className="w-3/4 px-3 py-3 m-auto mb-6 font-semibold leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
@@ -209,8 +223,11 @@ export default function OrderForm({ amount, numberLimit }: Props) {
               다음
             </Button>
           </div>
+          <section className="absolute text-center -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 min-w-[320px] mt-44">
+            <MoreDescription page="DepositCheck" amount={amount} numberOfPeople={numberOfPeople} />
+          </section>
         </div>
-        <div className="flex flex-col w-full mb-4">
+        <div className="relative w-full mb-4 ">
           <PageLabel text="예매 폼 작성이 완료되었습니다." />
           <Button onClick={() => setPage('DepositCheck')} disabled={false}>
             이전
@@ -219,9 +236,11 @@ export default function OrderForm({ amount, numberLimit }: Props) {
           <Button onClick={() => handleClickSubmitButton()} disabled={false}>
             예매 폼 제출하기
           </Button>
+          <section className="absolute text-center -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 min-w-[320px] mt-44">
+            <MoreDescription page="Finish" amount={amount} numberOfPeople={numberOfPeople} />
+          </section>
         </div>
       </form>
-      <MoreDescription page={page} amount={amount} numberOfPeople={numberOfPeople} />
     </div>
   );
 }
