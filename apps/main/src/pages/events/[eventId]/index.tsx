@@ -7,7 +7,7 @@ import { fetchAllEvents, fetchEventsDetail } from '~/apis/events';
 import { ArtistImageBox, ArtistName, PriceText, RemainingTicketStatus } from '~/components/event/EventInfo';
 import EventSaleTimer from '~/components/event/EventInfo/EventSaleTimer';
 import LinkBox from '~/components/event/EventInfo/LinkBox';
-import OrderButton from '~/components/event/OrderButton';
+import FormOrderButton from '~/components/event/OrderButton/FormOrderButton';
 import OrderListButton from '~/components/event/OrderListButton';
 import { StickyBlurFooter } from '~/components/Footer';
 import TextInfo from '~/components/TextInfo';
@@ -109,7 +109,7 @@ export default function EventDetailPage({ eventDetail }: Props) {
       </article>
       <StickyBlurFooter>
         {eventDetail.salesOption === 'FLAT_PRICE' ? (
-          <OrderButton amount={eventDetail.price} orderName={eventDetail.name} />
+          <FormOrderButton amount={eventDetail.price} orderName={eventDetail.name} numberLimit={4} />
         ) : (
           <OrderListButton eventId={String(eventDetail.id)} />
         )}

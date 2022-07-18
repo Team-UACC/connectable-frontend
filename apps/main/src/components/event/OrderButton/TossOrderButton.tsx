@@ -4,9 +4,8 @@ import { useEffect, useState } from 'react';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
+import Button from '~/components/Button';
 import { useUserStore } from '~/stores/user';
-
-import Button from '../Button';
 
 interface Props {
   amount: number;
