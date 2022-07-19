@@ -13,7 +13,7 @@ interface Props {
 
 export default function TextInfo({ title, contents }: Props) {
   return (
-    <div className="w-full p-4">
+    <div className="w-full px-2 py-4">
       <h2 className="text-xl font-bold">{title}</h2>
       {contents.map(({ term, description, hasCopy = false }) => (
         <TextInfo.Line key={term} term={term} description={description} hasCopy={hasCopy} />
@@ -53,7 +53,7 @@ interface TextInfoSimpleProps {
 
 TextInfo.Simple = ({ title, children }: TextInfoSimpleProps) => {
   return (
-    <div className="p-4">
+    <div className="px-2 py-4">
       <h2 className="text-xl font-bold">{title}</h2>
       <div className="mt-4">
         <Text> {children}</Text>

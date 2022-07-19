@@ -4,6 +4,7 @@ import { useQuery } from 'react-query';
 import { fetchAllEvents } from '~/apis/events';
 import EventCard from '~/components/event/EventCard';
 import Footer from '~/components/Footer';
+import { useScrollFadeIn } from '~/hooks/useScrollFadeIn';
 import { EventSimpleType } from '~/types/eventType';
 
 export const EVENT_DUMMY = [
@@ -46,15 +47,15 @@ export default function IndexPage({ posts }: Props) {
     <>
       <div>
         <IntroContent />
-        <ul className="">
+        <ul>
           {EventsList?.map(eventSimple => (
-            <>
-              <Link key={eventSimple.id} href={`/events/${eventSimple.id}`}>
-                <li className="p-4 mb-6 transition-all ease-in-out rounded-lg cursor-pointer hover:scale-110 hover:bg-[zinc-100]">
+            <div key={eventSimple.id} {...useScrollFadeIn({})}>
+              <Link href={`/events/${eventSimple.id}`}>
+                <li className="p-4 mb-4 transition-all ease-in-out rounded-lg cursor-pointer hover:scale-110 hover:bg-[zinc-100]">
                   <EventCard data={eventSimple} />
                 </li>
               </Link>
-            </>
+            </div>
           ))}
         </ul>
       </div>

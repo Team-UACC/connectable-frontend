@@ -80,5 +80,5 @@ const TICKET: TicketType = {
     image:
       'https://assets.otherside.xyz/otherdeeds/871079decce602d36188f532fe6623a15d8c6817ecd3bcd9b0c3a2933bb51c3b.jpg',
   },
-  ownedBy: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
+  ownedBy: '0xD466B3aafb86446FFC44868284a9FB76A0ae8BCb',
 };

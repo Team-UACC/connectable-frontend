@@ -59,9 +59,9 @@ export default function TicketDetail() {
             />
           </div>
         </div>
-        <h1 className="p-4 mt-2 text-lg font-bold">{ticketDetail.metadata.name}</h1>
+        <h1 className="px-2 py-4 mt-2 text-lg font-bold">{ticketDetail.metadata.name}</h1>
         {ticketDetail.onSale && (
-          <div className="px-4">
+          <div className="px-2">
             <div className="mb-2 text-sm font-bold text-red">아직 판매되지 않은 티켓입니다.</div>
             <EventSaleTimer endTime={eventDetail.salesTo} />
             <div className="flex justify-between mt-2">
