@@ -28,7 +28,8 @@ export default function OrderTicketCardList({ eventId }: Props) {
           >
             <a onClick={() => hideModal()}>
               <TicketCard
-                data={ticketData}
+                ticketData={ticketData}
+                type="Order"
                 className="mb-1 ease-in-out bg-transparent border-gray-300 shadow-lg cursor-pointer "
               />
             </a>
