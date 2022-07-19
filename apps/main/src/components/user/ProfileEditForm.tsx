@@ -9,15 +9,19 @@ interface Props {
 }
 
 export default function ProfileEditForm({ userName, phoneNumber }: Props) {
-  const [isDisabledSubmit, setIsDisabledSubmit] = useState(true);
-
   const userNameRef = useRef<HTMLInputElement>(null);
   const phoneNumberRef = useRef<HTMLInputElement>(null);
 
-  const [handleKeyUpPhoneNumberInput, handleClickSubmitButton] = useUserInfoForm({ userNameRef, phoneNumberRef });
-
-  const handleChange = () =>
-    setIsDisabledSubmit(userNameRef.current!.value === '' || phoneNumberRef.current!.value.length < 13);
+  const {
+    handleChangeNickNameInput,
+    handleChangePhoneNumberInput,
+    handleClickSubmitButton,
+    validationNickName,
+    validationPhoneNumber,
+  } = useUserInfoForm({
+    userNameRef,
+    phoneNumberRef,
+  });
 
   const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'Enter') handleClickSubmitButton();
@@ -26,15 +30,20 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
   return (
     <div className="w-full mb-10">
       <form onKeyDown={handleKeyDown} className={`flex w-full pt-6 pb-8 mb-4 bg-transparent rounded overflow-hidden `}>
-        <div className="flex flex-col w-full mb-4">
-          <h1 className="block mb-4 text-lg font-bold text-gray-700">닉네임</h1>
+        <div className="relative flex flex-col w-full mb-4 ">
+          <h1 className="block mb-6 text-lg font-bold text-gray-700">닉네임</h1>
+          <span className="absolute w-full text-xs -translate-x-1/2 text-red left-1/2 top-[1.75rem]">
+            {validationNickName === 'OVERLAP'
+              ? '중복된 닉네임입니다.'
+              : '닉네임은 영어 / 한글 / 숫자 / 2~20자 사이로 작성해주세요.'}
+          </span>
           <input
             className={` w-3/4 px-3 py-3 m-auto mb-6 leading-tight font-semibold text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline`}
             id="username"
             type="text"
             placeholder="닉네임을 입력해주세요"
             defaultValue={userName}
-            onChange={handleChange}
+            onChange={handleChangeNickNameInput}
             autoComplete="off"
             ref={userNameRef}
           />
@@ -45,12 +54,14 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
             type="tel"
             placeholder="전화번호를 입력해주세요"
             defaultValue={phoneNumber}
-            onKeyUp={handleKeyUpPhoneNumberInput}
-            onChange={handleChange}
+            onChange={handleChangePhoneNumberInput}
             autoComplete="off"
             ref={phoneNumberRef}
           />
-          <Button onClick={() => handleClickSubmitButton()} disabled={isDisabledSubmit}>
+          <Button
+            onClick={() => handleClickSubmitButton()}
+            disabled={validationNickName !== true || validationPhoneNumber !== true}
+          >
             수정하기
           </Button>
         </div>

@@ -1,4 +1,4 @@
-import { Axios } from 'axios';
+import axios, { Axios } from 'axios';
 import { getCookie } from 'cookies-next';
 
 import { TicketType } from '~/types/ticketType';
@@ -73,4 +73,15 @@ export const fetchTicketsOwnedByUser = async (): Promise<Array<TicketType>> => {
   const response = await userAxios.get(`/tickets`, authorizationOptions());
 
   return JSON.parse(response.data).tickets;
+};
+
+type UserValidationRes = {
+  available: boolean;
+};
+
+export const userValidation = async ({ nickname }: { nickname: string }): Promise<UserValidationRes> => {
+  // const response = await userAxios.get(`/validation?${nickname ? `nickname=${nickname}` : ''}`);
+  const response = await axios.get(`/api/users/validation?${nickname ? `nickname=${nickname}` : ''}`);
+
+  return response.data;
 };

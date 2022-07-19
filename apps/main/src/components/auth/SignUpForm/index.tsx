@@ -1,5 +1,6 @@
 export type SignUpFromPage = 'UserName' | 'PhoneNumber' | 'Finish';
-import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
+import _ from 'lodash';
+import { KeyboardEvent, useEffect, useRef, useState } from 'react';
 
 import Button from '~/components/Button';
 import useUserInfoForm from '~/hooks/useUserInfoForm';
@@ -10,24 +11,24 @@ import PageLabel from './PageLabel';
 export default function SingUpForm() {
   const [page, setPage] = useState<SignUpFromPage>('UserName');
 
-  const [isDisabledMoveToPhoneNumberPage, setIsDisabledMoveToPhoneNumberPage] = useState(true);
-  const [isDisabledMoveToFinishPage, setIsDisabledMoveToFinishPage] = useState(true);
-
   const userNameRef = useRef<HTMLInputElement>(null);
   const phoneNumberRef = useRef<HTMLInputElement>(null);
 
-  const [handleKeyUpPhoneNumberInput, handleClickSubmitButton] = useUserInfoForm({ userNameRef, phoneNumberRef });
-
-  const handleChangeNickNameInput = (e: ChangeEvent<HTMLInputElement>) =>
-    setIsDisabledMoveToPhoneNumberPage(e.currentTarget.value === '');
-
-  const handleChangePhoneNumberInput = (e: ChangeEvent<HTMLInputElement>) =>
-    setIsDisabledMoveToFinishPage(e.currentTarget.value.length < 13);
+  const {
+    handleChangePhoneNumberInput,
+    handleClickSubmitButton,
+    handleChangeNickNameInput,
+    validationNickName,
+    validationPhoneNumber,
+  } = useUserInfoForm({
+    userNameRef,
+    phoneNumberRef,
+  });
 
   const handleCheckEnter = (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
-      if (page === 'UserName') !isDisabledMoveToPhoneNumberPage && setPage('PhoneNumber');
-      else if (page === 'PhoneNumber') !isDisabledMoveToFinishPage && setPage('Finish');
+      if (page === 'UserName') validationNickName === true && setPage('PhoneNumber');
+      else if (page === 'PhoneNumber') validationPhoneNumber === true && setPage('Finish');
       else handleClickSubmitButton();
     }
   };
@@ -47,8 +48,13 @@ export default function SingUpForm() {
         } w-[300%] pt-6 pb-8 mb-4 bg-transparent rounded transition-all ease-in-out duration-[0.5s]`}
         onKeyDown={handleCheckEnter}
       >
-        <div className="flex flex-col w-full mb-4">
+        <div className="relative flex flex-col w-full mb-4 ">
           <PageLabel text="닉네임" htmlFor="username" />
+          <span className="absolute w-full text-xs -translate-x-1/2 text-red left-1/2 top-[2rem]">
+            {validationNickName === 'OVERLAP'
+              ? '중복된 닉네임입니다.'
+              : '닉네임은 영어 / 한글 / 숫자 / 2~20자 사이로 작성해주세요.'}
+          </span>
           <input
             className={` w-3/4 px-3 py-3 m-auto mb-6 leading-tight font-semibold text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline`}
             id="username"
@@ -59,7 +65,7 @@ export default function SingUpForm() {
             spellCheck={false}
             ref={userNameRef}
           />
-          <Button onClick={() => setPage('PhoneNumber')} disabled={isDisabledMoveToPhoneNumberPage}>
+          <Button onClick={() => setPage('PhoneNumber')} disabled={validationNickName !== true}>
             다음
           </Button>
         </div>
@@ -70,7 +76,6 @@ export default function SingUpForm() {
             id="phonenumber"
             type="tel"
             placeholder="전화번호를 입력해주세요"
-            onKeyUp={handleKeyUpPhoneNumberInput}
             onChange={handleChangePhoneNumberInput}
             autoComplete="off"
             spellCheck={false}
@@ -80,7 +85,7 @@ export default function SingUpForm() {
             <Button onClick={() => setPage('UserName')} disabled={false}>
               이전
             </Button>
-            <Button onClick={() => setPage('Finish')} disabled={isDisabledMoveToFinishPage}>
+            <Button onClick={() => setPage('Finish')} disabled={validationPhoneNumber !== true}>
               다음
             </Button>
           </div>
