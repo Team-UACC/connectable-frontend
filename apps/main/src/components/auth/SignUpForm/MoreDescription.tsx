@@ -1,6 +1,6 @@
-import { SignUpFromPage } from '.';
+import { SignUpFormPage } from '.';
 
-export default function MoreDescription({ page }: { page: SignUpFromPage }) {
+export default function MoreDescription({ page }: { page: SignUpFormPage }) {
   return (
     <>
       {page === 'UserName' && (

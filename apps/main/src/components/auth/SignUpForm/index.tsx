@@ -8,8 +8,10 @@ import useUserInfoForm from '~/hooks/useUserInfoForm';
 import MoreDescription from './MoreDescription';
 import PageLabel from './PageLabel';
 
+export type SignUpFormPage = 'UserName' | 'PhoneNumber' | 'Finish';
+
 export default function SingUpForm() {
-  const [page, setPage] = useState<SignUpFromPage>('UserName');
+  const [page, setPage] = useState<SignUpFormPage>('UserName');
 
   const userNameRef = useRef<HTMLInputElement>(null);
   const phoneNumberRef = useRef<HTMLInputElement>(null);

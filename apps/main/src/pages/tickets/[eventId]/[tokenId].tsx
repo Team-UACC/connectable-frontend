@@ -9,7 +9,7 @@ import { fetchEventsDetail, fetchTicketsDetail } from '~/apis/events';
 import Button from '~/components/Button';
 import { PriceText } from '~/components/event/EventInfo';
 import EventSaleTimer from '~/components/event/EventInfo/EventSaleTimer';
-import OrderButton from '~/components/event/OrderButton';
+import FormOrderButton from '~/components/event/OrderButton/FormOrderButton';
 import { StickyBlurFooter } from '~/components/Footer';
 import Spinner from '~/components/Spinner';
 import TextInfo from '~/components/TextInfo';
@@ -137,7 +137,7 @@ export default function TicketDetail() {
             </Button>
           </>
         ) : ticketDetail.onSale ? (
-          <OrderButton amount={ticketDetail.price} orderName={ticketDetail.metadata.name} />
+          <FormOrderButton amount={ticketDetail.price} orderName={ticketDetail.metadata.name} numberLimit={1} />
         ) : (
           <Button
             onClick={() => {
