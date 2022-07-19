@@ -1,15 +1,14 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import { timeFormatter } from '~/utils/day';
 import { calculateRemaingTime } from '~/utils/index';
 
 interface Props {
   endTime: number;
+  setFinish: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function Timer({ endTime }: Props) {
-  const [finish, setFinish] = useState(false);
-
+export default function Timer({ endTime, setFinish }: Props) {
   const [remaingTime, setRemaingTime] = useState(0);
 
   useEffect(() => {
@@ -23,7 +22,7 @@ export default function Timer({ endTime }: Props) {
   });
 
   useEffect(() => {
-    if (remaingTime <= 0) {
+    if (remaingTime < 0) {
       setFinish(true);
     }
   }, [remaingTime]);
