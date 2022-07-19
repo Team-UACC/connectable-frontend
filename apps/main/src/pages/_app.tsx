@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { Toaster } from 'react-hot-toast';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
+import ErrorBoundary from '~/components/ErrorBoundary';
 import Layout from '~/components/Layout';
 import Modals from '~/components/Modal';
 import useUser from '~/hooks/useUser';
@@ -31,7 +32,9 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <QueryClientProvider client={queryClient}>
         <Layout>
-          <Component {...pageProps} />
+          <ErrorBoundary>
+            <Component {...pageProps} />
+          </ErrorBoundary>
           <Toaster containerStyle={{ top: 300 }} />
           <Modals />
         </Layout>

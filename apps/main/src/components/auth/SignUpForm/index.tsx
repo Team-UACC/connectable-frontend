@@ -1,5 +1,4 @@
 export type SignUpFromPage = 'UserName' | 'PhoneNumber' | 'Finish';
-import _ from 'lodash';
 import { KeyboardEvent, useEffect, useRef, useState } from 'react';
 
 import Button from '~/components/Button';

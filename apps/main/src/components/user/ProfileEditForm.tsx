@@ -1,4 +1,4 @@
-import { KeyboardEvent, useRef, useState } from 'react';
+import { KeyboardEvent, useEffect, useRef } from 'react';
 
 import Button from '~/components/Button';
 import useUserInfoForm from '~/hooks/useUserInfoForm';
@@ -18,6 +18,7 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
     handleClickSubmitButton,
     validationNickName,
     validationPhoneNumber,
+    setValidationPhoneNumber,
   } = useUserInfoForm({
     userNameRef,
     phoneNumberRef,
@@ -26,6 +27,13 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
   const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'Enter') handleClickSubmitButton();
   };
+
+  useEffect(() => {
+    userNameRef.current?.focus();
+    setValidationPhoneNumber(true);
+  }, []);
+
+  console.log(validationNickName, validationPhoneNumber);
 
   return (
     <div className="w-full mb-10">
@@ -45,6 +53,7 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
             defaultValue={userName}
             onChange={handleChangeNickNameInput}
             autoComplete="off"
+            spellCheck="false"
             ref={userNameRef}
           />
           <h1 className="block mb-4 text-lg font-bold text-gray-700">전화번호</h1>
