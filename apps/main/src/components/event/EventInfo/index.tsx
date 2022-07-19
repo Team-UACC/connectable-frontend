@@ -6,7 +6,7 @@ export function ArtistImageBox({ src }: { src: string }) {
   return (
     <div className=" relative w-[calc(100%+2rem)] -translate-x-4 h-[140px] bg-gray-100">
       <div className="m-auto translate-y-[90px] max-w-fit">
-        <Image src={src} width={100} height={100} className="rounded-full" />
+        <Image src={src} width={100} height={100} objectFit="cover" className="rounded-full" />
       </div>
     </div>
   );

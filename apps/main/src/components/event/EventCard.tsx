@@ -10,8 +10,15 @@ interface Props {
 
 export default function EventCard({ data }: Props) {
   return (
-    <article>
-      <Image src={data.image} alt="임시 이미지" width={388} height={388} style={{ borderRadius: '10px' }} />
+    <article className="w-full ">
+      <Image
+        src={data.image}
+        alt="임시 이미지"
+        width={388}
+        height={388}
+        objectFit="cover"
+        className=" rounded-[10px]"
+      />
       <h2 className="font-bold ">{data.name}</h2>
       <EventSaleTimer endTime={data.salesTo} />
       <br />

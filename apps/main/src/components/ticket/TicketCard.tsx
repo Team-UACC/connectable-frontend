@@ -18,6 +18,7 @@ export default function TicketCard({ data, className }: Props) {
         alt="티켓 이미지"
         width={100}
         height={100}
+        objectFit="cover"
         className=" rounded-[10px] shadow-lg"
       />
       <div className="flex relative flex-col w-[calc(100%-132px)] h-[100px] justify-between">

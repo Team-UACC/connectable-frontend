@@ -50,7 +50,13 @@ export default function TicketDetail() {
       <div className="w-full ">
         <div className=" relative w-[calc(100%+2rem)] p-4 -translate-x-4 bg-gray-100 ">
           <div className="m-2 max-w-fit drop-shadow-2xl">
-            <Image src={ticketDetail.metadata.image} width={388} height={388} className="rounded-[10px] " />
+            <Image
+              src={ticketDetail.metadata.image}
+              width={388}
+              height={388}
+              objectFit="cover"
+              className="rounded-[10px] "
+            />
           </div>
         </div>
         <h1 className="p-4 mt-2 text-lg font-bold">{ticketDetail.metadata.name}</h1>
