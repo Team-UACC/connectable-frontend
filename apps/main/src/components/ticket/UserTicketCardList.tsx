@@ -22,7 +22,7 @@ export default function UserTicketCardList() {
         >
           <a>
             <TicketCard
-              data={ticketData}
+              ticketData={ticketData}
               className="transition-all cursor-pointer ease-in-out hover:rounded-lg hover:border-[#EBF8FF] hover:scale-110 hover:bg-[#EBF8FF] hover:z-10"
             />
           </a>

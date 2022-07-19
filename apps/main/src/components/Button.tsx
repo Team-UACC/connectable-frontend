@@ -15,14 +15,15 @@ interface Props {
   onClick?: () => void;
   disabled?: boolean;
   color?: ButtonColor;
+  className?: string;
 }
 
-export default function Button({ children, onClick, disabled, color = 'brand' }: Props) {
+export default function Button({ children, onClick, disabled, color = 'brand', className = '' }: Props) {
   return (
     <button
-      className={` ${disabled && 'opacity-30'} ${
+      className={`${disabled && 'opacity-30'} ${
         buttonColorTheme[color]
-      } gap-2 w-fit m-auto rounded-lg px-5 py-2  font-bold shadow-sm hover:shadow-none hover:shadow-red hover:drop-shadow-xl focus:outline-none focus:shadow-outline`}
+      } gap-2 w-fit m-auto rounded-lg px-5 py-2  font-bold shadow-sm hover:shadow-none hover:shadow-red hover:drop-shadow-xl focus:outline-none focus:shadow-outline ${className} `}
       type="button"
       onClick={onClick}
       disabled={disabled}
