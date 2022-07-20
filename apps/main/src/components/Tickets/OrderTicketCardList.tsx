@@ -1,16 +1,15 @@
 import Link from 'next/link';
-import { useQuery } from 'react-query';
 
-import { fetchEventsAllTickets } from '~/apis/events';
 import TicketCard from '~/components/Card/TicketCard';
+import useTicketsByEventIdQuery from '~/hooks/apis/useTicketsByEventIdQuery';
 import { useModalStore } from '~/stores/modal';
 
 interface Props {
-  eventId: string;
+  eventId: number;
 }
 
 export default function OrderTicketCardList({ eventId }: Props) {
-  const { data: ticketList, isLoading } = useQuery('allTickets', () => fetchEventsAllTickets(eventId));
+  const { data: ticketList, isLoading } = useTicketsByEventIdQuery(eventId);
 
   const { hideModal } = useModalStore();
 

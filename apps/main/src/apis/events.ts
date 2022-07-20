@@ -17,26 +17,26 @@ export const fetchAllEvents = async (): Promise<Array<EventSimpleType>> => {
   return [EVENT, ...JSON.parse(response.data)];
 };
 
-export const fetchEventsAllTickets = async (eventId: string): Promise<Array<TicketType>> => {
+export const fetchEventsAllTickets = async (eventId: number): Promise<Array<TicketType>> => {
   const response = await eventAxios.get(`/${eventId}/tickets`);
 
-  if (eventId === '0') return new Array(10).fill(TICKET);
+  if (eventId === 0) return new Array(10).fill(TICKET);
 
   return JSON.parse(response.data);
 };
 
-export const fetchEventsDetail = async (eventId: string): Promise<EventDetailType> => {
+export const fetchEventsDetail = async (eventId: number): Promise<EventDetailType> => {
   const response = await eventAxios.get(`/${eventId}`);
 
-  if (eventId === '0') return EVENT;
+  if (eventId === 0) return EVENT;
 
   return JSON.parse(response.data);
 };
 
-export const fetchTicketsDetail = async (eventId: string, tokenId: string): Promise<TicketType> => {
+export const fetchTicketsDetail = async (eventId: number, tokenId: number): Promise<TicketType> => {
   const response = await eventAxios.get(`/${eventId}/tickets/${tokenId}`);
 
-  if (eventId === '0') return TICKET;
+  if (eventId === 0) return TICKET;
 
   return JSON.parse(response.data);
 };

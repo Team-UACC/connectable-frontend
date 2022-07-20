@@ -6,9 +6,9 @@ import { useEffect, useState } from 'react';
 import { fetchAllEvents, fetchEventsDetail } from '~/apis/events';
 import FormOrderButton from '~/components/Button/OrderButton/FormOrderButton';
 import OrderListButton from '~/components/Button/OrderListButton';
-import { ArtistImageBox, ArtistName, PriceText, RemainingTicketStatus } from '~/components/Event/EventInfo';
-import EventSaleTimer from '~/components/Event/EventSaleTimer';
-import LinkBox from '~/components/Event/LinkBox';
+import { ArtistImageBox, ArtistName, PriceText, RemainingTicketStatus } from '~/components/Events/EventInfo';
+import EventSaleTimer from '~/components/Events/EventSaleTimer';
+import LinkBox from '~/components/Events/LinkBox';
 import StickyBlurFooter from '~/components/Footer/StickyBlurFooter';
 import TextInfo from '~/components/TextInfo';
 import { EventDetailType } from '~/types/eventType';
@@ -24,7 +24,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }: GetStaticPropsContext) {
-  const eventDetail = await fetchEventsDetail(params?.eventId as string);
+  const eventDetail = await fetchEventsDetail(Number(params?.eventId));
   return {
     props: {
       eventDetail,
@@ -111,7 +111,7 @@ export default function EventDetailPage({ eventDetail }: Props) {
         {eventDetail.salesOption === 'FLAT_PRICE' ? (
           <FormOrderButton amount={eventDetail.price} numberLimit={4} />
         ) : (
-          <OrderListButton eventId={String(eventDetail.id)} />
+          <OrderListButton eventId={eventDetail.id} />
         )}
       </StickyBlurFooter>
     </>

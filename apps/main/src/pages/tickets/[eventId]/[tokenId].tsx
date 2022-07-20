@@ -3,16 +3,16 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
-import { useQuery } from 'react-query';
 
-import { fetchEventsDetail, fetchTicketsDetail } from '~/apis/events';
 import Button from '~/components/Button';
 import FormOrderButton from '~/components/Button/OrderButton/FormOrderButton';
-import { PriceText } from '~/components/Event/EventInfo';
-import EventSaleTimer from '~/components/Event/EventSaleTimer';
+import { PriceText } from '~/components/Events/EventInfo';
+import EventSaleTimer from '~/components/Events/EventSaleTimer';
 import StickyBlurFooter from '~/components/Footer/StickyBlurFooter';
 import Spinner from '~/components/Spinner';
 import TextInfo from '~/components/TextInfo';
+import useEventByIdQuery from '~/hooks/apis/useEventByIdQuery';
+import useTicketByIdsQuery from '~/hooks/apis/useTicketByIdsQuery';
 import NotFoundPage from '~/pages/404';
 import { useUserStore } from '~/stores/user';
 import { dayjsKO } from '~/utils/day';
@@ -23,13 +23,12 @@ export default function TicketDetail() {
   const { eventId, tokenId } = router.query;
   const { isLoggedIn, klaytnAddress } = useUserStore();
 
-  const { data: ticketDetail, isLoading: isLoadingTicketDetail } = useQuery(['ticketDetail', eventId, tokenId], () =>
-    fetchTicketsDetail(eventId as string, tokenId as string)
+  const { data: ticketDetail, isLoading: isLoadingTicketDetail } = useTicketByIdsQuery(
+    Number(eventId),
+    Number(tokenId)
   );
 
-  const { data: eventDetail, isLoading: isLoadingEventDetail } = useQuery(['event', eventId], () =>
-    fetchEventsDetail(eventId as string)
-  );
+  const { data: eventDetail, isLoading: isLoadingEventDetail } = useEventByIdQuery(Number(eventId));
 
   if (isLoadingTicketDetail || isLoadingEventDetail)
     return (

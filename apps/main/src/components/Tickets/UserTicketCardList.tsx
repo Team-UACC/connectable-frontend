@@ -1,11 +1,10 @@
 import Link from 'next/link';
-import { useQuery } from 'react-query';
 
-import { fetchTicketsOwnedByUser } from '~/apis/users';
 import TicketCard from '~/components/Card/TicketCard';
+import useTicketsOwnedByUserQuery from '~/hooks/apis/useTicketsOwnedByUserQuery';
 
 export default function UserTicketCardList() {
-  const { data, isLoading, error } = useQuery('userTicket', fetchTicketsOwnedByUser);
+  const { data: ticketList, isLoading, error } = useTicketsOwnedByUserQuery();
 
   if (error) return <div>error</div>;
 
@@ -13,7 +12,7 @@ export default function UserTicketCardList() {
 
   return (
     <ul className="w-full divide-y-2 ">
-      {data?.map(ticketData => (
+      {ticketList?.map(ticketData => (
         <Link
           key={ticketData.tokenId}
           href={`tickets/${ticketData.eventId}/${ticketData.tokenId}`}

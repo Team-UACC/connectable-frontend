@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import EventSaleTimer from '~/components/Event/EventSaleTimer';
+import EventSaleTimer from '~/components/Events/EventSaleTimer';
 import { EventSimpleType } from '~/types/eventType';
 
 interface Props {

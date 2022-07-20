@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import { useQuery } from 'react-query';
 
 import { fetchAllEvents } from '~/apis/events';
 import EventCard from '~/components/Card/EventCard';
 import Footer from '~/components/Footer';
+import useEventsQuery from '~/hooks/apis/useEventsQuery';
 import { useScrollFadeIn } from '~/hooks/useScrollFadeIn';
 import { EventSimpleType } from '~/types/eventType';
 
@@ -40,7 +40,7 @@ interface Props {
 }
 
 export default function IndexPage({ posts }: Props) {
-  const { data: EventsList, isLoading } = useQuery(['posts'], fetchAllEvents, { initialData: posts });
+  const { data: EventsList, isLoading } = useEventsQuery({ initialData: posts });
 
   if (isLoading) return 'loading';
   return (

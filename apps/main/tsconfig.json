@@ -14,7 +14,8 @@
       "~/utils/*": ["src/utils/*"],
       "~/apis/*": ["src/apis/*"],
       "~/stores/*": ["src/stores/*"],
-      "~/types/*": ["src/types/*"]
+      "~/types/*": ["src/types/*"],
+      "~/constants/*": ["src/constants/*"]
     }
   },
   "exclude": ["node_modules"],

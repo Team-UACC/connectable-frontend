@@ -1,9 +1,9 @@
 import Button from '~/components/Button';
-import OrderTicketCardList from '~/components/Ticket/OrderTicketCardList';
+import OrderTicketCardList from '~/components/Tickets/OrderTicketCardList';
 import { useModalStore } from '~/stores/modal';
 
 interface Props {
-  eventId: string;
+  eventId: number;
 }
 
 export default function OrderListButton({ eventId }: Props) {
