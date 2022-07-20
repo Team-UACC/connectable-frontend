@@ -1,7 +1,6 @@
 import Link from 'next/link';
-import { ReactNode } from 'react';
 
-import Text from './Text';
+import Text from '../Text';
 
 const OFFICE_TERMS = ['이용약관', '개인정보처리방침'];
 export default function Footer() {
@@ -21,17 +20,6 @@ export default function Footer() {
           <div className="mt-6 ">©2022. Connectable.</div>
         </div>
       </section>
-    </footer>
-  );
-}
-
-interface StickyBlurFooterProps {
-  children: ReactNode;
-}
-export function StickyBlurFooter({ children }: StickyBlurFooterProps) {
-  return (
-    <footer className="sticky bottom-0 flex justify-between w-[calc(100%+32px)] py-4 bg-transparent backdrop-blur-md">
-      {children}
     </footer>
   );
 }

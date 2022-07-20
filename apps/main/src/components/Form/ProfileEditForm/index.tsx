@@ -1,9 +1,8 @@
 import { KeyboardEvent, ReactNode, useEffect, useRef } from 'react';
 
 import Button from '~/components/Button';
+import Input from '~/components/Input';
 import useUserInfoForm from '~/hooks/useUserInfoForm';
-
-import Input from '../Input';
 
 interface Props {
   userName: string;

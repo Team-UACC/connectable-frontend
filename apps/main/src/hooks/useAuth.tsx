@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import { requestUserLogin } from '~/apis/users';
-import SingUpForm from '~/components/auth/SignUpForm';
+import SingUpForm from '~/components/Form/SignUpForm';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 import { getKlipAccessMethod, getKlipRequest } from '~/utils/klip';

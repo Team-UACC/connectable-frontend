@@ -1,8 +1,7 @@
 import Image from 'next/image';
 
+import EventSaleTimer from '~/components/Event/EventSaleTimer';
 import { EventSimpleType } from '~/types/eventType';
-
-import EventSaleTimer from './EventInfo/EventSaleTimer';
 
 interface Props {
   data: EventSimpleType;
@@ -25,9 +24,6 @@ export default function EventCard({ data }: Props) {
       <div className="mt-2 ml-1 ">
         <h2 className="font-bold ">{data.name}</h2>
         <EventSaleTimer endTime={data.salesTo} />
-        {/* <div className="mt-2">
-          <Text size="xs">{data.description}</Text>
-        </div> */}
       </div>
     </article>
   );

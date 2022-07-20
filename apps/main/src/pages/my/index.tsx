@@ -3,11 +3,11 @@ import { useRouter } from 'next/router';
 
 import Button from '~/components/Button';
 import Footer from '~/components/Footer';
+import ProfileEditForm from '~/components/Form/ProfileEditForm';
 import WithAuth from '~/components/HOC/WithAuth';
 import Tabs from '~/components/Tabs';
 import TextInfo from '~/components/TextInfo';
-import UserTicketCardList from '~/components/ticket/UserTicketCardList';
-import ProfileEditForm from '~/components/user/ProfileEditForm';
+import UserTicketCardList from '~/components/Ticket/UserTicketCardList';
 import { useLogout } from '~/hooks/useAuth';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';

@@ -4,12 +4,12 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 import { fetchAllEvents, fetchEventsDetail } from '~/apis/events';
-import { ArtistImageBox, ArtistName, PriceText, RemainingTicketStatus } from '~/components/event/EventInfo';
-import EventSaleTimer from '~/components/event/EventInfo/EventSaleTimer';
-import LinkBox from '~/components/event/EventInfo/LinkBox';
-import FormOrderButton from '~/components/event/OrderButton/FormOrderButton';
-import OrderListButton from '~/components/event/OrderListButton';
-import { StickyBlurFooter } from '~/components/Footer';
+import FormOrderButton from '~/components/Button/OrderButton/FormOrderButton';
+import OrderListButton from '~/components/Button/OrderListButton';
+import { ArtistImageBox, ArtistName, PriceText, RemainingTicketStatus } from '~/components/Event/EventInfo';
+import EventSaleTimer from '~/components/Event/EventSaleTimer';
+import LinkBox from '~/components/Event/LinkBox';
+import StickyBlurFooter from '~/components/Footer/StickyBlurFooter';
 import TextInfo from '~/components/TextInfo';
 import { EventDetailType } from '~/types/eventType';
 import { dayjsKO } from '~/utils/day';

@@ -1,8 +1,7 @@
 import QRCode from 'qrcode.react';
 
+import Spinner from '~/components/Spinner';
 import { useKlipLogin } from '~/hooks/useAuth';
-
-import Spinner from '../Spinner';
 
 export default function KlipAuth() {
   const [method, qrvalue] = useKlipLogin();

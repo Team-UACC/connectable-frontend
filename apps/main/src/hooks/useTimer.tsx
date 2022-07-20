@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
-import { timeFormatter } from '~/utils/day';
+// import { timeFormatter } from '~/utils/day';
 import { calculateRemaingTime } from '~/utils/index';
 
 interface Props {
@@ -8,7 +8,8 @@ interface Props {
   setFinish: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function Timer({ endTime, setFinish }: Props) {
+export default function useTimer({ endTime, setFinish }: Props) {
+  const [loading, setLoading] = useState(true);
   const [remaingTime, setRemaingTime] = useState(0);
 
   useEffect(() => {
@@ -22,12 +23,13 @@ export default function Timer({ endTime, setFinish }: Props) {
   });
 
   useEffect(() => {
+    if (loading) {
+      remaingTime > 0 && setLoading(false);
+    }
     if (remaingTime < 0) {
       setFinish(true);
     }
   }, [remaingTime]);
 
-  if (remaingTime === 0) return <>...</>;
-
-  return <>{timeFormatter(remaingTime)}</>;
+  return { loading, remaingTime };
 }

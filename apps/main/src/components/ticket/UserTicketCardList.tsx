@@ -2,8 +2,7 @@ import Link from 'next/link';
 import { useQuery } from 'react-query';
 
 import { fetchTicketsOwnedByUser } from '~/apis/users';
-
-import TicketCard from './TicketCard';
+import TicketCard from '~/components/Card/TicketCard';
 
 export default function UserTicketCardList() {
   const { data, isLoading, error } = useQuery('userTicket', fetchTicketsOwnedByUser);

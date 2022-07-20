@@ -7,10 +7,10 @@ import { useQuery } from 'react-query';
 
 import { fetchEventsDetail, fetchTicketsDetail } from '~/apis/events';
 import Button from '~/components/Button';
-import { PriceText } from '~/components/event/EventInfo';
-import EventSaleTimer from '~/components/event/EventInfo/EventSaleTimer';
-import FormOrderButton from '~/components/event/OrderButton/FormOrderButton';
-import { StickyBlurFooter } from '~/components/Footer';
+import FormOrderButton from '~/components/Button/OrderButton/FormOrderButton';
+import { PriceText } from '~/components/Event/EventInfo';
+import EventSaleTimer from '~/components/Event/EventSaleTimer';
+import StickyBlurFooter from '~/components/Footer/StickyBlurFooter';
 import Spinner from '~/components/Spinner';
 import TextInfo from '~/components/TextInfo';
 import NotFoundPage from '~/pages/404';

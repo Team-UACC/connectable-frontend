@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useQuery } from 'react-query';
 
 import { fetchAllEvents } from '~/apis/events';
-import EventCard from '~/components/event/EventCard';
+import EventCard from '~/components/Card/EventCard';
 import Footer from '~/components/Footer';
 import { useScrollFadeIn } from '~/hooks/useScrollFadeIn';
 import { EventSimpleType } from '~/types/eventType';

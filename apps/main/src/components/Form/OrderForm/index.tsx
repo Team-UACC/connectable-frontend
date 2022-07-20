@@ -1,10 +1,13 @@
-import { ChangeEvent, KeyboardEvent, ReactNode, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
 
 import Button from '~/components/Button';
 import Input from '~/components/Input';
-import PageLabel from '~/components/PageLabel';
+import Label from '~/components/Label';
 import useOrderForm from '~/hooks/useOrderForm';
 import { useUserStore } from '~/stores/user';
+
+import FormPageContainer from '../FormPageContainer';
+import MoreDescriptionContainer from '../MoreDescriptionContainer';
 
 import MoreDescription from './MoreDescription';
 
@@ -224,7 +227,7 @@ export default function OrderForm({ amount, numberLimit }: Props) {
           </MoreDescriptionContainer>
         </FormPageContainer>
         <FormPageContainer>
-          <PageLabel text="예매 폼 작성이 완료되었습니다." />
+          <Label text="예매 폼 작성이 완료되었습니다." />
           <Button onClick={() => setPage('DepositCheck')} disabled={false}>
             이전
           </Button>
@@ -239,13 +242,3 @@ export default function OrderForm({ amount, numberLimit }: Props) {
     </div>
   );
 }
-
-const FormPageContainer = ({ children }: { children: ReactNode }) => (
-  <div className="relative w-full max-w-[18rem] h-[60vh] m-auto ">
-    <div className=" absolute w-full top-1/2 -translate-y-[60%] flex flex-col gap-[1rem]">{children}</div>
-  </div>
-);
-
-const MoreDescriptionContainer = ({ children }: { children: ReactNode }) => (
-  <div className="absolute top-[12rem] w-full -translate-x-1/2 left-1/2">{children}</div>
-);

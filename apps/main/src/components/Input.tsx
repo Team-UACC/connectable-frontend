@@ -1,6 +1,6 @@
 import { forwardRef, InputHTMLAttributes, Ref } from 'react';
 
-import PageLabel from './PageLabel';
+import Label from './Label';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
@@ -11,7 +11,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 const Input = forwardRef(({ name, label, type, notice, ...rests }: Props, ref: Ref<HTMLInputElement>) => {
   return (
     <>
-      <PageLabel text={label} htmlFor={name} />
+      <Label text={label} htmlFor={name} />
       <span className=" absolute w-full text-xs text-red top-[1.5rem]">{notice}</span>
       <input
         className={`w-full px-3 py-3 font-semibold leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline`}

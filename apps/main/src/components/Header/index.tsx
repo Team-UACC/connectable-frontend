@@ -1,10 +1,10 @@
 import Link from 'next/link';
 
-import KlipAuth from '~/components/auth/KlipAuth';
+import KlipAuthForm from '~/components/Form/KlipAuthForm';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 
-import MoreMenu from '../MoreMenu';
+import MoreMenuForm from '../Form/MoreMenuForm';
 
 import NavIcons from './NavIcons';
 
@@ -39,7 +39,7 @@ const LoggedOnIcons = () => {
   };
 
   const handleClickMenuIcon = () => {
-    showModal(' ', <MoreMenu />);
+    showModal(' ', <MoreMenuForm />);
   };
   return (
     <div className={`flex justify-between w-[12rem]`}>
@@ -55,11 +55,11 @@ const LoggedOffIcons = () => {
   const { showModal } = useModalStore();
 
   const handleClickLoginIcon = () => {
-    showModal('로그인', <KlipAuth />);
+    showModal('로그인', <KlipAuthForm />);
   };
 
   const handleClickMenuIcon = () => {
-    showModal(' ', <MoreMenu />);
+    showModal(' ', <MoreMenuForm />);
   };
 
   return (

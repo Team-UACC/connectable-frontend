@@ -1,9 +1,8 @@
 import Image from 'next/image';
 
+import Button from '~/components/Button';
 import { TicketType } from '~/types/ticketType';
 import { dayjsKO } from '~/utils/day';
-
-import Button from '../Button';
 
 interface Props {
   ticketData: TicketType;

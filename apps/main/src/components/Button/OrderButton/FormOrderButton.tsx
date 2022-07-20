@@ -1,11 +1,10 @@
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
+import Button from '~/components/Button';
+import OrderForm from '~/components/Form/OrderForm';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
-
-import Button from '../../Button';
-import OrderForm from '../../ticket/OrderForm';
 
 interface Props {
   amount: number;

@@ -2,10 +2,8 @@ import Link from 'next/link';
 import { useQuery } from 'react-query';
 
 import { fetchEventsAllTickets } from '~/apis/events';
-import { useScrollFadeIn } from '~/hooks/useScrollFadeIn';
+import TicketCard from '~/components/Card/TicketCard';
 import { useModalStore } from '~/stores/modal';
-
-import TicketCard from './TicketCard';
 
 interface Props {
   eventId: string;

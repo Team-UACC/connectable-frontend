@@ -1,7 +1,6 @@
+import Button from '~/components/Button';
+import OrderTicketCardList from '~/components/Ticket/OrderTicketCardList';
 import { useModalStore } from '~/stores/modal';
-
-import Button from '../Button';
-import OrderTicketCardList from '../ticket/OrderTicketCardList';
 
 interface Props {
   eventId: string;

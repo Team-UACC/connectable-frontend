@@ -1,4 +1,5 @@
 import { KeyboardEvent, RefObject } from 'react';
+// eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
 import { postOrderForm } from '~/apis/orders';
