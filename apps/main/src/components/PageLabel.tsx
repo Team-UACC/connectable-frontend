@@ -5,7 +5,7 @@ interface Props {
 
 export default function PageLabel({ text, htmlFor }: Props) {
   return (
-    <label htmlFor={htmlFor} className="block mb-6 text-lg font-bold text-gray-700">
+    <label htmlFor={htmlFor} className="block text-lg font-bold text-gray-700">
       {text}
     </label>
   );

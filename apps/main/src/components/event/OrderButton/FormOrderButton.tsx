@@ -9,11 +9,10 @@ import OrderForm from '../../ticket/OrderForm';
 
 interface Props {
   amount: number;
-  orderName: string;
   numberLimit: number;
 }
 
-export default function OrderButton({ amount, orderName, numberLimit }: Props) {
+export default function OrderButton({ amount, numberLimit }: Props) {
   const { isLoggedIn } = useUserStore();
   const { showModal } = useModalStore();
 

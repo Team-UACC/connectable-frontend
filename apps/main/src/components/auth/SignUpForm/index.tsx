@@ -1,11 +1,12 @@
 export type SignUpFromPage = 'UserName' | 'PhoneNumber' | 'Finish';
-import { KeyboardEvent, useEffect, useRef, useState } from 'react';
+import { KeyboardEvent, ReactNode, useEffect, useRef, useState } from 'react';
 
 import Button from '~/components/Button';
+import Input from '~/components/Input';
+import PageLabel from '~/components/PageLabel';
 import useUserInfoForm from '~/hooks/useUserInfoForm';
 
 import MoreDescription from './MoreDescription';
-import PageLabel from './PageLabel';
 
 export type SignUpFormPage = 'UserName' | 'PhoneNumber' | 'Finish';
 
@@ -49,16 +50,15 @@ export default function SingUpForm() {
         } w-[300%] pt-6 pb-8 mb-4 bg-transparent rounded transition-all ease-in-out duration-[0.5s]`}
         onKeyDown={handleCheckEnter}
       >
-        <div className="relative flex flex-col w-full mb-4 ">
-          <PageLabel text="닉네임" htmlFor="username" />
-          <span className="absolute w-full text-xs -translate-x-1/2 text-red left-1/2 top-[2rem]">
-            {validationNickName === 'OVERLAP'
-              ? '중복된 닉네임입니다.'
-              : '닉네임은 영어 / 한글 / 숫자 / 2~20자 사이로 작성해주세요.'}
-          </span>
-          <input
-            className={` w-3/4 px-3 py-3 m-auto mb-6 leading-tight font-semibold text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline`}
-            id="username"
+        <FormPageContainer>
+          <Input
+            name="username"
+            label="닉네임"
+            notice={
+              validationNickName === 'OVERLAP'
+                ? '중복된 닉네임입니다.'
+                : '닉네임은 영어 / 한글 / 숫자 / 2~20자 사이로 작성해주세요.'
+            }
             type="text"
             placeholder="닉네임을 입력해주세요"
             onChange={handleChangeNickNameInput}
@@ -69,12 +69,14 @@ export default function SingUpForm() {
           <Button onClick={() => setPage('PhoneNumber')} disabled={validationNickName !== true}>
             다음
           </Button>
-        </div>
-        <div className="w-full mb-4">
-          <PageLabel text="전화번호" htmlFor="phonenumber" />
-          <input
-            className="w-3/4 px-3 py-3 m-auto mb-6 font-semibold leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-            id="phonenumber"
+          <MoreDescriptionContainer>
+            <MoreDescription page="UserName" />
+          </MoreDescriptionContainer>
+        </FormPageContainer>
+        <FormPageContainer>
+          <Input
+            name="phonenumber"
+            label="전화번호"
             type="tel"
             placeholder="전화번호를 입력해주세요"
             onChange={handleChangePhoneNumberInput}
@@ -90,19 +92,33 @@ export default function SingUpForm() {
               다음
             </Button>
           </div>
-        </div>
-        <div className="flex flex-col w-full mb-4">
+          <MoreDescriptionContainer>
+            <MoreDescription page="PhoneNumber" />
+          </MoreDescriptionContainer>
+        </FormPageContainer>
+        <FormPageContainer>
           <PageLabel text="Connectable에 오신 걸 환영합니다." />
           <Button onClick={() => setPage('PhoneNumber')} disabled={false}>
             이전
           </Button>
-          <div className=" min-h-[14px]"></div>
           <Button onClick={() => handleClickSubmitButton()} disabled={false}>
             회원가입 완료하기
           </Button>
-        </div>
+          <MoreDescriptionContainer>
+            <MoreDescription page="Finish" />
+          </MoreDescriptionContainer>
+        </FormPageContainer>
       </form>
-      <MoreDescription page={page} />
     </div>
   );
 }
+
+const FormPageContainer = ({ children }: { children: ReactNode }) => (
+  <div className="relative w-full max-w-[18rem] h-[60vh] m-auto ">
+    <div className=" absolute w-full top-1/2 -translate-y-[60%] flex flex-col gap-[1rem]">{children}</div>
+  </div>
+);
+
+const MoreDescriptionContainer = ({ children }: { children: ReactNode }) => (
+  <div className="absolute top-[12rem] w-full -translate-x-1/2 left-1/2">{children}</div>
+);

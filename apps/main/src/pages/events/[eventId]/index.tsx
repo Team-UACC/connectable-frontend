@@ -109,7 +109,7 @@ export default function EventDetailPage({ eventDetail }: Props) {
       </article>
       <StickyBlurFooter>
         {eventDetail.salesOption === 'FLAT_PRICE' ? (
-          <FormOrderButton amount={eventDetail.price} orderName={eventDetail.name} numberLimit={4} />
+          <FormOrderButton amount={eventDetail.price} numberLimit={4} />
         ) : (
           <OrderListButton eventId={String(eventDetail.id)} />
         )}

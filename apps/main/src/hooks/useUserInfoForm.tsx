@@ -57,7 +57,7 @@ export default function useUserInfoForm({ userNameRef, phoneNumberRef }: Props):
 
     const { available } = await userValidation({ nickname: value });
     setValidationNickName(available ? true : 'OVERLAP');
-  }, 300);
+  }, 100);
 
   const handleChangeNickNameInput = async (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target as HTMLInputElement;

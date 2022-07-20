@@ -143,7 +143,7 @@ export default function TicketDetail() {
             </Button>
           </>
         ) : ticketDetail.onSale ? (
-          <FormOrderButton amount={ticketDetail.price} orderName={ticketDetail.metadata.name} numberLimit={1} />
+          <FormOrderButton amount={ticketDetail.price} numberLimit={1} />
         ) : (
           <Button
             onClick={() => {

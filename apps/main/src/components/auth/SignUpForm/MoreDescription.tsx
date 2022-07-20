@@ -2,7 +2,7 @@ import { SignUpFormPage } from '.';
 
 export default function MoreDescription({ page }: { page: SignUpFormPage }) {
   return (
-    <>
+    <section className="w-full text-center">
       {page === 'UserName' && (
         <p className="text-sm gray-600 ">
           닉네임은 Connectable에서 보여질 이름입니다.
@@ -23,6 +23,6 @@ export default function MoreDescription({ page }: { page: SignUpFormPage }) {
           <br />
         </p>
       )}
-    </>
+    </section>
   );
 }

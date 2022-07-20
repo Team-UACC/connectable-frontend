@@ -1,11 +1,12 @@
-import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, ReactNode, useEffect, useRef, useState } from 'react';
 
 import Button from '~/components/Button';
+import Input from '~/components/Input';
+import PageLabel from '~/components/PageLabel';
 import useOrderForm from '~/hooks/useOrderForm';
 import { useUserStore } from '~/stores/user';
 
 import MoreDescription from './MoreDescription';
-import PageLabel from './PageLabel';
 
 export type OrderFormPageType = 'UserName' | 'PhoneNumber' | 'Agreement' | 'NumberOfPeople' | 'DepositCheck' | 'Finish';
 
@@ -100,20 +101,19 @@ export default function OrderForm({ amount, numberLimit }: Props) {
   }, [page]);
 
   return (
-    <div className="w-full mb-10 overflow-hidden">
+    <div className="relative w-full h-full overflow-hidden">
       <form
         className={`flex ${page === 'PhoneNumber' && '-translate-x-[16.666%]'} ${
           page === 'Agreement' && '-translate-x-[33.333%]'
         } ${page === 'NumberOfPeople' && '-translate-x-[50%]'} ${page === 'DepositCheck' && '-translate-x-[66.667%]'} ${
           page === 'Finish' && '-translate-x-[83.333%]'
-        } w-[600%] py-[12rem] bg-transparent rounded transition-all ease-in-out duration-[0.5s]`}
+        } w-[600%] bg-transparent rounded transition-all ease-in-out duration-[0.5s]`}
         onKeyDown={handleCheckEnter}
       >
-        <div className="relative w-full mb-4 ">
-          <PageLabel text="예매자 성함" htmlFor="username" />
-          <input
-            className={` w-3/4 px-3 py-3 m-auto mb-6 leading-tight font-semibold text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline`}
-            id="username"
+        <FormPageContainer>
+          <Input
+            name="username"
+            label="예매자 성함"
             type="text"
             placeholder="이름을 입력해주세요"
             onChange={handleChangeUserNameInput}
@@ -126,15 +126,14 @@ export default function OrderForm({ amount, numberLimit }: Props) {
               다음
             </Button>
           </div>
-          <section className="absolute text-center -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 min-w-[320px] mt-44">
+          <MoreDescriptionContainer>
             <MoreDescription page="UserName" amount={amount} numberOfPeople={numberOfPeople} />
-          </section>
-        </div>
-        <div className="relative w-full mb-4 ">
-          <PageLabel text="전화번호" htmlFor="phonenumber" />
-          <input
-            className="w-3/4 px-3 py-3 m-auto mb-6 font-semibold leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-            id="phonenumber"
+          </MoreDescriptionContainer>
+        </FormPageContainer>
+        <FormPageContainer>
+          <Input
+            name="phonenumber"
+            label="전화번호"
             type="tel"
             placeholder="전화번호를 입력해주세요"
             onKeyUp={handleKeyUpPhoneNumberInput}
@@ -151,15 +150,14 @@ export default function OrderForm({ amount, numberLimit }: Props) {
               다음
             </Button>
           </div>
-          <section className="absolute text-center -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 min-w-[320px] mt-44">
+          <MoreDescriptionContainer>
             <MoreDescription page="PhoneNumber" amount={amount} numberOfPeople={numberOfPeople} />
-          </section>
-        </div>
-        <div className="relative w-full mb-4 ">
-          <PageLabel text="개인정보 수집 및 이용 동의" htmlFor="agreement" />
-          <input
-            className="w-3/4 px-3 py-3 m-auto mb-6 font-semibold leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-            id="agreement"
+          </MoreDescriptionContainer>
+        </FormPageContainer>
+        <FormPageContainer>
+          <Input
+            name="agreement"
+            label="개인정보 수집 및 이용 동의"
             type="tel"
             placeholder="동의하신다면 '동의'라고 입력해주세요"
             onChange={handleChangeAgreementInput}
@@ -175,15 +173,14 @@ export default function OrderForm({ amount, numberLimit }: Props) {
               다음
             </Button>
           </div>
-          <section className="absolute text-center -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 min-w-[320px] mt-44">
+          <MoreDescriptionContainer>
             <MoreDescription page="Agreement" amount={amount} numberOfPeople={numberOfPeople} />
-          </section>
-        </div>
-        <div className="relative w-full mb-4 ">
-          <PageLabel text={`예매자 인원 수 (1 ~ ${numberLimit} 사이의 숫자)`} htmlFor="numberOfPeople" />
-          <input
-            className="w-3/4 px-3 py-3 m-auto mb-6 font-semibold leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-            id="numberOfPeople"
+          </MoreDescriptionContainer>
+        </FormPageContainer>
+        <FormPageContainer>
+          <Input
+            name="numberOfPeople"
+            label={`예매자 인원 수 (1 ~ ${numberLimit} 사이의 숫자)`}
             type="number"
             placeholder="예매 인원 수를 적어주세요"
             onChange={handleChangeNumberOfPeopleInput}
@@ -199,15 +196,14 @@ export default function OrderForm({ amount, numberLimit }: Props) {
               다음
             </Button>
           </div>
-          <section className="absolute text-center -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 min-w-[320px] mt-44">
+          <MoreDescriptionContainer>
             <MoreDescription page="NumberOfPeople" amount={amount} numberOfPeople={numberOfPeople} />
-          </section>
-        </div>
-        <div className="relative w-full mb-4 ">
-          <PageLabel text="입금 확인" htmlFor="depositCheck" />
-          <input
-            className="w-3/4 px-3 py-3 m-auto mb-6 font-semibold leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-            id="depositCheck"
+          </MoreDescriptionContainer>
+        </FormPageContainer>
+        <FormPageContainer>
+          <Input
+            name="depositCheck"
+            label="입금 확인"
             type="text"
             placeholder="입금을 하고 '완료'라고 입력해주세요"
             onChange={handleChangeDepositCheckInput}
@@ -223,24 +219,33 @@ export default function OrderForm({ amount, numberLimit }: Props) {
               다음
             </Button>
           </div>
-          <section className="absolute text-center -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 min-w-[320px] mt-44">
+          <MoreDescriptionContainer>
             <MoreDescription page="DepositCheck" amount={amount} numberOfPeople={numberOfPeople} />
-          </section>
-        </div>
-        <div className="relative w-full mb-4 ">
+          </MoreDescriptionContainer>
+        </FormPageContainer>
+        <FormPageContainer>
           <PageLabel text="예매 폼 작성이 완료되었습니다." />
           <Button onClick={() => setPage('DepositCheck')} disabled={false}>
             이전
           </Button>
-          <div className=" min-h-[14px]"></div>
           <Button onClick={() => handleClickSubmitButton()} disabled={false}>
             예매 폼 제출하기
           </Button>
-          <section className="absolute text-center -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 min-w-[320px] mt-44">
+          <MoreDescriptionContainer>
             <MoreDescription page="Finish" amount={amount} numberOfPeople={numberOfPeople} />
-          </section>
-        </div>
+          </MoreDescriptionContainer>
+        </FormPageContainer>
       </form>
     </div>
   );
 }
+
+const FormPageContainer = ({ children }: { children: ReactNode }) => (
+  <div className="relative w-full max-w-[18rem] h-[60vh] m-auto ">
+    <div className=" absolute w-full top-1/2 -translate-y-[60%] flex flex-col gap-[1rem]">{children}</div>
+  </div>
+);
+
+const MoreDescriptionContainer = ({ children }: { children: ReactNode }) => (
+  <div className="absolute top-[12rem] w-full -translate-x-1/2 left-1/2">{children}</div>
+);
