@@ -19,7 +19,7 @@ export default function Header() {
       <nav className="relative flex justify-between w-full py-6 ">
         <div className="flex flex-col justify-center">
           <Link href="/">
-            <div className="text-2xl cursor-pointer ">LOGO</div>
+            <a className="text-2xl cursor-pointer ">LOGO</a>
           </Link>
         </div>
         {isLoggedIn ? <LoggedOnIcons /> : <LoggedOffIcons />}

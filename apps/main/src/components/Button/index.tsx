@@ -23,7 +23,7 @@ export default function Button({ children, onClick, disabled, color = 'brand', c
     <button
       className={`${disabled && 'opacity-30'} ${
         buttonColorTheme[color]
-      } gap-2 w-fit m-auto rounded-lg px-5 py-2  font-bold shadow-sm hover:shadow-none hover:shadow-red hover:drop-shadow-xl focus:outline-none focus:shadow-outline ${className} `}
+      } gap-2 w-fit m-auto rounded-lg px-5 py-2  font-bold shadow-sm focus:drop-shadow-xl hover:drop-shadow-xl focus:outline-none focus:shadow-outline ${className} `}
       type="button"
       onClick={onClick}
       disabled={disabled}

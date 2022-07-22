@@ -51,9 +51,11 @@ export default function IndexPage({ posts }: Props) {
           {EventsList?.map(eventSimple => (
             <div key={eventSimple.id} {...useScrollFadeIn({})}>
               <Link href={`/events/${eventSimple.id}`}>
-                <li className="p-4 mb-4 transition-all ease-in-out rounded-lg cursor-pointer hover:scale-110 hover:bg-[zinc-100]">
-                  <EventCard data={eventSimple} />
-                </li>
+                <a>
+                  <li className="p-4 mb-4 transition-all ease-in-out rounded-lg cursor-pointer hover:scale-110 hover:bg-[zinc-100]">
+                    <EventCard data={eventSimple} />
+                  </li>
+                </a>
               </Link>
             </div>
           ))}

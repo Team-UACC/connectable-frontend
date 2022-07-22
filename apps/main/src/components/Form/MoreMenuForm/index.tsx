@@ -8,9 +8,11 @@ export default function MoreMenu() {
       <ul>
         {MENU.map(name => (
           <Link key={name} href={`docs/${name.replace(' ', '-')}`}>
-            <li className="w-full mb-2 leading-[3rem] cursor-pointer hover:font-bold hover:text-lg hover:leading-[3rem]">
-              {name}
-            </li>
+            <a>
+              <li className="w-full mb-2 leading-[3rem] cursor-pointer hover:font-bold hover:text-lg hover:leading-[3rem]">
+                {name}
+              </li>
+            </a>
           </Link>
         ))}
       </ul>
