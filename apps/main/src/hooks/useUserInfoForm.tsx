@@ -19,6 +19,7 @@ interface Ret {
   handleChangeNickNameInput: (e: ChangeEvent<HTMLInputElement>) => void;
   validationNickName: boolean | 'OVERLAP';
   validationPhoneNumber: boolean;
+  setValidationNickName: Dispatch<SetStateAction<boolean | 'OVERLAP'>>;
   setValidationPhoneNumber: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -70,6 +71,7 @@ export default function useUserInfoForm({ userNameRef, phoneNumberRef }: Props):
     handleChangeNickNameInput,
     validationNickName,
     validationPhoneNumber,
+    setValidationNickName,
     setValidationPhoneNumber,
   };
 }

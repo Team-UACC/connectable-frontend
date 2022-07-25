@@ -19,6 +19,7 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
     handleClickSubmitButton,
     validationNickName,
     validationPhoneNumber,
+    setValidationNickName,
     setValidationPhoneNumber,
   } = useUserInfoForm({
     userNameRef,
@@ -31,8 +32,15 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
 
   useEffect(() => {
     userNameRef.current?.focus();
+    setValidationNickName(true);
     setValidationPhoneNumber(true);
   }, []);
+
+  useEffect(() => {
+    if (userNameRef.current?.value === userName) {
+      setValidationNickName(true);
+    }
+  }, [validationNickName]);
 
   return (
     <div className="w-full overflow-hidden">
