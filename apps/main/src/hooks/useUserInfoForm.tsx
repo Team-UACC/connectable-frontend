@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import { ChangeEvent, Dispatch, RefObject, SetStateAction, useState } from 'react';
 
-import { NICKNAME_REGEX, PHONE_NUMBER_REGEX } from 'src/constants/regex';
 import { updateUser, userValidation } from '~/apis/users';
+import { NICKNAME_REGEX, PHONE_NUMBER_REGEX } from '~/constants/regex';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 
@@ -19,6 +19,7 @@ interface Ret {
   handleChangeNickNameInput: (e: ChangeEvent<HTMLInputElement>) => void;
   validationNickName: boolean | 'OVERLAP';
   validationPhoneNumber: boolean;
+  setValidationNickName: Dispatch<SetStateAction<boolean | 'OVERLAP'>>;
   setValidationPhoneNumber: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -70,6 +71,7 @@ export default function useUserInfoForm({ userNameRef, phoneNumberRef }: Props):
     handleChangeNickNameInput,
     validationNickName,
     validationPhoneNumber,
+    setValidationNickName,
     setValidationPhoneNumber,
   };
 }
