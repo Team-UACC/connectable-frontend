@@ -3,11 +3,17 @@ module.exports = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  webpack5: true,
   webpackDevMiddleware: config => {
     config.watchOptions = {
       poll: 1000,
       aggregateTimeout: 300,
     };
+    return config;
+  },
+  webpack: config => {
+    config.resolve.fallback = { fs: false };
+
     return config;
   },
   images: {
