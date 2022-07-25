@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 
 import Button from '~/components/Button';
 import FormOrderButton from '~/components/Button/OrderButton/FormOrderButton';
+import NFTTransferButton from '~/components/Button/OrderButton/NFTTransferButton';
 import { PriceText } from '~/components/Events/EventInfo';
 import EventSaleTimer from '~/components/Events/EventSaleTimer';
 import StickyBlurFooter from '~/components/Footer/StickyBlurFooter';
@@ -116,25 +117,21 @@ export default function TicketDetail() {
               onClick={() => {
                 if (!isLoggedIn) {
                   toast.error('로그인 후 이용해주세요.');
-                } else toast.success('준비중입니다.');
+                } else {
+                  toast.success('준비중입니다.');
+                }
               }}
             >
               공유하기
             </Button>
+            <NFTTransferButton blockchain="Klaytn" eventName={eventDetail.name} />
             <Button
               onClick={() => {
                 if (!isLoggedIn) {
                   toast.error('로그인 후 이용해주세요.');
-                } else toast.success('준비중입니다.');
-              }}
-            >
-              NFT 전송하기
-            </Button>
-            <Button
-              onClick={() => {
-                if (!isLoggedIn) {
-                  toast.error('로그인 후 이용해주세요.');
-                } else toast.success('준비중입니다.');
+                } else {
+                  toast.success('준비중입니다.');
+                }
               }}
               color="red"
             >
