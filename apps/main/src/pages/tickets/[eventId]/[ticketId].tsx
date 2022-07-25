@@ -20,12 +20,12 @@ import { dayjsKO } from '~/utils/day';
 export default function TicketDetail() {
   const router = useRouter();
 
-  const { eventId, tokenId } = router.query;
+  const { eventId, ticketId } = router.query;
   const { isLoggedIn, klaytnAddress } = useUserStore();
 
   const { data: ticketDetail, isLoading: isLoadingTicketDetail } = useTicketByIdsQuery(
     Number(eventId),
-    Number(tokenId)
+    Number(ticketId)
   );
 
   const { data: eventDetail, isLoading: isLoadingEventDetail } = useEventByIdQuery(Number(eventId));
@@ -37,7 +37,7 @@ export default function TicketDetail() {
       </div>
     );
 
-  if (typeof eventId !== 'string' || typeof tokenId !== 'string') return <NotFoundPage />;
+  if (typeof eventId !== 'string' || typeof ticketId !== 'string') return <NotFoundPage />;
 
   if (!ticketDetail || !eventDetail) return <NotFoundPage />;
 

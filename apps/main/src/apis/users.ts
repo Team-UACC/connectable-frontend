@@ -1,7 +1,7 @@
 import { Axios } from 'axios';
 import { getCookie } from 'cookies-next';
 
-import { TicketType } from '~/types/ticketType';
+import { Ticket } from '~/types/ticketType';
 
 const authorizationOptions = () => ({
   headers: {
@@ -69,7 +69,7 @@ export const updateUser = async (nickname: string, phoneNumber: string): Promise
   return JSON.parse(response.data);
 };
 
-export const fetchTicketsOwnedByUser = async (): Promise<Array<TicketType>> => {
+export const fetchTicketsOwnedByUser = async (): Promise<Array<Ticket>> => {
   const response = await userAxios.get(`/tickets`, authorizationOptions());
 
   return [TICKET, TICKET, ...JSON.parse(response.data).tickets];
@@ -85,15 +85,16 @@ export const userValidation = async ({ nickname }: { nickname: string }): Promis
   return JSON.parse(response.data);
 };
 
-const TICKET: TicketType = {
+const TICKET: Ticket = {
+  id: 1,
   price: 10000,
   artistName: '디렌디',
   eventDate: new Date(2022, 11, 18).getTime(),
   eventName: '밤 하늘의 별',
-  onSale: true,
+  onSale: 'ON_SALE',
   tokenId: 7,
   tokenURI: '',
-  eventId: '0',
+  eventId: 0,
   contractAddress: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
   metadata: {
     name: '밤 하늘의 별 #7',

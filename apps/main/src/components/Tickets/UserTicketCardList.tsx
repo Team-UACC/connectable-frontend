@@ -15,7 +15,7 @@ export default function UserTicketCardList() {
       {ticketList?.map(ticketData => (
         <Link
           key={ticketData.tokenId}
-          href={`tickets/${ticketData.eventId}/${ticketData.tokenId}`}
+          href={`tickets/${ticketData.eventId}/${ticketData.id}`}
           className="relative w-full "
         >
           <a>

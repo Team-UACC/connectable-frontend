@@ -1,11 +1,11 @@
 import Image from 'next/image';
 
 import Button from '~/components/Button';
-import { TicketType } from '~/types/ticketType';
+import { Ticket } from '~/types/ticketType';
 import { dayjsKO } from '~/utils/day';
 
 interface Props {
-  ticketData: TicketType;
+  ticketData: Ticket;
   className?: string;
   type?: 'Order' | 'Default';
 }
