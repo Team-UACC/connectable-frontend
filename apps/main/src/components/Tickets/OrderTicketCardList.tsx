@@ -20,11 +20,7 @@ export default function OrderTicketCardList({ eventId }: Props) {
       <ul className="w-full ">
         {ticketList?.map(ticketData => (
           <div key={ticketData.tokenId}>
-            <Link
-              key={ticketData.tokenId}
-              href={`/tickets/${eventId}/${ticketData.tokenId}`}
-              className="relative w-full "
-            >
+            <Link key={ticketData.tokenId} href={`/tickets/${eventId}/${ticketData.id}`} className="relative w-full ">
               <a onClick={() => hideModal()}>
                 <TicketCard
                   ticketData={ticketData}

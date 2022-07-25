@@ -1,7 +1,7 @@
 import { Axios } from 'axios';
 
 import { EventDetailType, EventSimpleType } from '~/types/eventType';
-import { TicketType } from '~/types/ticketType';
+import { Ticket } from '~/types/ticketType';
 
 const eventAxios = new Axios({
   baseURL: `${process.env.NEXT_PUBLIC_API_URL}/events`,
@@ -17,7 +17,7 @@ export const fetchAllEvents = async (): Promise<Array<EventSimpleType>> => {
   return [EVENT, ...JSON.parse(response.data)];
 };
 
-export const fetchEventsAllTickets = async (eventId: number): Promise<Array<TicketType>> => {
+export const fetchEventsAllTickets = async (eventId: number): Promise<Array<Ticket>> => {
   const response = await eventAxios.get(`/${eventId}/tickets`);
 
   if (eventId === 0) return new Array(10).fill(TICKET);
@@ -33,8 +33,8 @@ export const fetchEventsDetail = async (eventId: number): Promise<EventDetailTyp
   return JSON.parse(response.data);
 };
 
-export const fetchTicketsDetail = async (eventId: number, tokenId: number): Promise<TicketType> => {
-  const response = await eventAxios.get(`/${eventId}/tickets/${tokenId}`);
+export const fetchTicketsDetail = async (eventId: number, ticketId: number): Promise<Ticket> => {
+  const response = await eventAxios.get(`/${eventId}/tickets/${ticketId}`);
 
   if (eventId === 0) return TICKET;
 
@@ -64,12 +64,14 @@ const EVENT: EventDetailType = {
   location: '예술의 전당',
 };
 
-const TICKET: TicketType = {
+const TICKET: Ticket = {
+  id: 1,
   price: 10000,
   artistName: '디렌디',
+  eventId: 0,
   eventDate: new Date(2022, 11, 18).getTime(),
   eventName: '밤 하늘의 별',
-  onSale: true,
+  onSale: 'ON_SALE',
   tokenId: 7,
   tokenURI: '',
   contractAddress: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',

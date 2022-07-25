@@ -10,7 +10,7 @@ const buttonColorTheme = {
   red: `text-white bg-red`,
 };
 
-interface Props {
+export interface ButtonProps {
   children: string;
   onClick?: () => void;
   disabled?: boolean;
@@ -18,7 +18,7 @@ interface Props {
   className?: string;
 }
 
-export default function Button({ children, onClick, disabled, color = 'brand', className = '' }: Props) {
+export default function Button({ children, onClick, disabled, color = 'brand', className = '' }: ButtonProps) {
   return (
     <button
       className={`${disabled && 'opacity-30'} ${

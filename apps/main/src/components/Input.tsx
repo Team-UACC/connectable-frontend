@@ -12,7 +12,7 @@ const Input = forwardRef(({ name, label, type, notice, ...rests }: Props, ref: R
   return (
     <>
       <Label text={label} htmlFor={name} />
-      <span className=" absolute w-full text-xs text-red top-[1.5rem]">{notice}</span>
+      <span className=" absolute w-full text-xs text-red top-[1.75rem]">{notice}</span>
       <input
         className={`w-full px-3 py-3 font-semibold leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline`}
         id={name}
