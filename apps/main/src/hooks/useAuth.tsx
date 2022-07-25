@@ -7,7 +7,7 @@ import { requestUserLogin } from '~/apis/users';
 import SingUpForm from '~/components/Form/SignUpForm';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
-import { getKlipAccessMethod, getKlipRequest } from '~/utils/klip';
+import { getKlipAccessMethod, getKlipRequest, getKlipRequestKey } from '~/utils/klip';
 
 export const useKlipLogin = () => {
   const method = getKlipAccessMethod();
@@ -20,7 +20,9 @@ export const useKlipLogin = () => {
     let intervalId: NodeJS.Timer;
 
     (async () => {
-      const requestKey = await getKlipRequest(method, setQrvalue);
+      const requestKey = await getKlipRequestKey();
+
+      getKlipRequest(requestKey, method, setQrvalue);
 
       intervalId = setInterval(async () => {
         const response = await requestUserLogin(requestKey);

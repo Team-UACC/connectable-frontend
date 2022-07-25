@@ -124,7 +124,7 @@ export default function TicketDetail() {
             >
               공유하기
             </Button>
-            <NFTTransferButton blockchain="Klaytn" eventName={eventDetail.name} />
+            <NFTTransferButton blockchain="Klaytn" eventId={Number(eventId)} ticketId={Number(ticketId)} />
             <Button
               onClick={() => {
                 if (!isLoggedIn) {

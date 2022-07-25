@@ -9,10 +9,11 @@ import Button, { ButtonProps } from '..';
 
 interface Props extends Omit<ButtonProps, 'children'> {
   blockchain?: 'Klaytn';
-  eventName: string;
+  eventId: number;
+  ticketId: number;
 }
 
-export default function NFTTransferButton({ blockchain = 'Klaytn', eventName }: Props) {
+export default function NFTTransferButton({ blockchain = 'Klaytn', eventId, ticketId }: Props) {
   const { isLoggedIn } = useUserStore();
   const { showModal } = useModalStore();
 
@@ -22,7 +23,10 @@ export default function NFTTransferButton({ blockchain = 'Klaytn', eventName }: 
         if (!isLoggedIn) {
           toast.error('로그인 후 이용해주세요.');
         } else {
-          showModal('NFT 전송하기', <NFTTransferForm blockchain={blockchain} eventName={eventName} />);
+          showModal(
+            'NFT 전송하기',
+            <NFTTransferForm blockchain={blockchain} eventId={Number(eventId)} ticketId={Number(ticketId)} />
+          );
         }
       }}
     >
