@@ -71,36 +71,16 @@ export const getKlipRequest = async (
   return requestKey;
 };
 
-export const executeContract = async ({
-  txTo,
-  functionJSON,
-  value,
-  params,
-  setQrvalue,
-  method,
-}: {
-  txTo: string;
-  functionJSON: string;
-  value: string;
-  params: string;
-  setQrvalue: Dispatch<SetStateAction<string>>;
-  method: 'iOS' | 'android' | 'QR';
-}) => {};
-
 export const getSafeTransferFromRequestKey = async ({
   from,
   to,
   tokenId,
   contractAddress,
-  setQrvalue,
-  method,
 }: {
   from: string;
   to: string;
   tokenId: number;
   contractAddress: string;
-  setQrvalue: Dispatch<SetStateAction<string>>;
-  method: 'iOS' | 'android' | 'QR';
 }) => {
   const functionJSON =
     '{ "constant": false, "inputs": [ { "name": "from", "type": "address" }, { "name": "to", "type": "address" }, { "name": "tokenId", "type": "uint256" } ], "name": "safeTransferFrom", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }';

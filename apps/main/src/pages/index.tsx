@@ -4,7 +4,6 @@ import { fetchAllEvents } from '~/apis/events';
 import EventCard from '~/components/Card/EventCard';
 import Footer from '~/components/Footer';
 import useEventsQuery from '~/hooks/apis/useEventsQuery';
-import { useScrollFadeIn } from '~/hooks/useScrollFadeIn';
 import { EventSimpleType } from '~/types/eventType';
 
 export const EVENT_DUMMY = [
@@ -49,10 +48,10 @@ export default function IndexPage({ posts }: Props) {
         <IntroContent />
         <ul>
           {EventsList?.map(eventSimple => (
-            <div key={eventSimple.id} {...useScrollFadeIn({})}>
+            <div key={eventSimple.id}>
               <Link href={`/events/${eventSimple.id}`}>
                 <a>
-                  <li className="p-4 mb-4 transition-all ease-in-out rounded-lg cursor-pointer hover:scale-110 hover:bg-[zinc-100]">
+                  <li className="p-4 mb-4 transition-all ease-in-out rounded-lg cursor-pointer [@media(hover:hover)]:hover:scale-110 hover:bg-[zinc-100]">
                     <EventCard data={eventSimple} />
                   </li>
                 </a>

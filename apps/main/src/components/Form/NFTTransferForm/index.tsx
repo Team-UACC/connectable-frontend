@@ -81,8 +81,6 @@ export default function NFTTransferForm({ blockchain, eventId, ticketId }: Props
                 to: transferToAddressInputRef.current?.value as string,
                 tokenId: ticketDetail?.tokenId as number,
                 contractAddress: 'ticketDetail?.contractAddress as string',
-                setQrvalue,
-                method,
               });
 
               getKlipRequest(requestKey, method, setQrvalue);
