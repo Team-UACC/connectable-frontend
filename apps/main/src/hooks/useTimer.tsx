@@ -17,6 +17,10 @@ export default function useTimer({ endTime, setFinish }: Props) {
       setRemaingTime(calculateRemaingTime(endTime));
     }, 1000);
 
+    if (remaingTime < 0) {
+      clearTimeout(timerId);
+    }
+
     return () => {
       clearTimeout(timerId);
     };
