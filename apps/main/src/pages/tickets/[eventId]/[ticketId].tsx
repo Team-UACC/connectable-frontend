@@ -94,11 +94,11 @@ export default function TicketDetail() {
             { term: '안내사항', description: '-' },
           ]}
         />
-        <TextInfo.Simple title="소유 이력">
+        {/* <TextInfo.Simple title="소유 이력">
           <TempTransaction />
           <TempTransaction />
           <TempTransaction />
-        </TextInfo.Simple>
+        </TextInfo.Simple> */}
         <TextInfo
           title="NFT 상세"
           contents={[
@@ -158,7 +158,7 @@ export default function TicketDetail() {
 
 const TempTransaction = () => {
   return (
-    <div className="flex flex-col mt-4">
+    <div className="flex flex-col mb-4 ">
       <div className="flex justify-between w-full leading6">
         <span className=" text-[#0987A0] font-bold text-lg">Sale</span>
         <span className="text-sm">3일 전</span>
