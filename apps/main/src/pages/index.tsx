@@ -6,27 +6,6 @@ import Footer from '~/components/Footer';
 import useEventsQuery from '~/hooks/apis/useEventsQuery';
 import { EventSimpleType } from '~/types/eventType';
 
-export const EVENT_DUMMY = [
-  {
-    id: 2,
-    name: '[콘서트] 밤 하늘의 별',
-    image: '/images/temp.jpeg',
-    date: new Date(2022, 6, 22).getTime(),
-    description: '디렌리의 전시',
-    salesFrom: new Date(2022, 6, 11).getTime(),
-    salesTo: new Date(2022, 6, 17).getTime(),
-  },
-  {
-    id: 3,
-    name: '[콘서트] 밤 하늘의 별',
-    image: '/images/temp.jpeg',
-    date: new Date(2022, 6, 22).getTime(),
-    description: '디렌리의 전시',
-    salesFrom: new Date(2022, 6, 11).getTime(),
-    salesTo: new Date(2022, 6, 17).getTime(),
-  },
-];
-
 export async function getStaticProps() {
   const posts = await fetchAllEvents();
   return {

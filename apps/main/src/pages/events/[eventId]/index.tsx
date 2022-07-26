@@ -13,11 +13,8 @@ import TextInfo from '~/components/TextInfo';
 import { EventDetailType } from '~/types/eventType';
 import { dayjsKO } from '~/utils/day';
 
-import { EVENT_DUMMY } from '../../';
-
 export async function getStaticPaths() {
-  // fetch id list
-  const events = [...EVENT_DUMMY, ...(await fetchAllEvents())];
+  const events = await fetchAllEvents();
   const paths = events.map(e => ({ params: { eventId: e.id.toString() } }));
   return { paths, fallback: false };
 }
