@@ -5,13 +5,19 @@
     "baseUrl": ".",
     "allowJs": true,
     "noEmit": true,
-    "incremental": true
+    "incremental": true,
+    "paths": {
+      "~/pages/*": ["src/pages/*"],
+      "~/components/*": ["src/components/*"],
+      "~/styles/*": ["src/styles/*"],
+      "~/hooks/*": ["src/hooks/*"],
+      "~/utils/*": ["src/utils/*"],
+      "~/apis/*": ["src/apis/*"],
+      "~/stores/*": ["src/stores/*"],
+      "~/types/*": ["src/types/*"],
+      "~/constants/*": ["src/constants/*"]
+    }
   },
-  "include": [
-    "./src",
-    "pages"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

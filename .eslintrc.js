@@ -49,8 +49,14 @@ module.exports = {
     'import/order': [
       'warn',
       {
-        groups: ['builtin', 'external', ['internal', 'parent', 'sibling'], 'index'],
-
+        groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'unknown'],
+        pathGroups: [
+          {
+            pattern: '~/**',
+            group: 'internal',
+          },
+        ],
+        pathGroupsExcludedImportTypes: ['builtin'],
         'newlines-between': 'always',
         alphabetize: {
           order: 'asc',
@@ -68,9 +74,13 @@ module.exports = {
   },
 
   settings: {
-    react: { version: 'detect' },
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
     'import/resolver': {
-      typescript: {},
+      typescript: {
+        project: ['apps/main/tsconfig.json'],
+      },
     },
   },
 };

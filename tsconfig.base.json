@@ -11,7 +11,8 @@
     "baseUrl": ".",
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
-    "isolatedModules": true
+    "isolatedModules": true,
+    "preserveSymlinks": true
   },
   "references": [
     {

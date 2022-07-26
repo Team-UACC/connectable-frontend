@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  main:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: connectable-frontend-dev-main:latest
+    restart: always
+    volumes:
+      - /usr/src/.yarn
+      - ./.yarn/cache:/usr/src/.yarn/cache
+      - .:/usr/src
+    ports:
+      - 3000:3000
