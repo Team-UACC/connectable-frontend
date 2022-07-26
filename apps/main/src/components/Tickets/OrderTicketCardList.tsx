@@ -29,22 +29,26 @@ export default function OrderTicketCardList({ eventId }: Props) {
       <section className="relative ">
         <ul className="w-full ">
           {ticketList?.map(ticketData => (
-            <div key={ticketData.tokenId} className="relative flex w-full bg-transparent shadow-lg">
+            <div
+              key={ticketData.tokenId}
+              className="relative px-2 flex w-full bg-transparent cursor-pointer shadow-lg hover:rounded-lg  hover:bg-[#EBF8FF] hover:z-10 transition-all ease-in-out "
+            >
               <label className="inline-flex items-center">
                 <input
                   type="checkbox"
                   className="text-indigo-600 form-checkbox"
                   checked={checkedSet.has(ticketData.id)}
+                  disabled={ticketData.onSale !== 'ON_SALE'}
                   onClick={() => setCheckedSet(toggleSet(ticketData.id))}
                 />
               </label>
-              <div onClick={() => setCheckedSet(toggleSet(ticketData.id))}>
+              <div onClick={() => ticketData.onSale === 'ON_SALE' && setCheckedSet(toggleSet(ticketData.id))}>
                 <TicketCard
                   key={ticketData.tokenId}
                   ticketData={ticketData}
                   eventId={eventId}
                   type="Order"
-                  className="mb-1 ml-2 cursor-pointer min-w-[min(360px,80vw)]"
+                  className="mb-1 min-w-[min(360px,80vw)] "
                 />
               </div>
             </div>

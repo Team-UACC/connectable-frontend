@@ -32,10 +32,19 @@ export default function TicketCard({ ticketData, className, type = 'Default', ev
         <h2 className="text-lg font-bold ">{ticketData.metadata.name}</h2>
         {type === 'Order' ? (
           <>
-            <span className="mt-12 text-sm font-semibold text-brand">
-              판매가{'   '}
-              {ticketData.price.toLocaleString('ko-KR')}원
-            </span>
+            <div className="flex flex-col gap-2 ">
+              <span className="text-sm font-semibold text-brand">
+                판매가{'   '}
+                {ticketData.price.toLocaleString('ko-KR')}원
+              </span>
+              <span className="text-sm font-semibold text-red">
+                {ticketData.onSale === 'ON_SALE'
+                  ? '판매중'
+                  : ticketData.onSale === 'PENDING'
+                  ? '판매 대기중'
+                  : '판매 완료'}
+              </span>
+            </div>
             <Link href={`/tickets/${eventId}/${ticketData.id}`}>
               <a
                 onClick={e => {
@@ -43,7 +52,7 @@ export default function TicketCard({ ticketData, className, type = 'Default', ev
                   hideModal();
                 }}
               >
-                <Button className="absolute text-xs -translate-y-1/2 top-1/2 right-[0.5rem]">상세정보</Button>
+                <Button className="absolute text-xs bottom-[1.5em] right-[0.25rem]">상세정보</Button>
               </a>
             </Link>
           </>
