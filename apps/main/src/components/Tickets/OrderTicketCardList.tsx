@@ -5,6 +5,7 @@ import useTicketsByEventIdQuery from '~/hooks/apis/useTicketsByEventIdQuery';
 import { useModalStore } from '~/stores/modal';
 
 import Button from '../Button';
+import StickyBlurFooter from '../Footer/StickyBlurFooter';
 import OrderForm from '../Form/OrderForm';
 
 interface Props {
@@ -31,7 +32,7 @@ export default function OrderTicketCardList({ eventId }: Props) {
           {ticketList?.map(ticketData => (
             <div
               key={ticketData.tokenId}
-              className="relative px-2 flex w-full bg-transparent cursor-pointer shadow-lg hover:rounded-lg  hover:bg-[#EBF8FF] hover:z-10 transition-all ease-in-out "
+              className="relative px-2 flex w-full bg-transparent cursor-pointer shadow-lg hover:rounded-lg  hover:bg-[#EBF8FF] transition-all ease-in-out "
             >
               <label className="inline-flex items-center">
                 <input
@@ -54,22 +55,24 @@ export default function OrderTicketCardList({ eventId }: Props) {
             </div>
           ))}
         </ul>
+        <StickyBlurFooter className="w-full">
+          <Button
+            className="sticky bottom-0 -translate-x-1/2 left-1/2 "
+            disabled={checkedSet.size === 0}
+            onClick={() => {
+              showModal(
+                '공연 예매하기',
+                <OrderForm
+                  amount={ticketList!.reduce((total, v) => (checkedSet.has(v.id) ? total + v.price : total), 0)}
+                  ticketIdList={[...checkedSet]}
+                />
+              );
+            }}
+          >
+            {`티켓 ${checkedSet.size}장 ` + '구매하기'}
+          </Button>
+        </StickyBlurFooter>
       </section>
-      <Button
-        className="absolute bottom-[5vh] translate-y-1/2 -translate-x-1/2 left-1/2 "
-        disabled={checkedSet.size === 0}
-        onClick={() => {
-          showModal(
-            '공연 예매하기',
-            <OrderForm
-              amount={ticketList!.reduce((total, v) => (checkedSet.has(v.id) ? total + v.price : total), 0)}
-              ticketIdList={[...checkedSet]}
-            />
-          );
-        }}
-      >
-        {`티켓 ${checkedSet.size}장 ` + '구매하기'}
-      </Button>
     </>
   );
 }

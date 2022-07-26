@@ -112,7 +112,7 @@ export default function TicketDetail() {
           ]}
         />
       </div>
-      <StickyBlurFooter>
+      <StickyBlurFooter className=" w-[calc(100%+32px)] ">
         {klaytnAddress === ticketDetail.ownedBy ? (
           <>
             <Button

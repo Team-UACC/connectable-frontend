@@ -106,7 +106,7 @@ export default function EventDetailPage({ eventDetail }: Props) {
           ]}
         />
       </article>
-      <StickyBlurFooter>
+      <StickyBlurFooter className=" w-[calc(100%+32px)] ">
         <OrderListButton eventId={eventDetail.id} />
       </StickyBlurFooter>
     </>
