@@ -15,6 +15,7 @@
     "build:admin-artist": "yarn workspace admin-artist build",
     "dev:admin-service": "yarn workspace admin-service dev",
     "build:admin-service": "yarn workspace admin-service build",
+    "docker:up": "docker-compose up --build",
     "docker:up-dev": "docker-compose -f docker-compose.dev.yml up --build",
     "postinstall": "husky install"
   },
