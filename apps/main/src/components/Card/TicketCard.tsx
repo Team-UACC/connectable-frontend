@@ -38,9 +38,9 @@ export default function TicketCard({ ticketData, className, type = 'Default', ev
                 {ticketData.price.toLocaleString('ko-KR')}원
               </span>
               <span className="text-sm font-semibold text-red">
-                {ticketData.onSale === 'ON_SALE'
+                {ticketData.ticketSalesStatus === 'ON_SALE'
                   ? '판매중'
-                  : ticketData.onSale === 'PENDING'
+                  : ticketData.ticketSalesStatus === 'PENDING'
                   ? '판매 대기중'
                   : '판매 완료'}
               </span>

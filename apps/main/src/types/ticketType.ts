@@ -10,7 +10,7 @@ export interface TicketSimple {
   artistName: string;
   eventDate: number;
   eventName: string;
-  onSale: 'SOLD_OUT' | 'PENDING' | 'ON_SALE';
+  ticketSalesStatus: 'SOLD_OUT' | 'PENDING' | 'ON_SALE';
   tokenId: number;
   tokenURI: string;
   metadata: {

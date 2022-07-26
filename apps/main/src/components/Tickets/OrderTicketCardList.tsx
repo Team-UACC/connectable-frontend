@@ -1,8 +1,11 @@
 import { useState } from 'react';
+// eslint-disable-next-line import/no-named-as-default
+import toast from 'react-hot-toast';
 
 import TicketCard from '~/components/Card/TicketCard';
 import useTicketsByEventIdQuery from '~/hooks/apis/useTicketsByEventIdQuery';
 import { useModalStore } from '~/stores/modal';
+import { useUserStore } from '~/stores/user';
 
 import Button from '../Button';
 import StickyBlurFooter from '../Footer/StickyBlurFooter';
@@ -21,6 +24,7 @@ export default function OrderTicketCardList({ eventId }: Props) {
   const { data: ticketList, isLoading } = useTicketsByEventIdQuery(eventId);
   const [checkedSet, setCheckedSet] = useState(new Set<number>());
 
+  const { isLoggedIn } = useUserStore();
   const { showModal } = useModalStore();
 
   if (isLoading) return <div>loading</div>;
@@ -39,11 +43,13 @@ export default function OrderTicketCardList({ eventId }: Props) {
                   type="checkbox"
                   className="text-indigo-600 form-checkbox"
                   checked={checkedSet.has(ticketData.id)}
-                  disabled={ticketData.onSale !== 'ON_SALE'}
+                  disabled={ticketData.ticketSalesStatus !== 'ON_SALE'}
                   onClick={() => setCheckedSet(toggleSet(ticketData.id))}
                 />
               </label>
-              <div onClick={() => ticketData.onSale === 'ON_SALE' && setCheckedSet(toggleSet(ticketData.id))}>
+              <div
+                onClick={() => ticketData.ticketSalesStatus === 'ON_SALE' && setCheckedSet(toggleSet(ticketData.id))}
+              >
                 <TicketCard
                   key={ticketData.tokenId}
                   ticketData={ticketData}
@@ -60,13 +66,17 @@ export default function OrderTicketCardList({ eventId }: Props) {
             className="sticky bottom-0 -translate-x-1/2 left-1/2 "
             disabled={checkedSet.size === 0}
             onClick={() => {
-              showModal(
-                '공연 예매하기',
-                <OrderForm
-                  amount={ticketList!.reduce((total, v) => (checkedSet.has(v.id) ? total + v.price : total), 0)}
-                  ticketIdList={[...checkedSet]}
-                />
-              );
+              if (isLoggedIn) {
+                showModal(
+                  '공연 예매하기',
+                  <OrderForm
+                    amount={ticketList!.reduce((total, v) => (checkedSet.has(v.id) ? total + v.price : total), 0)}
+                    ticketIdList={[...checkedSet]}
+                  />
+                );
+              } else {
+                toast.error('로그인 후 이용해주세요.');
+              }
             }}
           >
             {`티켓 ${checkedSet.size}장 ` + '구매하기'}

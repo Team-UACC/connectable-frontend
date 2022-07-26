@@ -91,7 +91,7 @@ const TICKET: Ticket = {
   artistName: '디렌디',
   eventDate: new Date(2022, 11, 18).getTime(),
   eventName: '밤 하늘의 별',
-  onSale: 'ON_SALE',
+  ticketSalesStatus: 'ON_SALE',
   tokenId: 7,
   tokenURI: '',
   eventId: 0,

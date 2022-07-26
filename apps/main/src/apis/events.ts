@@ -71,7 +71,7 @@ const TICKET: Ticket = {
   eventId: 0,
   eventDate: new Date(2022, 11, 18).getTime(),
   eventName: '밤 하늘의 별',
-  onSale: 'ON_SALE',
+  ticketSalesStatus: 'ON_SALE',
   tokenId: 7,
   tokenURI: '',
   contractAddress: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',

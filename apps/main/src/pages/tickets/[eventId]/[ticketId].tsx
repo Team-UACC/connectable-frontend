@@ -42,7 +42,7 @@ export default function TicketDetail() {
 
   if (!ticketDetail || !eventDetail) return <NotFoundPage />;
 
-  console.log(ticketDetail.onSale);
+  console.log(ticketDetail.ticketSalesStatus);
 
   return (
     <>
@@ -62,7 +62,7 @@ export default function TicketDetail() {
           </div>
         </div>
         <h1 className="px-2 py-4 mt-2 text-lg font-bold">{ticketDetail.metadata.name}</h1>
-        {ticketDetail.onSale === 'ON_SALE' && (
+        {ticketDetail.ticketSalesStatus === 'ON_SALE' && (
           <div className="px-2">
             <div className="mb-2 text-sm font-bold text-red">아직 판매되지 않은 티켓입니다.</div>
             <EventSaleTimer endTime={eventDetail.salesTo} />
@@ -140,7 +140,7 @@ export default function TicketDetail() {
               QR 입장
             </Button>
           </>
-        ) : ticketDetail.onSale ? (
+        ) : ticketDetail.ticketSalesStatus === 'ON_SALE' ? (
           <FormOrderButton amount={ticketDetail.price} ticketId={ticketDetail.id} />
         ) : (
           <Button
