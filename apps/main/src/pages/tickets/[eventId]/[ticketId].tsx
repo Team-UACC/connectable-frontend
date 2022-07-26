@@ -47,7 +47,7 @@ export default function TicketDetail() {
   return (
     <>
       <Head>
-        <title> NFT 티켓 | {ticketDetail.metadata.name}</title>
+        <title>{`NFT 티켓 | ${ticketDetail.metadata.name}`}</title>
       </Head>
       <div className="w-full ">
         <div className=" relative w-[calc(100%+2rem)] p-4 -translate-x-4 bg-gray-100 ">

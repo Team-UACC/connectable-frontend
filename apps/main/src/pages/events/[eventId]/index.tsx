@@ -44,7 +44,7 @@ export default function EventDetailPage({ eventDetail }: Props) {
   return (
     <>
       <Head>
-        <title>컬렉션 | {eventDetail.name}</title>
+        <title>{`컬렉션 | ${eventDetail.name}`}</title>
       </Head>
       <article className="relative w-full mb-10 ">
         <ArtistImageBox src={eventDetail.artistImage} />
