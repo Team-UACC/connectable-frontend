@@ -155,7 +155,7 @@ export default function OrderForm({ amount, ticketIdList }: Props) {
           <Input
             name="agreement"
             label="개인정보 수집 및 이용 동의"
-            type="tel"
+            type="text"
             placeholder="동의하신다면 '동의'라고 입력해주세요"
             onChange={handleChangeAgreementInput}
             autoComplete="off"
