@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 import { fetchAllEvents, fetchEventsDetail } from '~/apis/events';
-import FormOrderButton from '~/components/Button/OrderButton/FormOrderButton';
 import OrderListButton from '~/components/Button/OrderListButton';
 import { ArtistImageBox, ArtistName, PriceText, RemainingTicketStatus } from '~/components/Events/EventInfo';
 import EventSaleTimer from '~/components/Events/EventSaleTimer';
@@ -108,11 +107,7 @@ export default function EventDetailPage({ eventDetail }: Props) {
         />
       </article>
       <StickyBlurFooter>
-        {eventDetail.salesOption === 'FLAT_PRICE' ? (
-          <FormOrderButton amount={eventDetail.price} numberLimit={4} />
-        ) : (
-          <OrderListButton eventId={eventDetail.id} />
-        )}
+        <OrderListButton eventId={eventDetail.id} />
       </StickyBlurFooter>
     </>
   );

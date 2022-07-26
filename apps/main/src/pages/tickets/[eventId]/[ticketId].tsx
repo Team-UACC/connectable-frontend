@@ -42,6 +42,8 @@ export default function TicketDetail() {
 
   if (!ticketDetail || !eventDetail) return <NotFoundPage />;
 
+  console.log(ticketDetail.onSale);
+
   return (
     <>
       <Head>
@@ -60,7 +62,7 @@ export default function TicketDetail() {
           </div>
         </div>
         <h1 className="px-2 py-4 mt-2 text-lg font-bold">{ticketDetail.metadata.name}</h1>
-        {ticketDetail.onSale && (
+        {ticketDetail.onSale === 'ON_SALE' && (
           <div className="px-2">
             <div className="mb-2 text-sm font-bold text-red">아직 판매되지 않은 티켓입니다.</div>
             <EventSaleTimer endTime={eventDetail.salesTo} />
@@ -103,8 +105,8 @@ export default function TicketDetail() {
           title="NFT 상세"
           contents={[
             { term: 'Owned By', description: ticketDetail.ownedBy, hasCopy: true },
-            { term: 'Contract Address', description: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D', hasCopy: true },
-            { term: 'Token ID', description: '7' },
+            { term: 'Contract Address', description: ticketDetail.contractAddress, hasCopy: true },
+            { term: 'Token ID', description: ticketDetail.tokenId.toString() },
             { term: 'Token Standard', description: 'KIP-17' },
             { term: 'BlockChain', description: 'Klaytn' },
           ]}
@@ -139,7 +141,7 @@ export default function TicketDetail() {
             </Button>
           </>
         ) : ticketDetail.onSale ? (
-          <FormOrderButton amount={ticketDetail.price} numberLimit={1} />
+          <FormOrderButton amount={ticketDetail.price} ticketId={ticketDetail.id} />
         ) : (
           <Button
             onClick={() => {

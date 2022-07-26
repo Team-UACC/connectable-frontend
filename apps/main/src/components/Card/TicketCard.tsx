@@ -1,17 +1,22 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 import Button from '~/components/Button';
+import { useModalStore } from '~/stores/modal';
 import { Ticket } from '~/types/ticketType';
 import { dayjsKO } from '~/utils/day';
 
 interface Props {
   ticketData: Ticket;
+  eventId?: number;
   className?: string;
   type?: 'Order' | 'Default';
 }
 
-export default function TicketCard({ ticketData, className, type = 'Default' }: Props) {
+export default function TicketCard({ ticketData, className, type = 'Default', eventId }: Props) {
   if (!ticketData.metadata) return null;
+
+  const { hideModal } = useModalStore();
 
   return (
     <article className={'relative flex w-full px-2 py-4 ' + className}>
@@ -27,11 +32,20 @@ export default function TicketCard({ ticketData, className, type = 'Default' }: 
         <h2 className="text-lg font-bold ">{ticketData.metadata.name}</h2>
         {type === 'Order' ? (
           <>
-            <span className="mt-8 text-sm font-semibold text-brand">
+            <span className="mt-12 text-sm font-semibold text-brand">
               판매가{'   '}
               {ticketData.price.toLocaleString('ko-KR')}원
             </span>
-            <Button className="absolute px-3 text-xs -translate-y-1/2 top-1/2 right-[1rem]">구매하기</Button>
+            <Link href={`/tickets/${eventId}/${ticketData.id}`}>
+              <a
+                onClick={e => {
+                  e.stopPropagation();
+                  hideModal();
+                }}
+              >
+                <Button className="absolute text-xs -translate-y-1/2 top-1/2 right-[0.5rem]">상세정보</Button>
+              </a>
+            </Link>
           </>
         ) : (
           <>

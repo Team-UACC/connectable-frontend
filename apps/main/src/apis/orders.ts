@@ -11,17 +11,15 @@ const orderAxios = new Axios({
 export const postOrderForm = async ({
   userName,
   phoneNumber,
-  agreement,
-  numberOfPeople,
+  ticketIdList,
 }: {
   userName: string;
   phoneNumber: string;
-  agreement: boolean;
-  numberOfPeople: number;
+  ticketIdList: Array<number>;
 }) => {
   const response = await axios.post(
     `/api/orders`,
-    { userName, phoneNumber, agreement, numberOfPeople },
+    { userName, phoneNumber, ticketIdList },
     {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',

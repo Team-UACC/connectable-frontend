@@ -8,10 +8,10 @@ import { useUserStore } from '~/stores/user';
 
 interface Props {
   amount: number;
-  numberLimit: number;
+  ticketId: number;
 }
 
-export default function OrderButton({ amount, numberLimit }: Props) {
+export default function FormOrderButton({ amount, ticketId }: Props) {
   const { isLoggedIn } = useUserStore();
   const { showModal } = useModalStore();
 
@@ -19,7 +19,7 @@ export default function OrderButton({ amount, numberLimit }: Props) {
     <Button
       onClick={() => {
         if (isLoggedIn) {
-          showModal('공연 예매하기', <OrderForm amount={amount} numberLimit={numberLimit} />);
+          showModal('공연 예매하기', <OrderForm amount={amount} ticketIdList={[ticketId]} />);
         } else {
           toast.error('로그인 후 이용해주세요.');
         }

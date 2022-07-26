@@ -10,16 +10,13 @@ import { formatPhoneNumber } from '../utils';
 interface Props {
   userNameRef: RefObject<HTMLInputElement>;
   phoneNumberRef: RefObject<HTMLInputElement>;
-  agreementRef: RefObject<HTMLInputElement>;
-  numberOfPeopleRef: RefObject<HTMLInputElement>;
-  depositCheckRef: RefObject<HTMLInputElement>;
+  ticketIdList: Array<number>;
 }
 
 export default function useOrderForm({
   userNameRef,
   phoneNumberRef,
-  agreementRef,
-  numberOfPeopleRef,
+  ticketIdList,
 }: Props): [(e: KeyboardEvent<HTMLInputElement>) => void, () => Promise<void>] {
   const { hideModal } = useModalStore();
 
@@ -30,11 +27,9 @@ export default function useOrderForm({
   const handleClickSubmitButton = async () => {
     const phoneNumber = phoneNumberRef.current!.value;
     const userName = userNameRef.current!.value;
-    const agreement = agreementRef.current!.value === '동의';
-    const numberOfPeople = Number(numberOfPeopleRef.current!.value);
 
     // form 데이터 제출
-    const response = await postOrderForm({ userName, phoneNumber, agreement, numberOfPeople });
+    const response = await postOrderForm({ userName, phoneNumber, ticketIdList });
 
     if (response.status === 'success') {
       toast.success('제출 완료');
