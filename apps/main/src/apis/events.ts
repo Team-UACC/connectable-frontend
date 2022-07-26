@@ -20,7 +20,7 @@ export const fetchAllEvents = async (): Promise<Array<EventSimpleType>> => {
 export const fetchEventsAllTickets = async (eventId: number): Promise<Array<Ticket>> => {
   const response = await eventAxios.get(`/${eventId}/tickets`);
 
-  if (eventId === 0) return new Array(10).fill(TICKET);
+  if (eventId === 0) return new Array(10).fill(TICKET).map((v, idx) => ({ ...v, id: idx + 1 }));
 
   return JSON.parse(response.data);
 };
@@ -51,7 +51,7 @@ const EVENT: EventDetailType = {
   description:
     '별이 빛나는 세상을 걸어가고 있는 호랑이의 모습은 우리 삶의 모습으로 비유합니다. 빛나는 세계를 가슴 속에 품고 보이지 않고 뚜렷하지 않는 세상을 걸어가지만, 세상의 달빛은 내 눈과 가슴속 구슬에도 또렷이 맺혀 있습니다. 두 개의 달이 함께 하는 이곳은 현실의 공간을 넘어 어딘가로, 저마다 마음속에 품고 있는 길을 우린 언제나 걷고 있습니다. 달빛의 끝에서 나를 만나고, 저마다 품고 있는 희망을 발견할 수 있기를 희망합니다.',
   salesFrom: new Date(2022, 6, 11).getTime(),
-  salesTo: new Date(2022, 6, 25).getTime(),
+  salesTo: new Date(2022, 6, 31, 21, 0).getTime(),
   twitterUrl: 'https://twitter.com/elonmusk',
   instagramUrl: 'https://www.instagram.com/eunbining0904/',
   webpageUrl: 'https://nextjs.org/',

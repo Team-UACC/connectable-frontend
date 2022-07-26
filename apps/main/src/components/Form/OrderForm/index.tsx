@@ -15,10 +15,10 @@ export type OrderFormPageType = 'UserName' | 'PhoneNumber' | 'Agreement' | 'Numb
 
 interface Props {
   amount: number;
-  numberLimit: number;
+  ticketIdList: Array<number>;
 }
 
-export default function OrderForm({ amount, numberLimit }: Props) {
+export default function OrderForm({ amount, ticketIdList }: Props) {
   const { phoneNumber } = useUserStore();
   const [page, setPage] = useState<OrderFormPageType>('UserName');
 
@@ -27,8 +27,6 @@ export default function OrderForm({ amount, numberLimit }: Props) {
   const [isDisabledMoveToNumberOfPeoplePage, setIsDisabledMoveToNumberOfPeoplePage] = useState(true);
   const [isDisabledMoveToDepositCheckPage, setIsDisabledMoveToDepositCheckPage] = useState(true);
   const [isDisabledMoveToFinishPage, setIsDisabledMoveToFinishPage] = useState(true);
-
-  const [numberOfPeople, setNumberOfPeople] = useState(1);
 
   const userNameRef = useRef<HTMLInputElement>(null);
   const phoneNumberRef = useRef<HTMLInputElement>(null);
@@ -39,9 +37,7 @@ export default function OrderForm({ amount, numberLimit }: Props) {
   const [handleKeyUpPhoneNumberInput, handleClickSubmitButton] = useOrderForm({
     userNameRef,
     phoneNumberRef,
-    agreementRef,
-    numberOfPeopleRef,
-    depositCheckRef,
+    ticketIdList,
   });
 
   const handleChangeUserNameInput = (e: ChangeEvent<HTMLInputElement>) =>
@@ -59,11 +55,9 @@ export default function OrderForm({ amount, numberLimit }: Props) {
   };
 
   const handleChangeNumberOfPeopleInput = (e: ChangeEvent<HTMLInputElement>) => {
-    if (1 <= Number(e.currentTarget.value) && Number(e.currentTarget.value) <= numberLimit) {
-      setNumberOfPeople(Number(e.currentTarget.value));
+    if (e.currentTarget.value === '확인') {
       setIsDisabledMoveToDepositCheckPage(false);
     } else {
-      e.currentTarget.value = '';
       setIsDisabledMoveToDepositCheckPage(true);
     }
   };
@@ -130,7 +124,7 @@ export default function OrderForm({ amount, numberLimit }: Props) {
             </Button>
           </div>
           <MoreDescriptionContainer>
-            <MoreDescription page="UserName" amount={amount} numberOfPeople={numberOfPeople} />
+            <MoreDescription page="UserName" amount={amount} />
           </MoreDescriptionContainer>
         </FormPageContainer>
         <FormPageContainer>
@@ -154,7 +148,7 @@ export default function OrderForm({ amount, numberLimit }: Props) {
             </Button>
           </div>
           <MoreDescriptionContainer>
-            <MoreDescription page="PhoneNumber" amount={amount} numberOfPeople={numberOfPeople} />
+            <MoreDescription page="PhoneNumber" amount={amount} />
           </MoreDescriptionContainer>
         </FormPageContainer>
         <FormPageContainer>
@@ -177,15 +171,15 @@ export default function OrderForm({ amount, numberLimit }: Props) {
             </Button>
           </div>
           <MoreDescriptionContainer>
-            <MoreDescription page="Agreement" amount={amount} numberOfPeople={numberOfPeople} />
+            <MoreDescription page="Agreement" amount={amount} />
           </MoreDescriptionContainer>
         </FormPageContainer>
         <FormPageContainer>
           <Input
             name="numberOfPeople"
-            label={`예매자 인원 수 (1 ~ ${numberLimit} 사이의 숫자)`}
-            type="number"
-            placeholder="예매 인원 수를 적어주세요"
+            label={`티켓 ${ticketIdList.length}장, 총 ${amount.toLocaleString('ko-KR')}원입니다.`}
+            type="text"
+            placeholder="수량이 맞다면 '확인'을 입력해주세요"
             onChange={handleChangeNumberOfPeopleInput}
             autoComplete="off"
             spellCheck={false}
@@ -200,7 +194,7 @@ export default function OrderForm({ amount, numberLimit }: Props) {
             </Button>
           </div>
           <MoreDescriptionContainer>
-            <MoreDescription page="NumberOfPeople" amount={amount} numberOfPeople={numberOfPeople} />
+            <MoreDescription page="NumberOfPeople" amount={amount} />
           </MoreDescriptionContainer>
         </FormPageContainer>
         <FormPageContainer>
@@ -223,7 +217,7 @@ export default function OrderForm({ amount, numberLimit }: Props) {
             </Button>
           </div>
           <MoreDescriptionContainer>
-            <MoreDescription page="DepositCheck" amount={amount} numberOfPeople={numberOfPeople} />
+            <MoreDescription page="DepositCheck" amount={amount} />
           </MoreDescriptionContainer>
         </FormPageContainer>
         <FormPageContainer>
@@ -231,11 +225,11 @@ export default function OrderForm({ amount, numberLimit }: Props) {
           <Button onClick={() => setPage('DepositCheck')} disabled={false}>
             이전
           </Button>
-          <Button onClick={() => handleClickSubmitButton()} disabled={false}>
+          <Button color="red" onClick={() => handleClickSubmitButton()} disabled={false}>
             예매 폼 제출하기
           </Button>
           <MoreDescriptionContainer>
-            <MoreDescription page="Finish" amount={amount} numberOfPeople={numberOfPeople} />
+            <MoreDescription page="Finish" amount={amount} />
           </MoreDescriptionContainer>
         </FormPageContainer>
       </form>

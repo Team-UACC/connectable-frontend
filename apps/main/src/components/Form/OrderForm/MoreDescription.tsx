@@ -5,15 +5,7 @@ import { ACCOUNT } from 'src/constants/account';
 
 import { OrderFormPageType } from '.';
 
-export default function MoreDescription({
-  page,
-  amount,
-  numberOfPeople,
-}: {
-  page: OrderFormPageType;
-  amount: number;
-  numberOfPeople: number;
-}) {
+export default function MoreDescription({ page, amount }: { page: OrderFormPageType; amount: number }) {
   return (
     <section className="w-full text-center">
       {page === 'UserName' && <p className="text-sm gray-600">예금주와 동일한 성함으로 작성해주시길 바랍니다.</p>}
@@ -31,7 +23,7 @@ export default function MoreDescription({
           동의하시면 {'동의'}를 입력해주세요.
         </p>
       )}
-      {page === 'NumberOfPeople' && <p className="text-sm gray-600">구매할 예매 티켓 개수를 적어주세요</p>}
+      {page === 'NumberOfPeople' && <p className="text-sm gray-600">수량과 가격이 정확한지 확인해주세요.</p>}
       {page === 'DepositCheck' && (
         <p className="text-sm font-bold text-red ">
           <span
@@ -45,7 +37,7 @@ export default function MoreDescription({
           </span>{' '}
           으로
           <br />
-          {(amount * numberOfPeople).toLocaleString('ko-KR')}원을 입금하시고 {'완료'}를 입력해주세요.
+          {amount.toLocaleString('ko-KR')}원을 입금하시고 {'완료'}를 입력해주세요.
           <br />
           <br />
           <span className="text-xs text-gray-600 ">계좌번호를 클릭하면 복사됩니다.</span>
