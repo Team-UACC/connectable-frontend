@@ -47,9 +47,12 @@ export default function IndexPage({ posts }: Props) {
 const IntroContent = () => (
   <section className="relative flex flex-col w-[90%] m-auto my-4">
     <span className="text-[1.3rem] font-semibold  text-red mb-6 ">아티스트와 더 가깝게</span>
-    <span className="text-end text-[1.3rem] font-semibold  text-brand mb-6">디지털 티켓의 새로운 패러다임</span>
+    <span className="text-end text-[1.3rem] font-semibold  text-brand mb-6">NFT 디지털 티켓의 새로운 패러다임</span>
     <span className="text-[3rem] font-bold text-center text-transparent bg-gradient-to-r bg-clip-text from-[#63171B] via-white to-[#1A365D] animate-text ">
       Connectable
     </span>
+    <Link href={`/docs/guide`}>
+      <a className="mt-6 text-lg font-bold cursor-pointer opacity-80 w-max hover:opacity-100">{`> Connectable이란?`}</a>
+    </Link>
   </section>
 );
