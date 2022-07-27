@@ -14,7 +14,7 @@ const userAxios = new Axios({
   headers: {
     'Content-Type': 'application/json; charset=utf-8',
   },
-  timeout: 1000,
+  timeout: 5000,
 });
 
 type FetchUserRes =

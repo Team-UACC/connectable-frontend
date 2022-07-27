@@ -8,7 +8,7 @@ const eventAxios = new Axios({
   headers: {
     'Content-Type': 'application/json; charset=utf-8',
   },
-  timeout: 3000,
+  timeout: 5000,
 });
 
 export const fetchAllEvents = async (): Promise<Array<EventSimpleType>> => {

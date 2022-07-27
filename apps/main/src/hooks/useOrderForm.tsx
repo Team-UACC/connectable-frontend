@@ -30,19 +30,12 @@ export default function useOrderForm({
     const userName = userNameRef.current!.value;
 
     // form 데이터 제출
-    try {
-      const response = await postOrderForm({ userName, phoneNumber, ticketIdList });
-
-      if (response.status === 'success') {
-        toast.success('제출 완료');
-      } else {
-        const { code } = response;
-        toast.error(ORDER_CODE[code]);
-      }
-    } catch (e) {
-      console.error(e);
-      toast.error('에러가 발생했어요. 문의를 남겨주세요.');
-    }
+    const submitPromise = postOrderForm({ userName, phoneNumber, ticketIdList });
+    toast.promise(submitPromise, {
+      loading: 'loading...',
+      success: '성공적으로 반영되었습니다.',
+      error: (err: Error) => <div className="text-center">{err.message}</div>,
+    });
 
     hideModal();
   };

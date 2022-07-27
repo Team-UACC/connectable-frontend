@@ -1,4 +1,5 @@
 import { KeyboardEvent, ReactNode, useEffect, useRef } from 'react';
+import toast from 'react-hot-toast';
 
 import Button from '~/components/Button';
 import Input from '~/components/Input';
@@ -68,6 +69,7 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
             name="phonenumber"
             label="전화번호"
             type="tel"
+            maxLength={13}
             placeholder="전화번호를 입력해주세요"
             defaultValue={phoneNumber}
             onChange={handleChangePhoneNumberInput}
@@ -75,7 +77,14 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
             ref={phoneNumberRef}
           />
           <Button
-            onClick={() => handleClickSubmitButton()}
+            onClick={() => {
+              const submitPromise = handleClickSubmitButton();
+              toast.promise(submitPromise, {
+                loading: 'loading...',
+                success: '성공적으로 반영되었습니다.',
+                error: '에러가 발생했습니다. 다시 시도해주세요.',
+              });
+            }}
             disabled={validationNickName !== true || validationPhoneNumber !== true}
           >
             수정하기
