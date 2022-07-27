@@ -1,6 +1,6 @@
+import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
@@ -18,10 +18,20 @@ import NotFoundPage from '~/pages/404';
 import { useUserStore } from '~/stores/user';
 import { dayjsKO } from '~/utils/day';
 
-export default function TicketDetail() {
-  const router = useRouter();
+export const getServerSideProps: GetServerSideProps = async context => {
+  const { query } = context;
+  const { eventId, ticketId } = query;
+  return {
+    props: { eventId, ticketId },
+  };
+};
 
-  const { eventId, ticketId } = router.query;
+interface Props {
+  eventId: string;
+  ticketId: string;
+}
+
+export default function TicketDetail({ eventId, ticketId }: Props) {
   const { isLoggedIn, klaytnAddress } = useUserStore();
 
   const { data: ticketDetail, isLoading: isLoadingTicketDetail } = useTicketByIdsQuery(
@@ -31,18 +41,17 @@ export default function TicketDetail() {
 
   const { data: eventDetail, isLoading: isLoadingEventDetail } = useEventByIdQuery(Number(eventId));
 
-  if (isLoadingTicketDetail || isLoadingEventDetail)
+  if (isLoadingTicketDetail || isLoadingEventDetail) {
     return (
       <div className="mt-40">
         <Spinner />
       </div>
     );
+  }
 
   if (typeof eventId !== 'string' || typeof ticketId !== 'string') return <NotFoundPage />;
 
   if (!ticketDetail || !eventDetail) return <NotFoundPage />;
-
-  console.log(ticketDetail.ticketSalesStatus);
 
   return (
     <>

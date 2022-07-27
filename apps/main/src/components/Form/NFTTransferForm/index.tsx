@@ -30,10 +30,6 @@ export default function NFTTransferForm({ blockchain, eventId, ticketId }: Props
 
   const transferToAddressInputRef = useRef<HTMLInputElement>(null);
 
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'Enter') console.log('submit');
-  };
-
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
     setIsEmpty(value.length === 0);
@@ -53,7 +49,7 @@ export default function NFTTransferForm({ blockchain, eventId, ticketId }: Props
 
   return (
     <div className="w-full overflow-hidden">
-      <form onKeyDown={handleKeyDown} className={`flex mt-[3rem] w-full bg-transparent `}>
+      <form className={`flex mt-[3rem] w-full bg-transparent `}>
         <FormPageContainer>
           <Input
             name="transferToAddress"

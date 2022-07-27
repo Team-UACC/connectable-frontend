@@ -1,4 +1,6 @@
-import axios, { Axios } from 'axios';
+import { Axios } from 'axios';
+
+import { OrderCodeType } from '~/constants/error';
 
 const orderAxios = new Axios({
   baseURL: `${process.env.NEXT_PUBLIC_API_URL}/orders`,
@@ -16,16 +18,8 @@ export const postOrderForm = async ({
   userName: string;
   phoneNumber: string;
   ticketIdList: Array<number>;
-}) => {
-  const response = await axios.post(
-    `/api/orders`,
-    { userName, phoneNumber, ticketIdList },
-    {
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-    }
-  );
+}): Promise<{ status: 'success' } | { status: 'failed'; code: OrderCodeType }> => {
+  const response = await orderAxios.post(`/orders`, JSON.stringify({ userName, phoneNumber, ticketId: ticketIdList }));
 
   return response.data;
 };
