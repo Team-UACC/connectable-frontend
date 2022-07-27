@@ -2,6 +2,7 @@ import { deleteCookie, setCookie } from 'cookies-next';
 import { useEffect, useState } from 'react';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
+import { useQuery } from 'react-query';
 
 import { requestUserLogin } from '~/apis/users';
 import SingUpForm from '~/components/Form/SignUpForm';
@@ -13,40 +14,40 @@ export const useKlipLogin = () => {
   const method = getKlipAccessMethod();
 
   const [qrvalue, setQrvalue] = useState('DEFAULT');
+  const [refetchInterval, setRefetchInterval] = useState(1000);
+  const [requestKey, setRequestKey] = useState('');
+
   const { setKlaytnAddress, setIsLoggedIn } = useUserStore();
   const { showModal, hideModal } = useModalStore();
 
-  useEffect(() => {
-    let intervalId: NodeJS.Timer;
+  useQuery(['login', { requestKey }], () => requestUserLogin(requestKey), {
+    onSuccess: data => {
+      if (data.status === 'completed') {
+        setRefetchInterval(0);
 
-    (async () => {
-      const requestKey = await getKlipRequestKey();
+        const { jwt, isNew, klaytnAddress } = data;
 
-      getKlipRequest(requestKey, method, setQrvalue);
+        setCookie('auth', jwt);
 
-      intervalId = setInterval(async () => {
-        const response = await requestUserLogin(requestKey);
-
-        if (response.status === 'completed') {
-          const { jwt, isNew, klaytnAddress } = response;
-
-          setCookie('auth', jwt);
-
-          if (isNew) {
-            setKlaytnAddress(klaytnAddress as string);
-            showModal('Sign Up', <SingUpForm />);
-          } else {
-            setIsLoggedIn(true);
-            hideModal();
-          }
-          clearInterval(intervalId);
+        if (isNew) {
+          setKlaytnAddress(klaytnAddress as string);
+          showModal('Sign Up', <SingUpForm />);
+        } else {
+          setIsLoggedIn(true);
+          hideModal();
         }
-      }, 1000);
-    })();
+      }
+    },
+    refetchInterval,
+  });
 
-    return () => {
-      clearInterval(intervalId);
-    };
+  useEffect(() => {
+    (async () => {
+      const fetchedRequestKey = await getKlipRequestKey();
+      setRequestKey(fetchedRequestKey);
+
+      getKlipRequest(fetchedRequestKey, method, setQrvalue);
+    })();
   }, []);
 
   return [method, qrvalue];

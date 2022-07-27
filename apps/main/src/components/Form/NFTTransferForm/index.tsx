@@ -26,6 +26,12 @@ export default function NFTTransferForm({ blockchain, eventId, ticketId }: Props
   const [isEmpty, setIsEmpty] = useState(true);
   const [isAddress, setIsAddress] = useState(false);
 
+  const { requestKlipTransaction } = useKlip({
+    onSettled: () => {
+      hideModal();
+    },
+  });
+
   const { data: ticketDetail } = useTicketByIdsQuery(Number(eventId), Number(ticketId));
 
   const transferToAddressInputRef = useRef<HTMLInputElement>(null);
@@ -44,11 +50,7 @@ export default function NFTTransferForm({ blockchain, eventId, ticketId }: Props
       contractAddress: ticketDetail?.contractAddress as string,
     });
 
-    const { requestKlipTransaction } = useKlip({ requestKey, setQrvalue });
-
-    await requestKlipTransaction();
-
-    hideModal();
+    requestKlipTransaction({ requestKey, setQrvalue });
   };
 
   if (qrvalue !== 'DEFAULT') {
@@ -57,7 +59,12 @@ export default function NFTTransferForm({ blockchain, eventId, ticketId }: Props
 
   return (
     <div className="w-full overflow-hidden">
-      <form className={`flex mt-[3rem] w-full bg-transparent `}>
+      <form
+        className={`flex mt-[3rem] w-full bg-transparent `}
+        onSubmit={e => {
+          e.preventDefault();
+        }}
+      >
         <FormPageContainer>
           <Input
             name="transferToAddress"

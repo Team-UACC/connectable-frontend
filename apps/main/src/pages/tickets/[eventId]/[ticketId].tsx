@@ -150,7 +150,10 @@ export default function TicketDetail({ eventId, ticketId }: Props) {
             </Button>
           </>
         ) : ticketDetail.ticketSalesStatus === 'ON_SALE' ? (
-          <FormOrderButton amount={ticketDetail.price} ticketId={ticketDetail.id} />
+          <>
+            <FormOrderButton amount={ticketDetail.price} ticketId={ticketDetail.id} />
+            <NFTTransferButton blockchain="Klaytn" eventId={Number(eventId)} ticketId={Number(ticketId)} />
+          </>
         ) : (
           <Button
             onClick={() => {
