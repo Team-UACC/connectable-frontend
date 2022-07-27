@@ -28,7 +28,7 @@ export const postOrderForm = async ({
 }): Promise<{ status: 'success' } | { status: 'failed'; code: OrderCodeType }> => {
   const response = await orderAxios.post(
     ``,
-    JSON.stringify({ userName, phoneNumber, ticketId: ticketIdList }),
+    JSON.stringify({ userName, phoneNumber, ticketIds: ticketIdList }),
     authorizationOptions()
   );
 
