@@ -151,10 +151,7 @@ export default function TicketDetail() {
             </Button>
           </>
         ) : ticketDetail.ticketSalesStatus === 'ON_SALE' ? (
-          <>
-            <FormOrderButton amount={ticketDetail.price} ticketId={ticketDetail.id} />
-            <NFTTransferButton blockchain="Klaytn" eventId={Number(eventId)} ticketId={Number(ticketId)} />
-          </>
+          <FormOrderButton amount={ticketDetail.price} ticketId={ticketDetail.id} />
         ) : (
           <Button
             onClick={() => {

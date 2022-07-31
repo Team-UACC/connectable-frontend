@@ -6,3 +6,7 @@ export const ORDER_CODE: { [key in OrderCodeType]: string } = {
   FORM_ERROR: '올바르지 않은 값이 있습니다.\n입력 값을 확인해주세요.',
   TIMEOUT: '판매시간이 경과되었어요.',
 };
+
+export enum ErrorCode {
+  'Ticket-001' = '존재하지 않는 티켓입니다.',
+}
