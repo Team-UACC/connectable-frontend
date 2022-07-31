@@ -27,15 +27,13 @@ export default function IndexPage({ posts }: Props) {
         <IntroContent />
         <ul>
           {EventsList?.map(eventSimple => (
-            <div key={eventSimple.id}>
-              <Link href={`/events/${eventSimple.id}`}>
-                <a>
-                  <li className="p-4 mb-4 transition-all ease-in-out rounded-lg cursor-pointer [@media(hover:hover)]:hover:scale-110 hover:bg-[zinc-100]">
-                    <EventCard data={eventSimple} />
-                  </li>
-                </a>
-              </Link>
-            </div>
+            <Link key={eventSimple.id} href={`/events/${eventSimple.id}`}>
+              <a>
+                <li className="p-4 mb-4 transition-all ease-in-out rounded-lg cursor-pointer [@media(hover:hover)]:hover:scale-110 hover:bg-[zinc-100]">
+                  <EventCard data={eventSimple} />
+                </li>
+              </a>
+            </Link>
           ))}
         </ul>
       </div>

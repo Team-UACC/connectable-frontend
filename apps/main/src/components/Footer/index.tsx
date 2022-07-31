@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Text from '../Text';
 
 const OFFICE_TERMS = [
-  { name: '이용약관', href: '/terms-of-service' },
+  { name: '이용약관', href: 'terms-of-service' },
   { name: '개인정보처리방침', href: 'privacy-policy' },
 ];
 export default function Footer() {

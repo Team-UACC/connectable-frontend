@@ -1,6 +1,7 @@
-import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
@@ -18,28 +19,30 @@ import NotFoundPage from '~/pages/404';
 import { useUserStore } from '~/stores/user';
 import { dayjsKO } from '~/utils/day';
 
-export const getServerSideProps: GetServerSideProps = async context => {
-  const { query } = context;
-  const { eventId, ticketId } = query;
-  return {
-    props: { eventId, ticketId },
-  };
-};
+export default function TicketDetail() {
+  const router = useRouter();
+  const { eventId, ticketId } = router.query;
 
-interface Props {
-  eventId: string;
-  ticketId: string;
-}
-
-export default function TicketDetail({ eventId, ticketId }: Props) {
   const { isLoggedIn, klaytnAddress } = useUserStore();
 
-  const { data: ticketDetail, isLoading: isLoadingTicketDetail } = useTicketByIdsQuery(
-    Number(eventId),
-    Number(ticketId)
-  );
+  const {
+    data: ticketDetail,
+    refetch: refetchTicketDetail,
+    isLoading: isLoadingTicketDetail,
+  } = useTicketByIdsQuery(Number(eventId), Number(ticketId), { enabled: false });
 
-  const { data: eventDetail, isLoading: isLoadingEventDetail } = useEventByIdQuery(Number(eventId));
+  const {
+    data: eventDetail,
+    refetch: refetchEventDetail,
+    isLoading: isLoadingEventDetail,
+  } = useEventByIdQuery(Number(eventId), { enabled: false });
+
+  useEffect(() => {
+    if (eventId && ticketId) {
+      refetchTicketDetail();
+      refetchEventDetail();
+    }
+  }, [router.query]);
 
   if (isLoadingTicketDetail || isLoadingEventDetail) {
     return (
@@ -48,8 +51,6 @@ export default function TicketDetail({ eventId, ticketId }: Props) {
       </div>
     );
   }
-
-  if (typeof eventId !== 'string' || typeof ticketId !== 'string') return <NotFoundPage />;
 
   if (!ticketDetail || !eventDetail) return <NotFoundPage />;
 

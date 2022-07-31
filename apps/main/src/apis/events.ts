@@ -32,5 +32,7 @@ export const fetchEventsDetail = async (eventId: number): Promise<EventDetailTyp
 export const fetchTicketsDetail = async (eventId: number, ticketId: number): Promise<Ticket> => {
   const response = await eventAxios.get(`/${eventId}/tickets/${ticketId}`);
 
+  if (response.status === 400) throw Error(JSON.parse(response.data).message);
+
   return JSON.parse(response.data);
 };
