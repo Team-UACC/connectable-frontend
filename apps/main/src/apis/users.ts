@@ -1,21 +1,6 @@
-import { Axios } from 'axios';
-import { getCookie } from 'cookies-next';
-
 import { Ticket } from '~/types/ticketType';
 
-const authorizationOptions = () => ({
-  headers: {
-    Authorization: `Bearer ${getCookie('auth')}`,
-  },
-});
-
-const userAxios = new Axios({
-  baseURL: `${process.env.NEXT_PUBLIC_API_URL}/users`,
-  headers: {
-    'Content-Type': 'application/json; charset=utf-8',
-  },
-  timeout: 5000,
-});
+import { authorizationOptions, axiosInstance } from '.';
 
 type FetchUserRes =
   | {
@@ -29,9 +14,7 @@ type FetchUserRes =
     };
 
 export const fetchUser = async (): Promise<FetchUserRes> => {
-  const res = await userAxios.get(``, authorizationOptions());
-
-  return JSON.parse(res.data);
+  return axiosInstance.get(`/users`, authorizationOptions());
 };
 
 type RequestUserLoginRes =
@@ -45,9 +28,7 @@ type RequestUserLoginRes =
   | { status: 'failed' };
 
 export const requestUserLogin = async (requestKey: string): Promise<RequestUserLoginRes> => {
-  const response = await userAxios.post(`/login`, JSON.stringify({ requestKey }));
-
-  return JSON.parse(response.data);
+  return axiosInstance.post(`/users/login`, JSON.stringify({ requestKey }));
 };
 
 type UpdateUserRes =
@@ -57,22 +38,22 @@ type UpdateUserRes =
   | { status: 'failed' };
 
 export const updateUser = async (nickname: string, phoneNumber: string): Promise<UpdateUserRes> => {
-  const response = await userAxios.put(
-    ``,
+  return axiosInstance.put(
+    `/users`,
     JSON.stringify({
       nickname,
       phoneNumber,
     }),
     authorizationOptions()
   );
-
-  return JSON.parse(response.data);
 };
 
-export const fetchTicketsOwnedByUser = async (): Promise<Array<Ticket>> => {
-  const response = await userAxios.get(`/tickets`, authorizationOptions());
+type FetchTicketsOwnedByUserRes = { status: 'success' | 'failed'; tickets: Array<Ticket> };
 
-  return JSON.parse(response.data).tickets;
+export const fetchTicketsOwnedByUser = async (): Promise<Array<Ticket>> => {
+  const response: FetchTicketsOwnedByUserRes = await axiosInstance.get(`/users/tickets`, authorizationOptions());
+
+  return response.tickets;
 };
 
 type UserValidationRes = {
@@ -80,7 +61,5 @@ type UserValidationRes = {
 };
 
 export const userValidation = async ({ nickname }: { nickname: string }): Promise<UserValidationRes> => {
-  const response = await userAxios.get(`/validation?${nickname ? `nickname=${nickname}` : ''}`);
-
-  return JSON.parse(response.data);
+  return axiosInstance.get(`/users/validation?${nickname ? `nickname=${nickname}` : ''}`);
 };

@@ -1,21 +1,8 @@
-import { Axios } from 'axios';
-import { getCookie } from 'cookies-next';
-
 import { OrderCodeType, ORDER_CODE } from '~/constants/error';
 
-const authorizationOptions = () => ({
-  headers: {
-    Authorization: `Bearer ${getCookie('auth')}`,
-  },
-});
+import { authorizationOptions, axiosInstance } from '.';
 
-const orderAxios = new Axios({
-  baseURL: `${process.env.NEXT_PUBLIC_API_URL}/orders`,
-  headers: {
-    'Content-Type': 'application/json; charset=utf-8',
-  },
-  timeout: 5000,
-});
+type PostOrderFormRes = { status: 'success' } | { status: 'failed'; code: OrderCodeType };
 
 export const postOrderForm = async ({
   userName,
@@ -25,19 +12,17 @@ export const postOrderForm = async ({
   userName: string;
   phoneNumber: string;
   ticketIdList: Array<number>;
-}): Promise<{ status: 'success' } | { status: 'failed'; code: OrderCodeType }> => {
-  const response = await orderAxios.post(
-    ``,
+}): Promise<PostOrderFormRes> => {
+  const data: PostOrderFormRes = await axiosInstance.post(
+    `/orders`,
     JSON.stringify({ userName, phoneNumber, ticketIds: ticketIdList }),
     authorizationOptions()
   );
 
-  const { data } = response;
-
   const { status } = data;
 
   if (status === 'success') {
-    return response.data;
+    return data;
   } else if (status === 'failed') {
     const { code }: { code: OrderCodeType } = data;
     throw Error(ORDER_CODE[code]);
