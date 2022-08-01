@@ -14,7 +14,7 @@ export const useKlipLogin = () => {
   const method = getKlipAccessMethod();
 
   const [qrvalue, setQrvalue] = useState('DEFAULT');
-  const [refetchInterval, setRefetchInterval] = useState(1000);
+  const [refetchInterval, setRefetchInterval] = useState(0);
   const [requestKey, setRequestKey] = useState('');
 
   const { setKlaytnAddress, setIsLoggedIn } = useUserStore();
@@ -39,6 +39,7 @@ export const useKlipLogin = () => {
       }
     },
     refetchInterval,
+    enabled: refetchInterval > 0,
   });
 
   useEffect(() => {
@@ -47,6 +48,8 @@ export const useKlipLogin = () => {
       setRequestKey(fetchedRequestKey);
 
       getKlipRequest(fetchedRequestKey, method, setQrvalue);
+
+      setRefetchInterval(1000);
     })();
   }, []);
 
