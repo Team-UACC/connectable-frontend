@@ -1,43 +1,85 @@
+import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
+import { fetchAllEvents, fetchEventsAllTickets, fetchEventsDetail, fetchTicketsDetail } from '~/apis/events';
 import Button from '~/components/Button';
 import FormOrderButton from '~/components/Button/OrderButton/FormOrderButton';
 import NFTTransferButton from '~/components/Button/OrderButton/NFTTransferButton';
 import { PriceText } from '~/components/Events/EventInfo';
 import EventSaleTimer from '~/components/Events/EventSaleTimer';
 import StickyBlurFooter from '~/components/Footer/StickyBlurFooter';
-import Spinner from '~/components/Spinner';
 import TextInfo from '~/components/TextInfo';
 import useEventByIdQuery from '~/hooks/apis/useEventByIdQuery';
 import useTicketByIdsQuery from '~/hooks/apis/useTicketByIdsQuery';
 import NotFoundPage from '~/pages/404';
 import { useUserStore } from '~/stores/user';
+import { EventDetailType } from '~/types/eventType';
+import { Ticket } from '~/types/ticketType';
 import { dayjsKO } from '~/utils/day';
 
-export default function TicketDetail() {
+export async function getStaticPaths() {
+  const events = await fetchAllEvents();
+  const paths = await Promise.all(
+    events.map(async e => {
+      const eventId = e.id.toString();
+      const tickets = await fetchEventsAllTickets(Number(eventId));
+
+      const paramsList = tickets.map(t => ({ params: { eventId, ticketId: t.id.toString() } }));
+
+      return paramsList;
+    })
+  );
+  return { paths: paths.flat(), fallback: false };
+}
+
+export async function getStaticProps(context: GetServerSidePropsContext<{ eventId: string; ticketId: string }>) {
+  if (!context.params) return;
+
+  const { eventId, ticketId } = context.params;
+
+  const [eventDetail, ticketDetail] = await Promise.all([
+    fetchEventsDetail(Number(eventId)),
+    fetchTicketsDetail(Number(eventId), Number(ticketId)),
+  ]);
+
+  return {
+    props: {
+      skeletonDataEvent: eventDetail,
+      skeletonDataTicket: { ...ticketDetail, ticketSalesStatus: '' },
+    },
+  };
+}
+
+interface Props {
+  skeletonDataTicket: Ticket;
+  skeletonDataEvent: EventDetailType;
+}
+
+export default function TicketDetail({ skeletonDataTicket, skeletonDataEvent }: Props) {
   const router = useRouter();
   const { eventId, ticketId } = router.query;
 
   const { isLoggedIn, klaytnAddress } = useUserStore();
 
-  const { data: ticketDetail, isLoading: isLoadingTicketDetail } = useTicketByIdsQuery(
-    Number(eventId),
-    Number(ticketId)
-  );
+  const { data: ticketDetail, refetch: refetchTicketDetail } = useTicketByIdsQuery(Number(eventId), Number(ticketId), {
+    initialData: skeletonDataTicket,
+  });
 
-  const { data: eventDetail, isLoading: isLoadingEventDetail } = useEventByIdQuery(Number(eventId));
+  const { data: eventDetail, refetch: refetchEventDetail } = useEventByIdQuery(Number(eventId), {
+    initialData: skeletonDataEvent,
+  });
 
-  if (isLoadingTicketDetail || isLoadingEventDetail) {
-    return (
-      <div className="mt-40">
-        <Spinner />
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (router.isReady) {
+      refetchEventDetail();
+      refetchTicketDetail();
+    }
+  }, [router]);
 
   if (!ticketDetail || !eventDetail) return <NotFoundPage />;
 
