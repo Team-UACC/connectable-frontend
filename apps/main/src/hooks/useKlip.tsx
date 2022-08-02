@@ -26,21 +26,20 @@ export default function useKlip({ onSettled }: Props) {
   const [refetchInterval, setRefetchInterval] = useState(0);
 
   useQuery(['klip', { requestKey }], () => requestKlipResponse(requestKey), {
-    onSuccess: data => {
-      const { status } = data;
-
+    onSuccess: ({ status, result }) => {
       if (status === 'completed') {
-        const { tx_hash } = data.result;
+        const { tx_hash } = result;
         toast.success(<OnSuccessTransaction tx_hash={tx_hash} />);
 
         setRefetchInterval(0);
         onSettled();
-      } else if (status === 'fail' || status === 'error') {
-        toast.error('트랜잭션에 실패했습니다.');
-
-        setRefetchInterval(0);
-        onSettled();
       }
+    },
+    onError: (error: string) => {
+      toast.error(error);
+
+      setRefetchInterval(0);
+      onSettled();
     },
     refetchInterval,
     enabled: refetchInterval > 0,
