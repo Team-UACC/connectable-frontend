@@ -68,6 +68,7 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
             name="phonenumber"
             label="전화번호"
             type="tel"
+            maxLength={13}
             placeholder="전화번호를 입력해주세요"
             defaultValue={phoneNumber}
             onChange={handleChangePhoneNumberInput}

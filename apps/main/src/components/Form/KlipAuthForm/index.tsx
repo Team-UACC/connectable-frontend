@@ -1,5 +1,4 @@
-import QRCode from 'qrcode.react';
-
+import KlipQR from '~/components/Klip/KlipQR';
 import Spinner from '~/components/Spinner';
 import { useKlipLogin } from '~/hooks/useAuth';
 
@@ -10,15 +9,12 @@ export default function KlipAuth() {
     return (
       <div>
         {qrvalue === 'DEFAULT' ? (
-          <div className=" w-[16rem] h-[16rem] flex flex-col justify-center ml-[10rem]">
+          <div className=" h-[16rem] flex flex-col justify-center ml-[10rem]">
             <Spinner />
           </div>
         ) : (
-          <QRCode value={qrvalue} size={256} style={{ margin: 'auto' }} />
+          <KlipQR qrvalue={qrvalue} />
         )}
-        <br />
-        <br />
-        <span className="font-bold ">휴대폰으로 스캔하여 Klip 로그인을 진행해 주세요.</span>
         <br />
         <br />
         <a

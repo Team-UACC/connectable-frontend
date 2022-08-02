@@ -8,7 +8,7 @@ export type EventSimpleType = {
   salesTo: number;
 };
 
-export type EventDetailType = {
+export interface EventDetailType {
   id: number;
   name: string;
   image: string;
@@ -28,4 +28,5 @@ export type EventDetailType = {
   price: number;
   location: string;
   salesOption: 'FLAT_PRICE' | 'FLEXIBLE_PRICE'; // FLAT_PRICE(균일가), FLEXIBLE_PRICE(균일가 아님)
-};
+  contractAddress: string;
+}

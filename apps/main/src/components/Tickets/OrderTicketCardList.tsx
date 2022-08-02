@@ -44,7 +44,7 @@ export default function OrderTicketCardList({ eventId }: Props) {
                   className="text-indigo-600 form-checkbox"
                   checked={checkedSet.has(ticketData.id)}
                   disabled={ticketData.ticketSalesStatus !== 'ON_SALE'}
-                  onClick={() => setCheckedSet(toggleSet(ticketData.id))}
+                  onChange={() => setCheckedSet(toggleSet(ticketData.id))}
                 />
               </label>
               <div

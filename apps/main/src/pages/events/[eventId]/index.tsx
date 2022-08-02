@@ -97,9 +97,9 @@ export default function EventDetailPage({ eventDetail }: Props) {
         <TextInfo
           title="NFT 컬렉션 상세"
           contents={[
-            { term: 'Contract Address', description: '-' },
-            { term: 'Token Standard', description: '-' },
-            { term: 'BlockChain', description: '-' },
+            { term: 'Contract Address', description: eventDetail.contractAddress, hasCopy: true },
+            { term: 'Token Standard', description: 'KIP-17' },
+            { term: 'BlockChain', description: 'Klaytn' },
           ]}
         />
       </article>

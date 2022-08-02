@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { ChangeEvent, Dispatch, RefObject, SetStateAction, useState } from 'react';
+import toast from 'react-hot-toast';
 
 import { updateUser, userValidation } from '~/apis/users';
 import { NICKNAME_REGEX, PHONE_NUMBER_REGEX } from '~/constants/regex';
@@ -41,13 +42,18 @@ export default function useUserInfoForm({ userNameRef, phoneNumberRef }: Props):
     const phoneNumber = phoneNumberRef.current!.value;
     const nickname = userNameRef.current!.value;
 
-    const data = await updateUser(nickname, phoneNumber);
+    const submitPromise = updateUser(nickname, phoneNumber);
 
-    if (data.status === 'success') {
-      setIsLoggedIn(true);
-      addUserState(nickname, klaytnAddress, phoneNumber);
-      hideModal();
-    }
+    toast.promise(submitPromise, {
+      loading: 'loading...',
+      success: () => {
+        setIsLoggedIn(true);
+        addUserState(nickname, klaytnAddress, phoneNumber);
+        hideModal();
+        return '성공적으로 반영되었습니다.';
+      },
+      error: '에러가 발생했습니다. 다시 시도해주세요.',
+    });
   };
 
   const debouncedNickNameValidation = _.debounce(async (value: string) => {

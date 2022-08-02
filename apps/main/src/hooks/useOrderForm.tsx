@@ -3,6 +3,7 @@ import { KeyboardEvent, RefObject } from 'react';
 import toast from 'react-hot-toast';
 
 import { postOrderForm } from '~/apis/orders';
+import { ORDER_CODE } from '~/constants/error';
 import { useModalStore } from '~/stores/modal';
 
 import { formatPhoneNumber } from '../utils';
@@ -29,11 +30,12 @@ export default function useOrderForm({
     const userName = userNameRef.current!.value;
 
     // form 데이터 제출
-    const response = await postOrderForm({ userName, phoneNumber, ticketIdList });
-
-    if (response.status === 'success') {
-      toast.success('제출 완료');
-    }
+    const submitPromise = postOrderForm({ userName, phoneNumber, ticketIdList });
+    toast.promise(submitPromise, {
+      loading: 'loading...',
+      success: '성공적으로 반영되었습니다.',
+      error: (err: Error) => <div className="text-center">{err.message}</div>,
+    });
 
     hideModal();
   };

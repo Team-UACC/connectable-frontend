@@ -15,3 +15,5 @@ export const formatPhoneNumber = (value: string) => {
 };
 
 export const calculateRemaingTime = (endTime: number) => endTime - new Date().getTime();
+
+export const isAdrress = (string: string) => /^(0x)?[0-9a-f]{40}$/i.test(string);

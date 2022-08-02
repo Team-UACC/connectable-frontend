@@ -95,3 +95,20 @@ export const getSafeTransferFromRequestKey = async ({
 
   return requestKey;
 };
+
+export const requestKlipResponse = async (
+  requestKey: string
+): Promise<{
+  request_key: string;
+  expiration_time: number;
+  status: 'completed' | 'fail' | 'error';
+  result: { tx_hash: string };
+}> => {
+  const response = await axios.get(`https://a2a-api.klipwallet.com/v2/a2a/result?request_key=${requestKey}`);
+
+  const { data } = response;
+
+  if (data.status === 'fail' || data.status === 'error') throw Error('트랜잭션에 실패했습니다.');
+
+  return response.data;
+};

@@ -133,6 +133,7 @@ export default function OrderForm({ amount, ticketIdList }: Props) {
             label="전화번호"
             type="tel"
             placeholder="전화번호를 입력해주세요"
+            maxLength={13}
             onKeyUp={handleKeyUpPhoneNumberInput}
             onChange={handleChangePhoneNumberInput}
             autoComplete="off"
