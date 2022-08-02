@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
@@ -25,24 +24,12 @@ export default function TicketDetail() {
 
   const { isLoggedIn, klaytnAddress } = useUserStore();
 
-  const {
-    data: ticketDetail,
-    refetch: refetchTicketDetail,
-    isLoading: isLoadingTicketDetail,
-  } = useTicketByIdsQuery(Number(eventId), Number(ticketId), { enabled: false });
+  const { data: ticketDetail, isLoading: isLoadingTicketDetail } = useTicketByIdsQuery(
+    Number(eventId),
+    Number(ticketId)
+  );
 
-  const {
-    data: eventDetail,
-    refetch: refetchEventDetail,
-    isLoading: isLoadingEventDetail,
-  } = useEventByIdQuery(Number(eventId), { enabled: false });
-
-  useEffect(() => {
-    if (eventId && ticketId) {
-      refetchTicketDetail();
-      refetchEventDetail();
-    }
-  }, [router.query]);
+  const { data: eventDetail, isLoading: isLoadingEventDetail } = useEventByIdQuery(Number(eventId));
 
   if (isLoadingTicketDetail || isLoadingEventDetail) {
     return (
