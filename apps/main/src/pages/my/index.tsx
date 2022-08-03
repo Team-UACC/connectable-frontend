@@ -30,7 +30,7 @@ function MyPage() {
     <div className="flex flex-col items-center w-full">
       <div className="flex flex-col items-center justify-evenly w-full h-[24rem] border-b-[1px] border-brand">
         <Image
-          src="/images/defaultProfile.jpeg"
+          src="/images/defaultProfile.png"
           alt={'프로필 이미지'}
           width={100}
           height={100}

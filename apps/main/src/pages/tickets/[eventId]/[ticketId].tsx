@@ -211,7 +211,7 @@ const TempTransaction = () => {
         </div>
         <div> {'->'} </div>
         <div className="flex items-center w-[35%] justify-between ">
-          <Image src="/images/defaultProfile.jpeg" width={48} height={48} className="rounded-full " />
+          <Image src="/images/defaultProfile.png" width={48} height={48} className="rounded-full " />
           <span className="text-base">@UACC</span>
         </div>
       </div>
