@@ -8,6 +8,7 @@ import { EventSimpleType } from '~/types/eventType';
 
 export async function getStaticProps() {
   const posts = await fetchAllEvents();
+
   return {
     props: { posts },
   };

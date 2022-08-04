@@ -10,6 +10,7 @@ module.exports = {
         transparent: 'transparent',
         brand: '#2A4365',
         red: '#9B2C2C',
+        green: '#0987A0',
       },
       animation: {
         text: 'text 5s ease infinite',

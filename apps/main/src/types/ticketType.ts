@@ -10,12 +10,16 @@ export interface TicketSimple {
   artistName: string;
   eventDate: number;
   eventName: string;
-  ticketSalesStatus: 'SOLD_OUT' | 'PENDING' | 'ON_SALE';
+  ticketSalesStatus: TicketSalesStatus;
   tokenId: number;
   tokenURI: string;
-  metadata: {
-    name: string;
-    description: string;
-    image: string;
-  };
+  metadata: TicketMetaData;
+}
+
+export type TicketSalesStatus = 'SOLD_OUT' | 'PENDING' | 'ON_SALE';
+
+export interface TicketMetaData {
+  name: string;
+  description: string;
+  image: string;
 }

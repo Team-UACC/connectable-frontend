@@ -5,6 +5,7 @@ import Button from '~/components/Button';
 import Footer from '~/components/Footer';
 import ProfileEditForm from '~/components/Form/ProfileEditForm';
 import WithAuth from '~/components/HOC/WithAuth';
+import UserOrderStatusList from '~/components/Order/UserOrderStatusList';
 import Tabs from '~/components/Tabs';
 import TextInfo from '~/components/TextInfo';
 import UserTicketCardList from '~/components/Tickets/UserTicketCardList';
@@ -55,6 +56,7 @@ function MyPage() {
       <div className="w-full mt-6">
         <Tabs titles={titles} color="brand">
           <UserTicketCardList />
+          <UserOrderStatusList />
         </Tabs>
       </div>
       <Footer />
