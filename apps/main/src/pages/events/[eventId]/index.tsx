@@ -1,6 +1,7 @@
 import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 import { fetchAllEvents, fetchEventsDetail } from '~/apis/events';
@@ -10,6 +11,8 @@ import EventSaleTimer from '~/components/Events/EventSaleTimer';
 import LinkBox from '~/components/Events/LinkBox';
 import StickyBlurFooter from '~/components/Footer/StickyBlurFooter';
 import TextInfo from '~/components/TextInfo';
+import useEventByIdQuery from '~/hooks/apis/useEventByIdQuery';
+import NotFoundPage from '~/pages/404';
 import { EventDetailType } from '~/types/eventType';
 import { dayjsKO } from '~/utils/day';
 
@@ -20,20 +23,36 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }: GetStaticPropsContext) {
-  const eventDetail = await fetchEventsDetail(Number(params?.eventId));
+  const initialEventDetail = await fetchEventsDetail(Number(params?.eventId));
   return {
     props: {
-      eventDetail,
+      initialEventDetail,
     },
   };
 }
 
 interface Props {
-  eventDetail: EventDetailType;
+  initialEventDetail: EventDetailType;
 }
 
-export default function EventDetailPage({ eventDetail }: Props) {
+export default function EventDetailPage({ initialEventDetail }: Props) {
+  const router = useRouter();
+  const { eventId } = router.query;
+
   const [eventStart, setEventStart] = useState('');
+
+  const { data: eventDetail, refetch: refetchEventDetail } = useEventByIdQuery(Number(eventId), {
+    initialData: initialEventDetail,
+  });
+
+  if (!eventDetail) return <NotFoundPage />;
+
+  useEffect(() => {
+    if (router.isReady) {
+      refetchEventDetail();
+    }
+  }, [router]);
+
   useEffect(() => {
     setEventStart(dayjsKO(eventDetail.startTime).format('YYYY.MM.DD (ddd) A hh시 mm분'));
   }, []);
