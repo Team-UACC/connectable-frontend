@@ -3,6 +3,7 @@ import Link from 'next/link';
 import DotText from '~/components/DotText';
 import Footer from '~/components/Footer';
 import Text from '~/components/Text';
+import { KAKAO_TALK_ONE_TO_ONE_CHAT } from '~/constants/link';
 
 export default function Guide() {
   return (
@@ -112,7 +113,10 @@ export default function Guide() {
               <br />
               <Text>
                 혹시라도 예매 폼 제출 과정에서 문제가 생기면 언제든지{' '}
-                <span className="text-blue-500 ">1:1 문의하기</span>를 이용해주세요.
+                <a className="text-blue-500 " href={KAKAO_TALK_ONE_TO_ONE_CHAT} target="_blank" rel="noreferrer">
+                  1:1 문의하기
+                </a>
+                를 이용해주세요.
               </Text>
               <br />
               <br />

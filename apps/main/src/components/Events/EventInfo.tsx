@@ -32,7 +32,7 @@ export function RemainingTicketStatus({
 }) {
   return (
     <Text weight="semibold" className=" opacity-40">
-      총 {totalTicketCount}개 중 {onSaleTicketCount}개 판매 완료
+      총 {totalTicketCount}개 중 {totalTicketCount - onSaleTicketCount}개 판매 완료
     </Text>
   );
 }

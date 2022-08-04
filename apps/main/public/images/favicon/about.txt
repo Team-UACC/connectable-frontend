@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: Lovers Quarrel
+- Font Author: Copyright 2004 The Lovers Quarrel Project Authors (https://github.com/googlefonts/lovers-quarrel)
+- Font Source: http://fonts.gstatic.com/s/loversquarrel/v21/Yq6N-LSKXTL-5bCy8ksBzpQ_-zAsY7pO6siz.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))

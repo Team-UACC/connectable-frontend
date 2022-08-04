@@ -4,7 +4,7 @@ import TicketCard from '~/components/Card/TicketCard';
 import useTicketsOwnedByUserQuery from '~/hooks/apis/useTicketsOwnedByUserQuery';
 
 export default function UserTicketCardList() {
-  const { data: ticketList, isLoading, error } = useTicketsOwnedByUserQuery();
+  const { data: ticketList, isLoading, error } = useTicketsOwnedByUserQuery({ cacheTime: 0, staleTime: 0 });
 
   if (error) return <div>error</div>;
 

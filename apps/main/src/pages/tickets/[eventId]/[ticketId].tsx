@@ -123,16 +123,32 @@ export default function TicketDetail({ skeletonDataTicket, skeletonDataEvent }: 
         <TextInfo
           title="NFT 티켓 정보"
           contents={[
-            { term: '혜택', description: '-' },
-            { term: '티켓 사용법', description: '-' },
-            { term: '안내사항', description: '-' },
+            { term: '혜택1', description: '조엘 겨울 콘서트 화이트리스트 제공' },
+            { term: '혜택2', description: 'NFT 티켓 소유자 중 추첨을 통해 공연 후 포토타임 제공' },
           ]}
         />
         <TextInfo
           title="기타 안내"
           contents={[
-            { term: '티켓 사용법', description: '-' },
-            { term: '안내사항', description: '-' },
+            { term: '티켓 사용법', description: '공연 입장 전, 마이페이지에서 본인의 티켓을 보여주세요.' },
+            {
+              term: '안내사항1',
+              description:
+                '공연 입장 시간에 맞추어 공연장 입구 및 게단에서 개인 정보 확인 후 입장을 도와드릴 예정입니다.',
+            },
+            {
+              term: '안내사항2',
+              description: '예매 폼 제출 순으로 입장합니다.',
+            },
+            {
+              term: '안내사항3',
+              description: '공연장 내 좌석은 모두 자유석입니다.',
+            },
+            {
+              term: '안내사항4',
+              description:
+                '취소 문의는 010-5248-4170으로 공연명, 성함, 계좌번호를 보내주시면 순차적으로 처리해드리겠습니다.',
+            },
           ]}
         />
         {/* <TextInfo.Simple title="소유 이력">
@@ -211,7 +227,7 @@ const TempTransaction = () => {
         </div>
         <div> {'->'} </div>
         <div className="flex items-center w-[35%] justify-between ">
-          <Image src="/images/defaultProfile.jpeg" width={48} height={48} className="rounded-full " />
+          <Image src="/images/defaultProfile.png" width={48} height={48} className="rounded-full " />
           <span className="text-base">@UACC</span>
         </div>
       </div>

@@ -19,7 +19,9 @@ export default function Header() {
       <nav className="relative flex justify-between w-full py-6 ">
         <div className="flex flex-col justify-center">
           <Link href="/">
-            <a className="text-2xl cursor-pointer ">LOGO</a>
+            <a className="translate-x-1 translate-y-1">
+              <span className="font-semibold cursor-pointer ">CONNECTABLE</span>
+            </a>
           </Link>
         </div>
         {isLoggedIn ? <LoggedOnIcons /> : <LoggedOffIcons />}
@@ -45,7 +47,7 @@ const LoggedOnIcons = () => {
     <div className={`flex justify-between w-[12rem]`}>
       <NavIcons src="/images/market.svg" alt="market" onClick={handleClickMarketIcon} />
       <NavIcons src="/images/notification.svg" alt="notification" onClick={handleClickNotificationIcon} />
-      <NavIcons src="/images/defaultProfile.jpeg" alt="profile" href="/my" />
+      <NavIcons src="/images/defaultProfile.png" alt="profile" href="/my" />
       <NavIcons src="/images/menu.svg" alt="menu" onClick={handleClickMenuIcon} />
     </div>
   );

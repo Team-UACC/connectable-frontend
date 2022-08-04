@@ -21,7 +21,7 @@ const toggleSet = (element: any) => (set: Set<any>) => {
 };
 
 export default function OrderTicketCardList({ eventId }: Props) {
-  const { data: ticketList, isLoading } = useTicketsByEventIdQuery(eventId);
+  const { data: ticketList, isLoading } = useTicketsByEventIdQuery(eventId, { staleTime: 0, cacheTime: 0 });
   const [checkedSet, setCheckedSet] = useState(new Set<number>());
 
   const { isLoggedIn } = useUserStore();
