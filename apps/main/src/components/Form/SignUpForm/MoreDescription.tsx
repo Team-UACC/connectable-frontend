@@ -14,7 +14,10 @@ export default function MoreDescription({ page }: { page: SignUpFormPage }) {
         <p className="text-sm gray-600 ">
           정책에 의하여 전화번호를 수집합니다.
           <br />
-          약관를 확인해주세요.
+          <a className="text-blue-500 cursor-pointer" href="/docs/terms-of-service" target="_blank">
+            약관을 확인
+          </a>
+          해주세요.
         </p>
       )}
       {page === 'Finish' && (
