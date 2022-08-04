@@ -1,17 +1,19 @@
 import Image from 'next/image';
+import { ReactNode } from 'react';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
-type ButtonColor = 'white' | 'brand' | 'red';
+type ButtonColor = 'white' | 'brand' | 'red' | 'kakao';
 
-const buttonColorTheme = {
-  white: `text-brand bg-white border-[1px] border-gray-300 `,
-  brand: `text-white  bg-brand`,
-  red: `text-white bg-red`,
-};
+enum buttonColorTheme {
+  white = `text-brand bg-white border-[1px] border-gray-300 `,
+  brand = `text-white  bg-brand`,
+  red = `text-white bg-red`,
+  kakao = `text-black bg-[#FEE500] `,
+}
 
 export interface ButtonProps {
-  children: string;
+  children: ReactNode;
   onClick?: () => void;
   disabled?: boolean;
   color?: ButtonColor;
