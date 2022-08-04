@@ -3,6 +3,8 @@ import { ReactNode } from 'react';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
+import Tooltip from '../Tooltop';
+
 type ButtonColor = 'white' | 'brand' | 'red' | 'kakao';
 
 enum buttonColorTheme {
@@ -36,12 +38,14 @@ export default function Button({ children, onClick, disabled, color = 'brand', c
 }
 
 Button.TextCopy = ({ text, size = 24 }: { text: string; size?: number }) => (
-  <button
-    onClick={() => {
-      navigator.clipboard.writeText(text);
-      toast.success('클립보드에 복사되었습니다.');
-    }}
-  >
-    <Image src="/images/duplicate.svg" alt="클립보드에 복사" width={size} height={size} />
-  </button>
+  <Tooltip message="복사하기">
+    <button
+      onClick={() => {
+        navigator.clipboard.writeText(text);
+        toast.success('클립보드에 복사되었습니다.');
+      }}
+    >
+      <Image src="/images/duplicate.svg" alt="클립보드에 복사" width={size} height={size} />
+    </button>
+  </Tooltip>
 );
