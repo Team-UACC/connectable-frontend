@@ -41,7 +41,7 @@ export default function TicketCard({ ticketData, className, type = 'Default', ev
                 {ticketData.ticketSalesStatus === 'ON_SALE'
                   ? '판매중'
                   : ticketData.ticketSalesStatus === 'PENDING'
-                  ? '판매 대기중'
+                  ? '승인 대기중'
                   : '판매 완료'}
               </span>
             </div>

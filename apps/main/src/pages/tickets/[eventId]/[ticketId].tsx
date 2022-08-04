@@ -111,6 +111,16 @@ export default function TicketDetail({ skeletonDataTicket, skeletonDataEvent }: 
             </div>
           </div>
         )}
+        {ticketDetail.ticketSalesStatus === 'PENDING' && (
+          <div className="px-2">
+            <div className="mb-2 text-sm font-bold text-red">누군가 구매를 승인을 대기하고 있는 티켓입니다.</div>
+            <EventSaleTimer endTime={eventDetail.salesTo} />
+            <div className="flex justify-between mt-2">
+              <div />
+              <PriceText>{`${eventDetail.price.toLocaleString('ko-KR')}원`}</PriceText>
+            </div>
+          </div>
+        )}
         <TextInfo
           title="공연정보"
           contents={[
@@ -212,25 +222,3 @@ export default function TicketDetail({ skeletonDataTicket, skeletonDataEvent }: 
     </>
   );
 }
-
-const TempTransaction = () => {
-  return (
-    <div className="flex flex-col mb-4 ">
-      <div className="flex justify-between w-full leading6">
-        <span className=" text-[#0987A0] font-bold text-lg">Sale</span>
-        <span className="text-sm">3일 전</span>
-      </div>
-      <div className="flex items-center justify-between">
-        <div className="flex items-center w-[35%] justify-between ">
-          <Image src="/images/temp.jpeg" width={48} height={48} className="rounded-full " />
-          <span className="text-base">디렌디</span>
-        </div>
-        <div> {'->'} </div>
-        <div className="flex items-center w-[35%] justify-between ">
-          <Image src="/images/defaultProfile.png" width={48} height={48} className="rounded-full " />
-          <span className="text-base">@UACC</span>
-        </div>
-      </div>
-    </div>
-  );
-};
