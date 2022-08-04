@@ -2,6 +2,7 @@
 import toast from 'react-hot-toast';
 
 import { ACCOUNT } from 'src/constants/account';
+import { KAKAO_TALK_ONE_TO_ONE_CHAT } from '~/constants/link';
 
 import { OrderFormPageType } from '.';
 
@@ -47,7 +48,11 @@ export default function MoreDescription({ page, amount }: { page: OrderFormPageT
         <p className="text-sm font-semibold ">
           티켓은 입금 확인 후 NFT로 전송됩니다. <br />
           4시간 내에 Connctable에서 확인할 수 있으며 <br />
-          문의사항은 언제든 1:1 문의하기를 이용해주세요.
+          문의사항은 언제든{' '}
+          <a className="text-blue-500 " href={KAKAO_TALK_ONE_TO_ONE_CHAT} target="_blank" rel="noreferrer">
+            1:1 문의하기
+          </a>
+          를 이용해주세요.
         </p>
       )}
     </section>
