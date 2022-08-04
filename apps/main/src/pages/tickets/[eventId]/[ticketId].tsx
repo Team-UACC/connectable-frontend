@@ -111,6 +111,16 @@ export default function TicketDetail({ skeletonDataTicket, skeletonDataEvent }: 
             </div>
           </div>
         )}
+        {ticketDetail.ticketSalesStatus === 'PENDING' && (
+          <div className="px-2">
+            <div className="mb-2 text-sm font-bold text-red">누군가 구매를 승인을 대기하고 있는 티켓입니다.</div>
+            <EventSaleTimer endTime={eventDetail.salesTo} />
+            <div className="flex justify-between mt-2">
+              <div />
+              <PriceText>{`${eventDetail.price.toLocaleString('ko-KR')}원`}</PriceText>
+            </div>
+          </div>
+        )}
         <TextInfo
           title="공연정보"
           contents={[
