@@ -23,8 +23,7 @@ function MyPage() {
   const titles = ['마이 티켓', '거래 내역'];
 
   const handleClickLogout = () => {
-    router.replace('/');
-    logOut();
+    router.replace('/').then(() => logOut());
   };
 
   return (

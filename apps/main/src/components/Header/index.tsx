@@ -5,11 +5,9 @@ import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 
 import MoreMenuForm from '../Form/MoreMenuForm';
+import { MarketDescription, NotificationDescription } from '../Form/MoreMenuForm/TempDescroption';
 
 import NavIcons from './NavIcons';
-
-const MarketDescription = <span className="text-base font-semibold ">마켓플레이스 기능은 아직 준비 중이에요.</span>;
-const NotificationDescription = <span className="text-base font-semibold ">알림 기능은 아직 준비 중이에요.</span>;
 
 export default function Header() {
   const { isLoggedIn } = useUserStore();
@@ -33,11 +31,11 @@ export default function Header() {
 const LoggedOnIcons = () => {
   const { showModal } = useModalStore();
   const handleClickMarketIcon = () => {
-    showModal('마켓플레이스', MarketDescription);
+    showModal('마켓플레이스', <MarketDescription />);
   };
 
   const handleClickNotificationIcon = () => {
-    showModal('알림', NotificationDescription);
+    showModal('알림', <NotificationDescription />);
   };
 
   const handleClickMenuIcon = () => {

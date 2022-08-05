@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
@@ -21,11 +21,15 @@ const toggleSet = (element: any) => (set: Set<any>) => {
 };
 
 export default function OrderTicketCardList({ eventId }: Props) {
-  const { data: ticketList, isLoading } = useTicketsByEventIdQuery(eventId, { staleTime: 0 });
+  const { data: ticketList, isLoading, refetch } = useTicketsByEventIdQuery(eventId, { staleTime: 0 });
   const [checkedSet, setCheckedSet] = useState(new Set<number>());
 
   const { isLoggedIn } = useUserStore();
   const { showModal } = useModalStore();
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   if (isLoading) return <div>loading...</div>;
 
