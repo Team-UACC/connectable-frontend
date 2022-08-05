@@ -15,7 +15,7 @@ export default function Header() {
   const { isLoggedIn } = useUserStore();
 
   return (
-    <header className="sticky top-0 z-10 flex justify-between w-full px-5 bg-transparent backdrop-blur-md">
+    <header className="sticky top-0 z-10 flex justify-between w-full px-5 bg-[rgba(255,255,255,0.5)] backdrop-blur-md">
       <nav className="relative flex justify-between w-full py-6 ">
         <div className="flex flex-col justify-center">
           <Link href="/">

@@ -19,7 +19,7 @@ export default function FullScreenModal() {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed m-auto inset-0 transition-opacity bg-white bg-opacity-70 backdrop-blur-[6px]" />
+          <div className="fixed m-auto inset-0 transition-opacity bg-white bg-opacity-80 backdrop-blur-[6px]" />
         </Transition.Child>
 
         <div className="fixed w-[min(100vw,428px)] m-auto inset-0 z-10 ">

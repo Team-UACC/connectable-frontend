@@ -5,7 +5,6 @@ import { OrderStatus, TicketOrderStatusType } from '~/types/orderType';
 import { dayjsKO } from '~/utils/day';
 
 import LinkToKlaytnScope from '../LinkToKlaytnScope';
-import Text from '../Text';
 
 interface Props {
   orderData: TicketOrderStatusType;

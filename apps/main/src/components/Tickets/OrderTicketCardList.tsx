@@ -36,7 +36,13 @@ export default function OrderTicketCardList({ eventId }: Props) {
           {ticketList?.map(ticketData => (
             <div
               key={ticketData.tokenId}
-              className="relative px-2 flex w-full bg-transparent cursor-pointer shadow-lg hover:rounded-lg  hover:bg-[#EBF8FF] transition-all ease-in-out "
+              className={
+                `relative px-2 flex w-full bg-transparent cursor-pointer shadow-lg hover:rounded-lg [@media(hover:hover)]:hover:bg-[#EBF8FF] transition-all ease-in-out ` +
+                (checkedSet.has(ticketData.id) ? `bg-[#EBF8FF] ` : '') +
+                (ticketData.ticketSalesStatus !== 'ON_SALE'
+                  ? ` opacity-50 [@media(hover:hover)]:hover:bg-transparent `
+                  : '')
+              }
             >
               <label className="inline-flex items-center">
                 <input
