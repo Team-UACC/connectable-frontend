@@ -54,7 +54,9 @@ const LoggedOffIcons = () => {
 
   return (
     <div className={`flex justify-between w-[5rem]`}>
-      <NavIcons src="/images/login.svg" alt="login" onClick={handleClickLoginIcon} />
+      <div className=" transform scale-[-1]">
+        <NavIcons src="/images/login.svg" alt="login" onClick={handleClickLoginIcon} />
+      </div>
       <NavIcons src="/images/menu.svg" alt="menu" onClick={handleClickMenuIcon} />
     </div>
   );
