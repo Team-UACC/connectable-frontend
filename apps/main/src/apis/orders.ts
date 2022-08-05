@@ -1,4 +1,5 @@
 import { OrderCodeType, ORDER_CODE } from '~/constants/error';
+import { TicketOrderStatusType } from '~/types/orderType';
 
 import { authorizationOptions, axiosInstance } from '.';
 
@@ -29,4 +30,8 @@ export const postOrderForm = async ({
   } else {
     throw Error('에러가 발생했습니다.\n문의를 남겨주세요.');
   }
+};
+
+export const fetchOrderStatusList = async (): Promise<Array<TicketOrderStatusType>> => {
+  return axiosInstance.get(`/orders/list`, authorizationOptions());
 };

@@ -3,6 +3,7 @@ import { SignUpFormPage } from '.';
 export default function MoreDescription({ page }: { page: SignUpFormPage }) {
   return (
     <section className="w-full text-center">
+      {page === 'Terms' && <></>}
       {page === 'UserName' && (
         <p className="text-sm gray-600 ">
           닉네임은 Connectable에서 보여질 이름입니다.
@@ -21,7 +22,7 @@ export default function MoreDescription({ page }: { page: SignUpFormPage }) {
         </p>
       )}
       {page === 'Finish' && (
-        <p className="pb-5 text-sm font-semibold text-red ">
+        <p className="pb-5 text-sm font-semibold ">
           안녕하세요, 버튼을 눌러 회원가입을 완료하세요.
           <br />
         </p>

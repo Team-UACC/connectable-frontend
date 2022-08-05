@@ -15,7 +15,7 @@ export default function OrderListButton({ eventId }: Props) {
         showModal('판매 목록', <OrderTicketCardList eventId={eventId} />);
       }}
     >
-      판매목록
+      티켓 구매하기
     </Button>
   );
 }

@@ -8,7 +8,7 @@ export default function UserTicketCardList() {
 
   if (error) return <div>error</div>;
 
-  if (isLoading) return <div>loading</div>;
+  if (isLoading) return <div>loading...</div>;
 
   return (
     <ul className="w-full divide-y-2 ">

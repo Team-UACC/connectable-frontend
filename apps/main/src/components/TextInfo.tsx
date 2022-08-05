@@ -4,7 +4,7 @@ import Button from '~/components/Button';
 
 import Text from './Text';
 
-type Contents = { term: string; description: string; hasCopy?: boolean };
+type Contents = { term: string; description: ReactNode; hasCopy?: boolean };
 
 interface Props {
   title: string;
@@ -37,7 +37,9 @@ TextInfo.Line = ({ term, description, hasCopy }: Contents) => {
       {hasCopy ? (
         <div className="w-[60%] flex ">
           <Text textEllipsis={true}>{description}</Text>
-          <Button.TextCopy size={32} text={description} />
+          <div className="flex-shrink-0 w-6 ">
+            <Button.TextCopy size={18} text={description as string} />
+          </div>
         </div>
       ) : (
         <Text className="w-[60%]">{description}</Text>

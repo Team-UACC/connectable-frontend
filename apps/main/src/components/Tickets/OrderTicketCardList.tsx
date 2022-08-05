@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
@@ -21,13 +21,17 @@ const toggleSet = (element: any) => (set: Set<any>) => {
 };
 
 export default function OrderTicketCardList({ eventId }: Props) {
-  const { data: ticketList, isLoading } = useTicketsByEventIdQuery(eventId, { staleTime: 0, cacheTime: 0 });
+  const { data: ticketList, isLoading, refetch } = useTicketsByEventIdQuery(eventId, { staleTime: 0 });
   const [checkedSet, setCheckedSet] = useState(new Set<number>());
 
   const { isLoggedIn } = useUserStore();
   const { showModal } = useModalStore();
 
-  if (isLoading) return <div>loading</div>;
+  useEffect(() => {
+    refetch();
+  }, []);
+
+  if (isLoading) return <div>loading...</div>;
 
   return (
     <>
@@ -36,7 +40,13 @@ export default function OrderTicketCardList({ eventId }: Props) {
           {ticketList?.map(ticketData => (
             <div
               key={ticketData.tokenId}
-              className="relative px-2 flex w-full bg-transparent cursor-pointer shadow-lg hover:rounded-lg  hover:bg-[#EBF8FF] transition-all ease-in-out "
+              className={
+                `relative px-2 flex w-full bg-transparent cursor-pointer shadow-lg hover:rounded-lg [@media(hover:hover)]:hover:bg-[#EBF8FF] transition-all ease-in-out ` +
+                (checkedSet.has(ticketData.id) ? `bg-[#EBF8FF] ` : '') +
+                (ticketData.ticketSalesStatus !== 'ON_SALE'
+                  ? ` opacity-50 [@media(hover:hover)]:hover:bg-transparent `
+                  : '')
+              }
             >
               <label className="inline-flex items-center">
                 <input

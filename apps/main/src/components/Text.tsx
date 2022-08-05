@@ -17,7 +17,11 @@ export default function Text({
 }: Props) {
   return (
     <span
-      className={`text-${size} font-${weight} ` + className + (textEllipsis ? ' overflow-hidden text-ellipsis' : ' ')}
+      className={
+        `text-${size} font-${weight} ` +
+        className +
+        (textEllipsis ? ' overflow-hidden text-ellipsis whitespace-nowrap' : ' ')
+      }
     >
       {children}
     </span>

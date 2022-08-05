@@ -6,6 +6,9 @@ import { useModalStore } from '~/stores/modal';
 import { Ticket } from '~/types/ticketType';
 import { dayjsKO } from '~/utils/day';
 
+import TicketDetailForm from '../Form/TicketDetailForm';
+import OrderTicketCardList from '../Tickets/OrderTicketCardList';
+
 interface Props {
   ticketData: Ticket;
   eventId?: number;
@@ -16,7 +19,7 @@ interface Props {
 export default function TicketCard({ ticketData, className, type = 'Default', eventId }: Props) {
   if (!ticketData.metadata) return null;
 
-  const { hideModal } = useModalStore();
+  const { showModal } = useModalStore();
 
   return (
     <article className={'relative flex w-full px-2 py-4 ' + className}>
@@ -28,11 +31,11 @@ export default function TicketCard({ ticketData, className, type = 'Default', ev
         objectFit="cover"
         className="rounded-[10px] shadow-lg"
       />
-      <div className="flex flex-col justify-between ml-8 h-[100px] text-start">
-        <h2 className="text-lg font-bold ">{ticketData.metadata.name}</h2>
+      <div className="flex flex-col ml-8 h-[100px] text-start">
+        <h2 className="font-bold ">{ticketData.metadata.name}</h2>
         {type === 'Order' ? (
           <>
-            <div className="flex flex-col gap-2 ">
+            <div className="flex flex-col gap-2 mt-4 ">
               <span className="text-sm font-semibold text-brand">
                 판매가{'   '}
                 {ticketData.price.toLocaleString('ko-KR')}원
@@ -45,23 +48,30 @@ export default function TicketCard({ ticketData, className, type = 'Default', ev
                   : '판매 완료'}
               </span>
             </div>
-            <Link href={`/tickets/${eventId}/${ticketData.id}`}>
-              <a
-                onClick={e => {
-                  e.stopPropagation();
-                  hideModal();
-                }}
-              >
-                <Button className="absolute text-xs bottom-[1.5em] right-[0.25rem]">상세정보</Button>
-              </a>
-            </Link>
+            <Button
+              onClick={() =>
+                showModal(
+                  <button onClick={() => showModal('판매 목록', <OrderTicketCardList eventId={Number(eventId)} />)}>
+                    {'<'}
+                  </button>,
+                  <TicketDetailForm eventId={Number(eventId)} ticketId={ticketData.id} />
+                )
+              }
+              className="absolute text-xs bottom-[1.5em] right-[1rem] px-[0.75rem]"
+            >
+              상세정보
+            </Button>
           </>
         ) : (
           <>
-            <span className="mb-4 text-sm font-semibold ">{ticketData.artistName}</span>
-            <span className="text-sm font-semibold opacity-50">
+            <span className="mb-4 text-sm font-semibold ">@{ticketData.artistName}</span>
+            <span className="text-xs font-semibold opacity-50">
               {dayjsKO(ticketData.eventDate).format('YYYY년 MM월 DD일')}
             </span>
+
+            <Link href={`/tickets/${ticketData.eventId}/${ticketData.id}`}>
+              <Button className="absolute text-xs bottom-[1.5em] right-[1rem] px-[0.75rem]">상세정보</Button>
+            </Link>
           </>
         )}
       </div>

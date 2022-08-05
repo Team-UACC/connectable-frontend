@@ -1,11 +1,17 @@
 import axios from 'axios';
 import { getCookie } from 'cookies-next';
 
-export const authorizationOptions = () => ({
-  headers: {
-    Authorization: `Bearer ${getCookie('auth')}`,
-  },
-});
+export const authorizationOptions = () => {
+  const jwt = getCookie('auth');
+
+  if (!jwt) return;
+
+  return {
+    headers: {
+      Authorization: `Bearer ${jwt}`,
+    },
+  };
+};
 
 const _axiosInstance = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_API_URL}`,

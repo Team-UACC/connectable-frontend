@@ -1,12 +1,13 @@
+import { ReactNode } from 'react';
 import create from 'zustand';
 
 interface ModalState {
   isOpen: boolean;
   setIsOpen: (_isOpen: boolean) => void;
-  modalName: string | null;
+  modalName: ReactNode | null;
   children: React.ReactNode;
-  setModalContent: (modalName: string | null, children: React.ReactNode) => void;
-  showModal: (modalName: string | null, children: React.ReactNode) => void;
+  setModalContent: (modalName: ReactNode | null, children: React.ReactNode) => void;
+  showModal: (modalName: ReactNode | null, children: React.ReactNode) => void;
   hideModal: () => void;
 }
 

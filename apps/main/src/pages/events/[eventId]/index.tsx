@@ -10,6 +10,7 @@ import { ArtistImageBox, ArtistName, PriceText, RemainingTicketStatus } from '~/
 import EventSaleTimer from '~/components/Events/EventSaleTimer';
 import LinkBox from '~/components/Events/LinkBox';
 import StickyBlurFooter from '~/components/Footer/StickyBlurFooter';
+import LinkToKlaytnScope from '~/components/LinkToKlaytnScope';
 import TextInfo from '~/components/TextInfo';
 import useEventByIdQuery from '~/hooks/apis/useEventByIdQuery';
 import NotFoundPage from '~/pages/404';
@@ -132,7 +133,14 @@ export default function EventDetailPage({ initialEventDetail }: Props) {
         <TextInfo
           title="NFT 컬렉션 상세"
           contents={[
-            { term: 'Contract Address', description: eventDetail.contractAddress, hasCopy: true },
+            {
+              term: 'Contract Address',
+              description: (
+                <LinkToKlaytnScope type="account" account={eventDetail.contractAddress}>
+                  {eventDetail.contractAddress}
+                </LinkToKlaytnScope>
+              ),
+            },
             { term: 'Token Standard', description: 'KIP-17' },
             { term: 'BlockChain', description: 'Klaytn' },
           ]}
