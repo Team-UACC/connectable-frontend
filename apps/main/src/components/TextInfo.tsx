@@ -37,7 +37,9 @@ TextInfo.Line = ({ term, description, hasCopy }: Contents) => {
       {hasCopy ? (
         <div className="w-[60%] flex ">
           <Text textEllipsis={true}>{description}</Text>
-          <Button.TextCopy size={24} text={description as string} />
+          <div className="flex-shrink-0 w-6 ">
+            <Button.TextCopy size={18} text={description as string} />
+          </div>
         </div>
       ) : (
         <Text className="w-[60%]">{description}</Text>

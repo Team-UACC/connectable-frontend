@@ -11,7 +11,6 @@ import EventSaleTimer from '~/components/Events/EventSaleTimer';
 import LinkBox from '~/components/Events/LinkBox';
 import StickyBlurFooter from '~/components/Footer/StickyBlurFooter';
 import LinkToKlaytnScope from '~/components/LinkToKlaytnScope';
-import Text from '~/components/Text';
 import TextInfo from '~/components/TextInfo';
 import useEventByIdQuery from '~/hooks/apis/useEventByIdQuery';
 import NotFoundPage from '~/pages/404';
@@ -138,10 +137,7 @@ export default function EventDetailPage({ initialEventDetail }: Props) {
               term: 'Contract Address',
               description: (
                 <LinkToKlaytnScope type="account" account={eventDetail.contractAddress}>
-                  <div className="flex h-5">
-                    <Text textEllipsis={true}> {eventDetail.contractAddress}</Text>
-                    <Image src="/images/external-link.svg" alt="tx-hash" width={16} height={16} />
-                  </div>
+                  {eventDetail.contractAddress}
                 </LinkToKlaytnScope>
               ),
             },

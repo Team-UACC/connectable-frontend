@@ -1,5 +1,7 @@
+import Image from 'next/image';
 import { ReactNode } from 'react';
 
+import Text from './Text';
 import Tooltip from './Tooltop';
 
 interface Props {
@@ -18,7 +20,12 @@ export default function LinkToKlaytnScope({ tx_hash, account, children, type }: 
         rel="noreferrer"
         className="w-full "
       >
-        {children}
+        <div className="flex">
+          <div className="flex flex-1 min-w-0 ">
+            <Text textEllipsis={true}>{children}</Text>
+          </div>
+          <Image src="/images/external-link.svg" alt="tx-hash" width={18} height={18} className="flex-shrink-0 " />
+        </div>
       </a>
     </Tooltip>
   );

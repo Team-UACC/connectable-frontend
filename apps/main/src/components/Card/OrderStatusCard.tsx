@@ -35,16 +35,13 @@ export default function OrderStatusCard({ orderData, className }: Props) {
       <br />
       <br />
       {orderData.orderStatus === 'TRANSFER_SUCCESS' && (
-        <div className="flex justify-between w-full">
+        <div className="flex w-full">
           <span className="mr-8 text-sm font-semibold">TX_Hash</span>
-          <LinkToKlaytnScope type="tx" tx_hash={orderData.txHash}>
-            <div className="flex h-5">
-              <div className="flex w-[50%] ">
-                <Text textEllipsis={true}>{orderData.txHash}</Text>
-              </div>
-              <Image src="/images/external-link.svg" alt="tx-hash" width={16} height={16} />
-            </div>
-          </LinkToKlaytnScope>
+          <div className="relative w-[60%]">
+            <LinkToKlaytnScope type="tx" tx_hash={orderData.txHash}>
+              {orderData.txHash}
+            </LinkToKlaytnScope>
+          </div>
         </div>
       )}
     </article>
