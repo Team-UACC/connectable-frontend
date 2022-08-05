@@ -13,6 +13,8 @@ import NFTTransferButton from '~/components/Button/OrderButton/NFTTransferButton
 import { PriceText } from '~/components/Events/EventInfo';
 import EventSaleTimer from '~/components/Events/EventSaleTimer';
 import StickyBlurFooter from '~/components/Footer/StickyBlurFooter';
+import LinkToKlaytnScope from '~/components/LinkToKlaytnScope';
+import Text from '~/components/Text';
 import TextInfo from '~/components/TextInfo';
 import useEventByIdQuery from '~/hooks/apis/useEventByIdQuery';
 import useTicketByIdsQuery from '~/hooks/apis/useTicketByIdsQuery';
@@ -170,7 +172,17 @@ export default function TicketDetail({ skeletonDataTicket, skeletonDataEvent }: 
           title="NFT 상세"
           contents={[
             { term: 'Owned By', description: ticketDetail.ownedBy, hasCopy: true },
-            { term: 'Contract Address', description: ticketDetail.contractAddress, hasCopy: true },
+            {
+              term: 'Contract Address',
+              description: (
+                <LinkToKlaytnScope type="account" account={eventDetail.contractAddress}>
+                  <div className="flex h-5">
+                    <Text textEllipsis={true}> {eventDetail.contractAddress}</Text>
+                    <Image src="/images/external-link.svg" alt="tx-hash" width={24} height={24} />
+                  </div>
+                </LinkToKlaytnScope>
+              ),
+            },
             { term: 'Token ID', description: ticketDetail.tokenId.toString() },
             { term: 'Token Standard', description: 'KIP-17' },
             { term: 'BlockChain', description: 'Klaytn' },
