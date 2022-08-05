@@ -1,10 +1,11 @@
+import { AxiosError } from 'axios';
 import { KeyboardEvent, RefObject } from 'react';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
 import { postOrderForm } from '~/apis/orders';
-import { ORDER_CODE } from '~/constants/error';
 import { useModalStore } from '~/stores/modal';
+import { ErrorResponse400 } from '~/types/errorType';
 
 import { formatPhoneNumber } from '../utils';
 
@@ -34,7 +35,7 @@ export default function useOrderForm({
     toast.promise(submitPromise, {
       loading: 'loading...',
       success: '성공적으로 반영되었습니다.',
-      error: (err: Error) => <div className="text-center">{err.message}</div>,
+      error: (err: AxiosError<ErrorResponse400>) => <div className="text-center">{err.response?.data.message}</div>,
     });
 
     hideModal();
