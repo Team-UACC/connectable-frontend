@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import Button from '~/components/Button';
+import LoginRequestToast from '~/components/Toast/LoginRequestToast';
 import { useUserStore } from '~/stores/user';
 
 interface Props {
@@ -45,7 +46,9 @@ export default function OrderButton({ amount, orderName }: Props) {
         if (isLoggedIn) {
           if (!tossPayments) return toast.error('오류가 발생했습니다. 다시 시도해 주세요.');
           handleTransfer(tossPayments);
-        } else toast.error('로그인 후 이용해주세요.');
+        } else {
+          toast.error(<LoginRequestToast />, { icon: null });
+        }
       }}
     >
       구매하기

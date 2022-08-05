@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 
 import Button from '~/components/Button';
 import OrderForm from '~/components/Form/OrderForm';
+import LoginRequestToast from '~/components/Toast/LoginRequestToast';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 
@@ -21,7 +22,7 @@ export default function FormOrderButton({ amount, ticketId }: Props) {
         if (isLoggedIn) {
           showModal('공연 예매하기', <OrderForm amount={amount} ticketIdList={[ticketId]} />);
         } else {
-          toast.error('로그인 후 이용해주세요.');
+          toast.error(<LoginRequestToast />, { icon: null });
         }
       }}
     >

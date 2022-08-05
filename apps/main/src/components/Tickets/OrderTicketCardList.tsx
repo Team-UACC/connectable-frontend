@@ -10,6 +10,7 @@ import { useUserStore } from '~/stores/user';
 import Button from '../Button';
 import StickyBlurFooter from '../Footer/StickyBlurFooter';
 import OrderForm from '../Form/OrderForm';
+import LoginRequestToast from '../Toast/LoginRequestToast';
 
 interface Props {
   eventId: number;
@@ -85,7 +86,7 @@ export default function OrderTicketCardList({ eventId }: Props) {
                   />
                 );
               } else {
-                toast.error('로그인 후 이용해주세요.');
+                toast.error(<LoginRequestToast />, { icon: null });
               }
             }}
           >

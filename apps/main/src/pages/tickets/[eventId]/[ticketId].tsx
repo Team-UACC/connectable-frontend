@@ -15,6 +15,7 @@ import EventSaleTimer from '~/components/Events/EventSaleTimer';
 import StickyBlurFooter from '~/components/Footer/StickyBlurFooter';
 import LinkToKlaytnScope from '~/components/LinkToKlaytnScope';
 import TextInfo from '~/components/TextInfo';
+import LoginRequestToast from '~/components/Toast/LoginRequestToast';
 import useEventByIdQuery from '~/hooks/apis/useEventByIdQuery';
 import useTicketByIdsQuery from '~/hooks/apis/useTicketByIdsQuery';
 import NotFoundPage from '~/pages/404';
@@ -191,7 +192,7 @@ export default function TicketDetail({ skeletonDataTicket, skeletonDataEvent }: 
             <Button
               onClick={() => {
                 if (!isLoggedIn) {
-                  toast.error('로그인 후 이용해주세요.');
+                  toast.error(<LoginRequestToast />, { icon: null });
                 } else {
                   toast.success('준비중입니다.');
                 }
@@ -203,7 +204,7 @@ export default function TicketDetail({ skeletonDataTicket, skeletonDataEvent }: 
             <Button
               onClick={() => {
                 if (!isLoggedIn) {
-                  toast.error('로그인 후 이용해주세요.');
+                  toast.error(<LoginRequestToast />, { icon: null });
                 } else {
                   toast.success('준비중입니다.');
                 }
@@ -219,7 +220,7 @@ export default function TicketDetail({ skeletonDataTicket, skeletonDataEvent }: 
           <Button
             onClick={() => {
               if (!isLoggedIn) {
-                toast.error('로그인 후 이용해주세요.');
+                toast.error(<LoginRequestToast />, { icon: null });
               } else toast.success('준비중입니다.');
             }}
           >
