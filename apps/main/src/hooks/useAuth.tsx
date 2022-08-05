@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { useQuery } from 'react-query';
 
 import { requestUserLogin } from '~/apis/users';
-import SingUpForm from '~/components/Form/SignUpForm';
+import SignUpForm from '~/components/Form/SignUpForm';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 import { getKlipAccessMethod, getKlipRequest, getKlipRequestKey } from '~/utils/klip';
@@ -31,7 +31,7 @@ export const useKlipLogin = () => {
 
         if (isNew) {
           setKlaytnAddress(klaytnAddress as string);
-          showModal('Sign Up', <SingUpForm />);
+          showModal('회원가입', <SignUpForm />);
         } else {
           setIsLoggedIn(true);
           hideModal();

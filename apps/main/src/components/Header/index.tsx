@@ -5,7 +5,6 @@ import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 
 import MoreMenuForm from '../Form/MoreMenuForm';
-import { MarketDescription, NotificationDescription } from '../Form/MoreMenuForm/TempDescroption';
 
 import NavIcons from './NavIcons';
 
@@ -30,21 +29,12 @@ export default function Header() {
 
 const LoggedOnIcons = () => {
   const { showModal } = useModalStore();
-  const handleClickMarketIcon = () => {
-    showModal('마켓플레이스', <MarketDescription />);
-  };
-
-  const handleClickNotificationIcon = () => {
-    showModal('알림', <NotificationDescription />);
-  };
 
   const handleClickMenuIcon = () => {
     showModal(' ', <MoreMenuForm />);
   };
   return (
-    <div className={`flex justify-between w-[12rem]`}>
-      <NavIcons src="/images/market.svg" alt="market" onClick={handleClickMarketIcon} />
-      <NavIcons src="/images/notification.svg" alt="notification" onClick={handleClickNotificationIcon} />
+    <div className={`flex justify-between w-[5rem]`}>
       <NavIcons src="/images/defaultProfile.png" alt="profile" href="/my" />
       <NavIcons src="/images/menu.svg" alt="menu" onClick={handleClickMenuIcon} />
     </div>
