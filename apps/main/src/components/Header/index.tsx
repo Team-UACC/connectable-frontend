@@ -5,7 +5,6 @@ import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 
 import MoreMenuForm from '../Form/MoreMenuForm';
-import SingUpForm from '../Form/SignUpForm';
 
 import NavIcons from './NavIcons';
 
@@ -42,7 +41,7 @@ const LoggedOnIcons = () => {
   };
 
   const handleClickMenuIcon = () => {
-    showModal(' ', <SingUpForm />);
+    showModal(' ', <MoreMenuForm />);
   };
   return (
     <div className={`flex justify-between w-[12rem]`}>
