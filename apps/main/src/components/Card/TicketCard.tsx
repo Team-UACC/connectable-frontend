@@ -29,7 +29,7 @@ export default function TicketCard({ ticketData, className, type = 'Default', ev
         className="rounded-[10px] shadow-lg"
       />
       <div className="flex flex-col justify-between ml-8 h-[100px] text-start">
-        <h2 className="text-lg font-bold ">{ticketData.metadata.name}</h2>
+        <h2 className="font-bold ">{ticketData.metadata.name}</h2>
         {type === 'Order' ? (
           <>
             <div className="flex flex-col gap-2 ">
@@ -52,16 +52,20 @@ export default function TicketCard({ ticketData, className, type = 'Default', ev
                   hideModal();
                 }}
               >
-                <Button className="absolute text-xs bottom-[1.5em] right-[0.25rem]">상세정보</Button>
+                <Button className="absolute text-xs bottom-[1.5em] right-[1rem] px-[0.75rem]">상세정보</Button>
               </a>
             </Link>
           </>
         ) : (
           <>
-            <span className="mb-4 text-sm font-semibold ">{ticketData.artistName}</span>
-            <span className="text-sm font-semibold opacity-50">
+            <span className="mb-4 text-sm font-semibold ">@{ticketData.artistName}</span>
+            <span className="text-xs font-semibold opacity-50">
               {dayjsKO(ticketData.eventDate).format('YYYY년 MM월 DD일')}
             </span>
+
+            <Link href={`/tickets/${ticketData.eventId}/${ticketData.id}`}>
+              <Button className="absolute text-xs bottom-[1.5em] right-[1rem] px-[0.75rem]">상세정보</Button>
+            </Link>
           </>
         )}
       </div>
