@@ -130,11 +130,13 @@ export default function TicketDetailForm({ eventId, ticketId }: Props) {
           { term: 'BlockChain', description: 'Klaytn' },
         ]}
       />
-      <div className="flex translate-y-[5rem] ">
+      <div className="flex translate-y-[5rem] items-center justify-between ">
         <FormOrderButton amount={ticketDetail.price} ticketId={ticketDetail.id} />
 
-        <Link href={`/tickets/${eventDetail.id}/${ticketDetail.id}`}>
-          <Button>상세 페이지로 이동하기</Button>
+        <Link href={`/tickets/${eventDetail.id}/${ticketDetail.id}`} passHref prefetch={true}>
+          <a className="m-auto ">
+            <Button>상세 페이지로 이동하기</Button>
+          </a>
         </Link>
       </div>
     </article>
