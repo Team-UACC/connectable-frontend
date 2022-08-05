@@ -21,13 +21,13 @@ const toggleSet = (element: any) => (set: Set<any>) => {
 };
 
 export default function OrderTicketCardList({ eventId }: Props) {
-  const { data: ticketList, isLoading } = useTicketsByEventIdQuery(eventId, { staleTime: 0, cacheTime: 0 });
+  const { data: ticketList, isLoading } = useTicketsByEventIdQuery(eventId, { staleTime: 0 });
   const [checkedSet, setCheckedSet] = useState(new Set<number>());
 
   const { isLoggedIn } = useUserStore();
   const { showModal } = useModalStore();
 
-  if (isLoading) return <div>loading</div>;
+  if (isLoading) return <div>loading...</div>;
 
   return (
     <>

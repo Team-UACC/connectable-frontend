@@ -22,11 +22,6 @@ const _axiosInstance = axios.create({
 });
 
 _axiosInstance.interceptors.response.use(response => {
-  console.log(response);
-  if (response.status >= 400) {
-    console.log(response.data);
-    throw Error(response.data.message);
-  }
   return response.data;
 });
 
