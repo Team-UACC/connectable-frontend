@@ -35,6 +35,7 @@ export async function getStaticProps({ params }: GetStaticPropsContext) {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
+    revalidate: 30,
   };
 }
 
