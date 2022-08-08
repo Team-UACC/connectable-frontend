@@ -27,7 +27,7 @@ export default function MoreDescription({
           <br />
           동의를 거부할 수 있으며 동의 거부 시 공연 관람이 불가합니다.
           <br />
-          동의하시면 {'동의'}를 입력해주세요.
+          동의하시면 위 박스를 체크해주세요.
         </p>
       )}
       {page === 'NumberOfPeople' && <p className="text-sm gray-600">수량과 가격이 정확한지 확인해주세요.</p>}
