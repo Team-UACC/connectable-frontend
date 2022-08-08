@@ -7,7 +7,6 @@ import { Ticket } from '~/types/ticketType';
 import { dayjsKO } from '~/utils/day';
 
 import TicketDetailForm from '../Form/TicketDetailForm';
-import OrderTicketCardList from '../Tickets/OrderTicketCardList';
 
 interface Props {
   ticketData: Ticket;
@@ -49,14 +48,11 @@ export default function TicketCard({ ticketData, className, type = 'Default', ev
               </span>
             </div>
             <Button
-              onClick={() =>
-                showModal(
-                  <button onClick={() => showModal('판매 목록', <OrderTicketCardList eventId={Number(eventId)} />)}>
-                    {'<'}
-                  </button>,
-                  <TicketDetailForm eventId={Number(eventId)} ticketId={ticketData.id} />
-                )
-              }
+              onClick={e => {
+                e.stopPropagation();
+
+                showModal('NFT 티켓', <TicketDetailForm eventId={Number(eventId)} ticketId={ticketData.id} />);
+              }}
               className="absolute text-xs bottom-[1.5em] right-[1rem] px-[0.75rem]"
             >
               상세정보
