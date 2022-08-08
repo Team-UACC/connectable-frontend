@@ -7,11 +7,10 @@ import useOrderForm from '~/hooks/useOrderForm';
 import { useUserStore } from '~/stores/user';
 
 import FormPageContainer from '../FormPageContainer';
-import MoreDescriptionContainer from '../MoreDescriptionContainer';
 
 import MoreDescription from './MoreDescription';
 
-export type OrderFormPageType = 'UserName' | 'PhoneNumber' | 'Agreement' | 'NumberOfPeople' | 'DepositCheck' | 'Finish';
+export type OrderFormPageType = 'OnBoarding' | 'Agreement' | 'UserInfo' | 'DepositCheck' | 'Finish';
 
 interface Props {
   amount: number;
@@ -20,19 +19,19 @@ interface Props {
 
 export default function OrderForm({ amount, ticketIdList }: Props) {
   const { phoneNumber } = useUserStore();
-  const [page, setPage] = useState<OrderFormPageType>('UserName');
+  const [page, setPage] = useState<OrderFormPageType>('OnBoarding');
 
-  const [isDisabledMoveToPhoneNumberPage, setIsDisabledMoveToPhoneNumberPage] = useState(true);
-  const [isDisabledMoveToAgreemetnPage, setIsDisabledMoveToAgreemetnPage] = useState(true);
-  const [isDisabledMoveToNumberOfPeoplePage, setIsDisabledMoveToNumberOfPeoplePage] = useState(true);
-  const [isDisabledMoveToDepositCheckPage, setIsDisabledMoveToDepositCheckPage] = useState(true);
-  const [isDisabledMoveToFinishPage, setIsDisabledMoveToFinishPage] = useState(true);
+  const [isDisabledMoveToAgreemetnPage] = useState(false);
+  const [isDisabledUserInfoPage, setIsDisabledUserInfoPage] = useState(true);
+  const [isDisabledMoveToFinishPage, setIsDisabledMoveToFinishPage] = useState(false);
 
   const userNameRef = useRef<HTMLInputElement>(null);
   const phoneNumberRef = useRef<HTMLInputElement>(null);
-  const agreementRef = useRef<HTMLInputElement>(null);
-  const numberOfPeopleRef = useRef<HTMLInputElement>(null);
   const depositCheckRef = useRef<HTMLInputElement>(null);
+
+  const handleChangeTermsCheckBox = (e: ChangeEvent<HTMLInputElement>) => {
+    setIsDisabledUserInfoPage(!e.currentTarget.checked ?? false);
+  };
 
   const [handleKeyUpPhoneNumberInput, handleClickSubmitButton] = useOrderForm({
     userNameRef,
@@ -41,58 +40,30 @@ export default function OrderForm({ amount, ticketIdList }: Props) {
   });
 
   const handleChangeUserNameInput = (e: ChangeEvent<HTMLInputElement>) =>
-    setIsDisabledMoveToPhoneNumberPage(e.currentTarget.value === '');
+    setIsDisabledMoveToFinishPage(e.currentTarget.value === '' || phoneNumberRef.current!.value.length < 13);
 
   const handleChangePhoneNumberInput = (e: ChangeEvent<HTMLInputElement>) =>
-    setIsDisabledMoveToAgreemetnPage(e.currentTarget.value.length < 13);
-
-  const handleChangeAgreementInput = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.currentTarget.value === '동의') {
-      setIsDisabledMoveToNumberOfPeoplePage(false);
-    } else {
-      setIsDisabledMoveToNumberOfPeoplePage(true);
-    }
-  };
-
-  const handleChangeNumberOfPeopleInput = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.currentTarget.value === '확인') {
-      setIsDisabledMoveToDepositCheckPage(false);
-    } else {
-      setIsDisabledMoveToDepositCheckPage(true);
-    }
-  };
-
-  const handleChangeDepositCheckInput = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.currentTarget.value === '완료') {
-      setIsDisabledMoveToFinishPage(false);
-    } else {
-      setIsDisabledMoveToFinishPage(true);
-    }
-  };
+    setIsDisabledMoveToFinishPage(e.currentTarget.value.length < 13 || userNameRef.current?.value === '');
 
   const handleCheckEnter = (e: KeyboardEvent) => {
-    if (e.key === 'Tab') e.preventDefault();
+    if (e.key === 'Tab') {
+      document.activeElement?.id !== 'username' && e.preventDefault();
+    }
     if (e.key === 'Enter') {
-      if (page === 'UserName') !isDisabledMoveToPhoneNumberPage && setPage('PhoneNumber');
-      else if (page === 'PhoneNumber') !isDisabledMoveToAgreemetnPage && setPage('Agreement');
-      else if (page === 'Agreement') !isDisabledMoveToNumberOfPeoplePage && setPage('NumberOfPeople');
-      else if (page === 'NumberOfPeople') !isDisabledMoveToDepositCheckPage && setPage('DepositCheck');
-      else if (page === 'DepositCheck') !isDisabledMoveToFinishPage && setPage('Finish');
+      if (page === 'OnBoarding') !isDisabledMoveToAgreemetnPage && setPage('Agreement');
+      else if (page === 'Agreement') !isDisabledUserInfoPage && setPage('UserInfo');
+      else if (page === 'UserInfo') !isDisabledMoveToFinishPage && setPage('Finish');
     }
   };
 
   useEffect(() => {
     setTimeout(() => {
-      if (page === 'UserName') userNameRef.current?.focus();
-      if (page === 'PhoneNumber') {
+      if (page === 'UserInfo') {
+        userNameRef.current?.focus();
         if (phoneNumberRef.current && phoneNumberRef.current?.value === '') {
           phoneNumberRef.current.value = phoneNumber;
-          setIsDisabledMoveToAgreemetnPage(false);
         }
-        phoneNumberRef.current?.focus();
       }
-      if (page === 'Agreement') agreementRef.current?.focus();
-      if (page === 'NumberOfPeople') numberOfPeopleRef.current?.focus();
       if (page === 'DepositCheck') depositCheckRef.current?.focus();
     }, 550);
   }, [page]);
@@ -100,13 +71,46 @@ export default function OrderForm({ amount, ticketIdList }: Props) {
   return (
     <div className="relative w-full h-full overflow-hidden">
       <form
-        className={`flex ${page === 'PhoneNumber' && '-translate-x-[16.666%]'} ${
-          page === 'Agreement' && '-translate-x-[33.333%]'
-        } ${page === 'NumberOfPeople' && '-translate-x-[50%]'} ${page === 'DepositCheck' && '-translate-x-[66.667%]'} ${
-          page === 'Finish' && '-translate-x-[83.333%]'
-        } w-[600%] bg-transparent rounded transition-all ease-in-out duration-[0.5s]`}
+        className={`flex ${page === 'Agreement' && '-translate-x-[25%]'}  
+         ${page === 'UserInfo' && '-translate-x-[50%]'} ${
+          page === 'Finish' && '-translate-x-[75%]'
+        } w-[400%] bg-transparent rounded transition-all ease-in-out duration-[0.5s]`}
         onKeyDown={handleCheckEnter}
       >
+        <FormPageContainer>
+          <Label text={'주문 확인'} />
+          <p className="font-semibold text-center">
+            {`티켓 ${ticketIdList.length}장, 총 ${amount.toLocaleString('ko-KR')}원입니다.`}
+            <br />
+            <br />
+            아래 버튼을 눌러 진행해주세요.
+          </p>
+          <Button onClick={() => setPage('Agreement')} disabled={isDisabledMoveToAgreemetnPage}>
+            다음
+          </Button>
+        </FormPageContainer>
+        <FormPageContainer>
+          <label className="inline-flex items-center text-sm font-semibold">
+            <input
+              type="checkbox"
+              className="w-4 h-4 mr-2 text-indigo-600 form-checkbox"
+              onChange={handleChangeTermsCheckBox}
+            />
+            <span className="text-blue-500 cursor-pointer">{`[필수] 개인정보 수집동의`}</span>
+          </label>
+          <MoreDescription page="Agreement" amount={amount} />
+
+          <br />
+
+          <div className="flex justify-around w-2/3 m-auto ">
+            <Button onClick={() => setPage('OnBoarding')} disabled={false}>
+              이전
+            </Button>
+            <Button onClick={() => setPage('UserInfo')} disabled={isDisabledUserInfoPage}>
+              다음
+            </Button>
+          </div>
+        </FormPageContainer>
         <FormPageContainer>
           <Input
             name="username"
@@ -118,16 +122,9 @@ export default function OrderForm({ amount, ticketIdList }: Props) {
             spellCheck={false}
             ref={userNameRef}
           />
-          <div className="flex justify-around w-2/3 m-auto ">
-            <Button onClick={() => setPage('PhoneNumber')} disabled={isDisabledMoveToPhoneNumberPage}>
-              다음
-            </Button>
-          </div>
-          <MoreDescriptionContainer>
-            <MoreDescription page="UserName" amount={amount} />
-          </MoreDescriptionContainer>
-        </FormPageContainer>
-        <FormPageContainer>
+          <MoreDescription page="UserName" amount={amount} />
+
+          <br />
           <Input
             name="phonenumber"
             label="전화번호"
@@ -140,98 +137,29 @@ export default function OrderForm({ amount, ticketIdList }: Props) {
             spellCheck={false}
             ref={phoneNumberRef}
           />
-          <div className="flex justify-around w-2/3 m-auto ">
-            <Button onClick={() => setPage('UserName')} disabled={false}>
-              이전
-            </Button>
-            <Button onClick={() => setPage('Agreement')} disabled={isDisabledMoveToAgreemetnPage}>
-              다음
-            </Button>
-          </div>
-          <MoreDescriptionContainer>
-            <MoreDescription page="PhoneNumber" amount={amount} />
-          </MoreDescriptionContainer>
-        </FormPageContainer>
-        <FormPageContainer>
-          <Input
-            name="agreement"
-            label="개인정보 수집 및 이용 동의"
-            type="text"
-            placeholder="동의하신다면 '동의'라고 입력해주세요"
-            onChange={handleChangeAgreementInput}
-            autoComplete="off"
-            spellCheck={false}
-            ref={agreementRef}
-          />
-          <div className="flex justify-around w-2/3 m-auto ">
-            <Button onClick={() => setPage('PhoneNumber')} disabled={false}>
-              이전
-            </Button>
-            <Button onClick={() => setPage('NumberOfPeople')} disabled={isDisabledMoveToNumberOfPeoplePage}>
-              다음
-            </Button>
-          </div>
-          <MoreDescriptionContainer>
-            <MoreDescription page="Agreement" amount={amount} />
-          </MoreDescriptionContainer>
-        </FormPageContainer>
-        <FormPageContainer>
-          <Input
-            name="numberOfPeople"
-            label={`티켓 ${ticketIdList.length}장, 총 ${amount.toLocaleString('ko-KR')}원입니다.`}
-            type="text"
-            placeholder="수량이 맞다면 '확인'을 입력해주세요"
-            onChange={handleChangeNumberOfPeopleInput}
-            autoComplete="off"
-            spellCheck={false}
-            ref={numberOfPeopleRef}
-          />
+          <MoreDescription page="PhoneNumber" amount={amount} />
+
           <div className="flex justify-around w-2/3 m-auto ">
             <Button onClick={() => setPage('Agreement')} disabled={false}>
-              이전
-            </Button>
-            <Button onClick={() => setPage('DepositCheck')} disabled={isDisabledMoveToDepositCheckPage}>
-              다음
-            </Button>
-          </div>
-          <MoreDescriptionContainer>
-            <MoreDescription page="NumberOfPeople" amount={amount} />
-          </MoreDescriptionContainer>
-        </FormPageContainer>
-        <FormPageContainer>
-          <Input
-            name="depositCheck"
-            label="입금 확인"
-            type="text"
-            placeholder="입금을 하고 '완료'라고 입력해주세요"
-            onChange={handleChangeDepositCheckInput}
-            autoComplete="off"
-            spellCheck={false}
-            ref={depositCheckRef}
-          />
-          <div className="flex justify-around w-2/3 m-auto ">
-            <Button onClick={() => setPage('NumberOfPeople')} disabled={false}>
               이전
             </Button>
             <Button onClick={() => setPage('Finish')} disabled={isDisabledMoveToFinishPage}>
               다음
             </Button>
           </div>
-          <MoreDescriptionContainer>
-            <MoreDescription page="DepositCheck" amount={amount} />
-          </MoreDescriptionContainer>
         </FormPageContainer>
+
         <FormPageContainer>
           <Label text="예매 폼 작성이 완료되었습니다." />
-          <Button onClick={() => setPage('DepositCheck')} disabled={false}>
+          <MoreDescription page="DepositCheck" amount={amount} />
+
+          <Button onClick={() => setPage('UserInfo')} disabled={false}>
             이전
           </Button>
           <Button color="red" onClick={handleClickSubmitButton} disabled={false}>
             예매 폼 제출하기
           </Button>
-          <MoreDescriptionContainer>
-            <MoreDescription page="Finish" amount={amount} />
-          </MoreDescriptionContainer>
+          <MoreDescription page="Finish" amount={amount} />
         </FormPageContainer>
       </form>
     </div>

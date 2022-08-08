@@ -6,7 +6,13 @@ import { KAKAO_TALK_ONE_TO_ONE_CHAT } from '~/constants/link';
 
 import { OrderFormPageType } from '.';
 
-export default function MoreDescription({ page, amount }: { page: OrderFormPageType; amount: number }) {
+export default function MoreDescription({
+  page,
+  amount,
+}: {
+  page: OrderFormPageType | 'UserName' | 'PhoneNumber' | 'NumberOfPeople';
+  amount: number;
+}) {
   return (
     <section className="w-full text-center">
       {page === 'UserName' && <p className="text-sm gray-600">예금주와 동일한 성함으로 작성해주시길 바랍니다.</p>}
@@ -38,8 +44,10 @@ export default function MoreDescription({ page, amount }: { page: OrderFormPageT
           </span>{' '}
           으로
           <br />
-          {amount.toLocaleString('ko-KR')}원을 입금하시고 {'완료'}를 입력해주세요.
+          {amount.toLocaleString('ko-KR')}원을 입금해주세요.
           <br />
+          <br />
+          <span>폼 제출 후, 30분 이내로 미입금 시 반려됩니다.</span>
           <br />
           <span className="text-xs text-gray-600 ">계좌번호를 클릭하면 복사됩니다.</span>
         </p>
