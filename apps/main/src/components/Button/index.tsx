@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { ReactNode } from 'react';
+import { MouseEvent, ReactNode } from 'react';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
@@ -16,7 +16,7 @@ enum buttonColorTheme {
 
 export interface ButtonProps {
   children: ReactNode;
-  onClick?: () => void;
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
   color?: ButtonColor;
   className?: string;

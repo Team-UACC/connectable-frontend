@@ -226,7 +226,7 @@ export default function OrderForm({ amount, ticketIdList }: Props) {
           <Button onClick={() => setPage('DepositCheck')} disabled={false}>
             이전
           </Button>
-          <Button color="red" onClick={() => handleClickSubmitButton()} disabled={false}>
+          <Button color="red" onClick={handleClickSubmitButton} disabled={false}>
             예매 폼 제출하기
           </Button>
           <MoreDescriptionContainer>
