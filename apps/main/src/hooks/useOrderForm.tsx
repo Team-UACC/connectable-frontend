@@ -45,6 +45,7 @@ export default function useOrderForm({
         loading: 'loading...',
         success: () => {
           hideModal();
+          window.location.reload();
           return '성공적으로 반영되었습니다.';
         },
         error: (err: AxiosError<ErrorResponse400>) => {

@@ -1,17 +1,15 @@
-import { GetStaticPropsContext } from 'next';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
-import { dehydrate, QueryClient } from 'react-query';
 
-import { fetchAllEvents } from '~/apis/events';
 import Button from '~/components/Button';
 import TicketCard from '~/components/Card/TicketCard';
 import StickyBlurFooter from '~/components/Footer/StickyBlurFooter';
 import OrderForm from '~/components/Form/OrderForm';
 import LoginRequestToast from '~/components/Toast/LoginRequestToast';
-import useTicketsByEventIdQuery, { prefetchTicketsByEventIdQuery } from '~/hooks/apis/useTicketsByEventIdQuery';
+import useTicketsByEventIdQuery from '~/hooks/apis/useTicketsByEventIdQuery';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 
@@ -20,29 +18,10 @@ const toggleSet = (element: any) => (set: Set<any>) => {
   return new Set([...set]);
 };
 
-export async function getStaticPaths() {
-  const events = await fetchAllEvents();
-  const paths = events.map(e => ({ params: { eventId: e.id.toString() } }));
-  return { paths, fallback: false };
-}
-
-export async function getStaticProps({ params }: GetStaticPropsContext) {
-  const queryClient = new QueryClient();
-
-  await prefetchTicketsByEventIdQuery(queryClient, Number(params?.eventId));
-
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-    revalidate: 30,
-  };
-}
-
 export default function EventsSalesPage() {
   const router = useRouter();
   const { eventId } = router.query;
-  const { data: ticketList, refetch } = useTicketsByEventIdQuery(Number(eventId), { staleTime: 0 });
+  const { data: ticketList, isLoading, refetch } = useTicketsByEventIdQuery(Number(eventId), { staleTime: 0 });
   const [checkedSet, setCheckedSet] = useState(new Set<number>());
 
   const { isLoggedIn } = useUserStore();
@@ -53,6 +32,8 @@ export default function EventsSalesPage() {
       refetch();
     }
   }, [router]);
+
+  if (isLoading) return 'loading...';
 
   return (
     <>
@@ -125,9 +106,11 @@ EventsSalesPage.getLayout = function getLayout(page: ReactElement) {
       <header className="sticky top-0 z-10 flex justify-between w-full px-5 bg-[rgba(255,255,255,0.5)] backdrop-blur-md">
         <nav className="relative flex justify-between w-full py-6 ">
           <div className="flex flex-col justify-center">
-            <button className="translate-x-1 " onClick={() => router.back()}>
-              <span className="p-2 text-lg font-semibold cursor-pointer ">{'<'}</span>
-            </button>
+            <Link className="translate-x-1 " href={`/events/${router.query.eventId}`}>
+              <a>
+                <span className="p-2 text-lg font-semibold cursor-pointer ">{'<'}</span>
+              </a>
+            </Link>
           </div>
           <span className="absolute px-2 text-lg font-semibold -translate-x-1/2 left-1/2 ">티켓 목록</span>
         </nav>
