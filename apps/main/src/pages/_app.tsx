@@ -3,7 +3,8 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ReactElement, ReactNode, useEffect, useState } from 'react';
-import { Toaster } from 'react-hot-toast';
+// eslint-disable-next-line import/no-named-as-default
+import toast, { Toaster } from 'react-hot-toast';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
 import ErrorBoundary from '~/components/ErrorBoundary';
@@ -46,6 +47,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
   useEffect(() => {
     const handleComplete = () => {
+      toast.dismiss();
       hideModal();
     };
     router.events.on('routeChangeComplete', handleComplete);

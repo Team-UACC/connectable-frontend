@@ -121,7 +121,7 @@ export default function Guide() {
               <br />
               <br />
               <Text>
-                <span className=" text-red">1시간</span> 내로 해결할 수 있도록 도와드립니다.
+                <span className=" text-red">빠른 시일</span> 내로 해결할 수 있도록 도와드립니다.
               </Text>
               <br />
               <br />

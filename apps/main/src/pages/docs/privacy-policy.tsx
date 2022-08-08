@@ -72,7 +72,7 @@ export default function PrivacyPolicy() {
           <hr className=" w-full bg-transparent border-b-[1px] border-slate-200 my-2" />
         </section>
         <section className="whitespace-pre-line">
-          <h2 className="font-bold text-4">5. 개인정보 보호책임자 및 담장자 안내</h2>
+          <h2 className="font-bold text-4">5. 개인정보 보호책임자 및 담당자 안내</h2>
           <p className="text-sm leading-6 ">
             <Text>개인정보 보호책임자 : 조영상</Text>
             <br />
