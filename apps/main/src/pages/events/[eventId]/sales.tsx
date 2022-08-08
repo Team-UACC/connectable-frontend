@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
@@ -11,10 +11,6 @@ import LoginRequestToast from '~/components/Toast/LoginRequestToast';
 import useTicketsByEventIdQuery from '~/hooks/apis/useTicketsByEventIdQuery';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
-
-interface Props {
-  eventId: number;
-}
 
 const toggleSet = (element: any) => (set: Set<any>) => {
   set.has(element) ? set.delete(element) : set.add(element);
@@ -101,3 +97,22 @@ export default function EventsSalesPage() {
     </>
   );
 }
+EventsSalesPage.getLayout = function getLayout(page: ReactElement) {
+  const router = useRouter();
+
+  return (
+    <div className="relative m-auto " style={{ width: 'min(428px, 100vw)', minHeight: '100vh' }}>
+      <header className="sticky top-0 z-10 flex justify-between w-full px-5 bg-[rgba(255,255,255,0.5)] backdrop-blur-md">
+        <nav className="relative flex justify-between w-full py-6 ">
+          <div className="flex flex-col justify-center">
+            <button className="translate-x-1 " onClick={() => router.back()}>
+              <span className="p-2 text-lg font-semibold cursor-pointer ">{'<'}</span>
+            </button>
+          </div>
+          <span className="absolute px-2 text-lg font-semibold -translate-x-1/2 left-1/2 ">티켓 목록</span>
+        </nav>
+      </header>
+      <div className="flex flex-col items-center px-4 ">{page}</div>
+    </div>
+  );
+};
