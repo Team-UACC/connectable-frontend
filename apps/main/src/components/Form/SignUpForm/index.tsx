@@ -10,7 +10,7 @@ import MoreDescriptionContainer from '../MoreDescriptionContainer';
 
 import MoreDescription from './MoreDescription';
 
-export type SignUpFormPage = 'Terms' | 'UserName' | 'PhoneNumber' | 'Finish';
+export type SignUpFormPage = 'Terms' | 'UserInfo' | 'Finish';
 
 export default function SingUpForm() {
   const [page, setPage] = useState<SignUpFormPage>('Terms');
@@ -40,33 +40,31 @@ export default function SingUpForm() {
 
   const handleCheckKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'Tab') {
-      e.preventDefault();
+      document.activeElement?.id !== 'username' && e.preventDefault();
     }
     if (e.key === 'Enter') {
-      if (page === 'Terms') validationTerms === true && setPage('UserName');
-      else if (page === 'UserName') validationNickName === true && setPage('PhoneNumber');
-      else if (page === 'PhoneNumber') validationPhoneNumber === true && setPage('Finish');
+      if (page === 'Terms') validationTerms === true && setPage('UserInfo');
+      else if (page === 'UserInfo') validationNickName === true && setPage('Finish');
       else handleClickSubmitButton();
     }
   };
 
   useEffect(() => {
     setTimeout(() => {
-      if (page === 'UserName') userNameRef.current?.focus();
-      if (page === 'PhoneNumber') phoneNumberRef.current?.focus();
-    }, 500);
+      if (page === 'UserInfo') userNameRef.current?.focus();
+    }, 550);
   }, [page]);
 
   return (
     <div className="w-full mb-10 overflow-hidden">
       <form
-        className={`flex ${page === 'UserName' && '-translate-x-1/4'} ${page === 'PhoneNumber' && '-translate-x-1/2'} ${
-          page === 'Finish' && '-translate-x-3/4'
-        } w-[400%] pt-6 pb-8 mb-4 bg-transparent rounded transition-all ease-in-out duration-[0.5s]`}
+        className={`flex ${page === 'UserInfo' && '-translate-x-1/3'} ${
+          page === 'Finish' && '-translate-x-2/3'
+        } w-[300%] pt-6 pb-8 mb-4 bg-transparent rounded transition-all ease-in-out duration-[0.5s]`}
         onKeyDown={handleCheckKeyDown}
       >
         <FormPageContainer>
-          <div className="relative flex flex-col w-full gap-6 mt-48">
+          <div className="relative flex flex-col w-full gap-6 ">
             <label className="inline-flex items-center text-sm font-semibold">
               <input
                 type="checkbox"
@@ -107,7 +105,7 @@ export default function SingUpForm() {
               <br />
             </p>
           </div>
-          <Button onClick={() => setPage('UserName')} disabled={validationTerms !== true}>
+          <Button onClick={() => setPage('UserInfo')} disabled={validationTerms !== true}>
             다음
           </Button>
           <MoreDescriptionContainer>
@@ -130,19 +128,8 @@ export default function SingUpForm() {
             spellCheck={false}
             ref={userNameRef}
           />
-          <div className="flex justify-around w-2/3 m-auto ">
-            <Button onClick={() => setPage('Terms')} disabled={false}>
-              이전
-            </Button>
-            <Button onClick={() => setPage('PhoneNumber')} disabled={validationNickName !== true}>
-              다음
-            </Button>
-          </div>
-          <MoreDescriptionContainer>
-            <MoreDescription page="UserName" />
-          </MoreDescriptionContainer>
-        </FormPageContainer>
-        <FormPageContainer>
+          <MoreDescription page="UserName" />
+
           <Input
             name="phonenumber"
             label="전화번호"
@@ -154,21 +141,22 @@ export default function SingUpForm() {
             spellCheck={false}
             ref={phoneNumberRef}
           />
+          <MoreDescription page="PhoneNumber" />
           <div className="flex justify-around w-2/3 m-auto ">
-            <Button onClick={() => setPage('UserName')} disabled={false}>
+            <Button onClick={() => setPage('Terms')} disabled={false}>
               이전
             </Button>
-            <Button onClick={() => setPage('Finish')} disabled={validationPhoneNumber !== true}>
+            <Button
+              onClick={() => setPage('Finish')}
+              disabled={validationNickName !== true || validationPhoneNumber !== true}
+            >
               다음
             </Button>
           </div>
-          <MoreDescriptionContainer>
-            <MoreDescription page="PhoneNumber" />
-          </MoreDescriptionContainer>
         </FormPageContainer>
         <FormPageContainer>
           <Label text="Connectable에 오신 걸 환영합니다." />
-          <Button onClick={() => setPage('PhoneNumber')} disabled={false}>
+          <Button onClick={() => setPage('UserInfo')} disabled={false}>
             이전
           </Button>
           <Button color="red" onClick={() => handleClickSubmitButton()} disabled={false}>

@@ -1,6 +1,6 @@
 import { SignUpFormPage } from '.';
 
-export default function MoreDescription({ page }: { page: SignUpFormPage }) {
+export default function MoreDescription({ page }: { page: SignUpFormPage | 'UserName' | 'PhoneNumber' }) {
   return (
     <section className="w-full text-center">
       {page === 'Terms' && <></>}
