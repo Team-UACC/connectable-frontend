@@ -1,14 +1,17 @@
+import { GetStaticPropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
+import { dehydrate, QueryClient } from 'react-query';
 
+import { fetchAllEvents } from '~/apis/events';
 import Button from '~/components/Button';
 import TicketCard from '~/components/Card/TicketCard';
 import StickyBlurFooter from '~/components/Footer/StickyBlurFooter';
 import OrderForm from '~/components/Form/OrderForm';
 import LoginRequestToast from '~/components/Toast/LoginRequestToast';
-import useTicketsByEventIdQuery from '~/hooks/apis/useTicketsByEventIdQuery';
+import useTicketsByEventIdQuery, { prefetchTicketsByEventIdQuery } from '~/hooks/apis/useTicketsByEventIdQuery';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 
@@ -17,10 +20,28 @@ const toggleSet = (element: any) => (set: Set<any>) => {
   return new Set([...set]);
 };
 
+export async function getStaticPaths() {
+  const events = await fetchAllEvents();
+  const paths = events.map(e => ({ params: { eventId: e.id.toString() } }));
+  return { paths, fallback: false };
+}
+
+export async function getStaticProps({ params }: GetStaticPropsContext) {
+  const queryClient = new QueryClient();
+
+  await prefetchTicketsByEventIdQuery(queryClient, Number(params?.eventId));
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
+}
+
 export default function EventsSalesPage() {
   const router = useRouter();
   const { eventId } = router.query;
-  const { data: ticketList, isLoading, refetch } = useTicketsByEventIdQuery(Number(eventId), { staleTime: 0 });
+  const { data: ticketList, refetch } = useTicketsByEventIdQuery(Number(eventId), { staleTime: 0 });
   const [checkedSet, setCheckedSet] = useState(new Set<number>());
 
   const { isLoggedIn } = useUserStore();
@@ -31,8 +52,6 @@ export default function EventsSalesPage() {
       refetch();
     }
   }, [router]);
-
-  if (isLoading) return <div>loading...</div>;
 
   return (
     <>

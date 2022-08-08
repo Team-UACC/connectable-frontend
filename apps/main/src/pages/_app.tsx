@@ -2,9 +2,9 @@ import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { ReactElement, ReactNode, useEffect } from 'react';
+import { ReactElement, ReactNode, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
 import ErrorBoundary from '~/components/ErrorBoundary';
 import Layout from '~/components/Layout';
@@ -22,20 +22,23 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 60 * 1000, // 1분
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-      refetchOnWindowFocus: false,
-    },
-  },
-});
-
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const router = useRouter();
   const { hideModal } = useModalStore();
+
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 60 * 1000, // 1분
+            refetchOnMount: false,
+            refetchOnReconnect: false,
+            refetchOnWindowFocus: false,
+          },
+        },
+      })
+  );
 
   const getLayout = Component.getLayout ?? ((page: ReactElement) => <Layout>{page}</Layout>);
 
@@ -59,11 +62,13 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         <title>Connectable</title>
       </Head>
       <QueryClientProvider client={queryClient}>
-        <ErrorBoundary>
-          {getLayout(<Component {...pageProps} />)}
-          <Toaster containerStyle={{ top: 300 }} />
-          <Modals />
-        </ErrorBoundary>
+        <Hydrate state={pageProps.dehydratedState}>
+          <ErrorBoundary>
+            {getLayout(<Component {...pageProps} />)}
+            <Toaster containerStyle={{ top: 300 }} />
+            <Modals />
+          </ErrorBoundary>
+        </Hydrate>
       </QueryClientProvider>
     </>
   );
