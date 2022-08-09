@@ -1,9 +1,9 @@
 import Link from 'next/link';
 
-import DotText from '~/components/DotText';
 import Footer from '~/components/Footer';
 import HeadMeta from '~/components/HeadMeta';
 import Text from '~/components/Text';
+import DotText from '~/components/Text/DotText';
 import { KAKAO_TALK_ONE_TO_ONE_CHAT } from '~/constants/link';
 import { data } from '~/constants/seo';
 

@@ -1,8 +1,9 @@
 import Image from 'next/image';
 import { ReactNode } from 'react';
 
-import Text from './Text';
-import Tooltip from './Tooltip';
+import Tooltip from '~/components/Tooltip';
+
+import Text from '.';
 
 interface Props {
   tx_hash?: string;

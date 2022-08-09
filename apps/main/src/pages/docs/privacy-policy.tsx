@@ -1,7 +1,7 @@
-import DotText from '~/components/DotText';
 import Footer from '~/components/Footer';
 import HeadMeta from '~/components/HeadMeta';
 import Text from '~/components/Text';
+import DotText from '~/components/Text/DotText';
 import { data } from '~/constants/seo';
 
 export default function PrivacyPolicy() {

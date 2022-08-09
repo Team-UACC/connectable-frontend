@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { ReactNode } from 'react';
 
-import Text from './Text';
+import Text from '.';
 
 interface Props {
   href: string;
