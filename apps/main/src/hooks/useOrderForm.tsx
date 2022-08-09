@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { useQueryClient } from 'react-query';
 
 import { postOrderForm } from '~/apis/orders';
+import OrderFormSuccessToast from '~/components/Toast/OrderFormSuccessToast';
 import queryKeys from '~/constants/queryKeys';
 import { useModalStore } from '~/stores/modal';
 import { ErrorResponse400 } from '~/types/errorType';
@@ -46,26 +47,22 @@ export default function useOrderForm({
     currentButton.innerText = '...';
     currentButton.style.opacity = '0.5';
 
-    toast.promise(
-      submitPromise,
-      {
-        loading: 'loading...',
-        success: () => {
-          queryClient.invalidateQueries(queryKeys.tickets.byEventId(eventId));
+    toast.promise(submitPromise, {
+      loading: 'loading...',
+      success: () => {
+        queryClient.invalidateQueries(queryKeys.tickets.byEventId(eventId));
 
-          hideModal();
-          return '성공적으로 반영되었습니다.';
-        },
-        error: (err: AxiosError<ErrorResponse400>) => {
-          currentButton.disabled = false;
-          currentButton.innerText = defaultText;
-          currentButton.style.opacity = '1';
-
-          return <div className="text-center">{err.response?.data.message}</div>;
-        },
+        hideModal();
+        return <OrderFormSuccessToast />;
       },
-      { duration: 3000 }
-    );
+      error: (err: AxiosError<ErrorResponse400>) => {
+        currentButton.disabled = false;
+        currentButton.innerText = defaultText;
+        currentButton.style.opacity = '1';
+
+        return <div className="text-center">{err.response?.data.message}</div>;
+      },
+    });
   };
 
   return [handleKeyUp, handleClickSubmitButton];

@@ -62,7 +62,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         <Hydrate state={pageProps.dehydratedState}>
           <ErrorBoundary>
             {getLayout(<Component {...pageProps} />)}
-            <Toaster containerStyle={{ top: 300 }} />
+            <Toaster containerStyle={{ top: 300 }} toastOptions={{ duration: 3000 }} />
             <Modals />
           </ErrorBoundary>
         </Hydrate>
