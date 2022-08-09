@@ -6,7 +6,13 @@ import { KAKAO_TALK_ONE_TO_ONE_CHAT } from '~/constants/link';
 
 import { OrderFormPageType } from '.';
 
-export default function MoreDescription({ page, amount }: { page: OrderFormPageType; amount: number }) {
+export default function MoreDescription({
+  page,
+  amount,
+}: {
+  page: OrderFormPageType | 'UserName' | 'PhoneNumber' | 'NumberOfPeople';
+  amount: number;
+}) {
   return (
     <section className="w-full text-center">
       {page === 'UserName' && <p className="text-sm gray-600">예금주와 동일한 성함으로 작성해주시길 바랍니다.</p>}
@@ -21,7 +27,7 @@ export default function MoreDescription({ page, amount }: { page: OrderFormPageT
           <br />
           동의를 거부할 수 있으며 동의 거부 시 공연 관람이 불가합니다.
           <br />
-          동의하시면 {'동의'}를 입력해주세요.
+          동의하시면 위 박스를 체크해주세요.
         </p>
       )}
       {page === 'NumberOfPeople' && <p className="text-sm gray-600">수량과 가격이 정확한지 확인해주세요.</p>}
@@ -38,8 +44,10 @@ export default function MoreDescription({ page, amount }: { page: OrderFormPageT
           </span>{' '}
           으로
           <br />
-          {amount.toLocaleString('ko-KR')}원을 입금하시고 {'완료'}를 입력해주세요.
+          {amount.toLocaleString('ko-KR')}원을 입금해주세요.
           <br />
+          <br />
+          <span>폼 제출 후, 30분 이내로 미입금 시 반려됩니다.</span>
           <br />
           <span className="text-xs text-gray-600 ">계좌번호를 클릭하면 복사됩니다.</span>
         </p>

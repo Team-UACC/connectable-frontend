@@ -1,6 +1,6 @@
 import { SignUpFormPage } from '.';
 
-export default function MoreDescription({ page }: { page: SignUpFormPage }) {
+export default function MoreDescription({ page }: { page: SignUpFormPage | 'UserName' | 'PhoneNumber' }) {
   return (
     <section className="w-full text-center">
       {page === 'Terms' && <></>}
@@ -13,12 +13,9 @@ export default function MoreDescription({ page }: { page: SignUpFormPage }) {
       )}
       {page === 'PhoneNumber' && (
         <p className="text-sm gray-600 ">
-          정책에 의하여 전화번호를 수집합니다.
+          공연 예매자 확인 및 관련 업무 수행 시 이용에 사용됩니다.
           <br />
-          <a className="text-blue-500 cursor-pointer" href="/docs/terms-of-service" target="_blank">
-            약관을 확인
-          </a>
-          해주세요.
+          나중에 언제든지 수정할 수 있어요.
         </p>
       )}
       {page === 'Finish' && (

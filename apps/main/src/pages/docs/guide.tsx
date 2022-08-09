@@ -2,12 +2,16 @@ import Link from 'next/link';
 
 import DotText from '~/components/DotText';
 import Footer from '~/components/Footer';
+import HeadMeta from '~/components/HeadMeta';
 import Text from '~/components/Text';
 import { KAKAO_TALK_ONE_TO_ONE_CHAT } from '~/constants/link';
+import { data } from '~/constants/seo';
 
 export default function Guide() {
   return (
     <>
+      <HeadMeta title={`Connectable | 안내서`} image={data.images.logo} url={data.url + `/docs/guide`} />
+
       <article className="w-full pb-[5rem] flex flex-col top-1/2 left-1/2 min-w-[320px] gap-8">
         <header>
           <h1 className=" m-auto text-center text-[2rem] font-bold ">Connectable 안내서</h1>
@@ -121,7 +125,7 @@ export default function Guide() {
               <br />
               <br />
               <Text>
-                <span className=" text-red">1시간</span> 내로 해결할 수 있도록 도와드립니다.
+                <span className=" text-red">빠른 시일</span> 내로 해결할 수 있도록 도와드립니다.
               </Text>
               <br />
               <br />

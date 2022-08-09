@@ -1,21 +1,24 @@
+import Link from 'next/link';
+import { useEffect } from 'react';
+import { useQueryClient } from 'react-query';
+
 import Button from '~/components/Button';
-import OrderTicketCardList from '~/components/Tickets/OrderTicketCardList';
-import { useModalStore } from '~/stores/modal';
+import { prefetchTicketsByEventIdQuery } from '~/hooks/apis/useTicketsByEventIdQuery';
 
 interface Props {
   eventId: number;
 }
 
 export default function OrderListButton({ eventId }: Props) {
-  const { showModal } = useModalStore();
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    prefetchTicketsByEventIdQuery(queryClient, Number(eventId));
+  }, []);
 
   return (
-    <Button
-      onClick={() => {
-        showModal('판매 목록', <OrderTicketCardList eventId={eventId} />);
-      }}
-    >
-      티켓 구매하기
-    </Button>
+    <Link href={`/events/${eventId}/sales`} passHref>
+      <Button>티켓 구매하기</Button>
+    </Link>
   );
 }

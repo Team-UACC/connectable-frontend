@@ -2,6 +2,7 @@
 import toast from 'react-hot-toast';
 
 import NFTTransferForm from '~/components/Form/NFTTransferForm';
+import LoginRequestToast from '~/components/Toast/LoginRequestToast';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 
@@ -21,7 +22,7 @@ export default function NFTTransferButton({ blockchain = 'Klaytn', eventId, tick
     <Button
       onClick={() => {
         if (!isLoggedIn) {
-          toast.error('로그인 후 이용해주세요.');
+          toast.error(<LoginRequestToast />, { icon: null });
         } else {
           showModal(
             'NFT 전송하기',

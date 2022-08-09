@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRef } from 'react';
 
 import Button from '~/components/Button';
 import FormOrderButton from '~/components/Button/OrderButton/FormOrderButton';
@@ -28,7 +29,9 @@ export default function TicketDetailForm({ eventId, ticketId }: Props) {
     cacheTime: 0,
   });
 
-  useScrollToTop();
+  const containterRef = useRef(null);
+
+  useScrollToTop(containterRef);
 
   if (ticketDetailLoading || eventDetailLoading) {
     return <span>loading...</span>;
@@ -39,7 +42,7 @@ export default function TicketDetailForm({ eventId, ticketId }: Props) {
   }
 
   return (
-    <article className="w-full scale-90 -translate-y-[5rem] text-start">
+    <article ref={containterRef} className="w-full scale-90 -translate-y-[5rem] text-start">
       <h1 className="mb-4 text-xl font-bold text-center">{ticketDetail.metadata.name} 상세정보</h1>
       <div className=" relative w-[calc(100%+2rem)] p-4 -translate-x-4 bg-gray-100 ">
         <div className="m-2 max-w-fit drop-shadow-2xl">
@@ -130,11 +133,15 @@ export default function TicketDetailForm({ eventId, ticketId }: Props) {
           { term: 'BlockChain', description: 'Klaytn' },
         ]}
       />
-      <div className="flex translate-y-[5rem] ">
-        <FormOrderButton amount={ticketDetail.price} ticketId={ticketDetail.id} />
+      <div className="flex translate-y-[5rem] items-center justify-between ">
+        {ticketDetail.ticketSalesStatus === 'ON_SALE' && (
+          <FormOrderButton amount={ticketDetail.price} ticketId={ticketDetail.id} eventId={eventDetail.id} />
+        )}
 
-        <Link href={`/tickets/${eventDetail.id}/${ticketDetail.id}`}>
-          <Button>상세 페이지로 이동하기</Button>
+        <Link href={`/tickets/${eventDetail.id}/${ticketDetail.id}`} passHref prefetch={true}>
+          <a className="m-auto ">
+            <Button>상세 페이지로 이동하기</Button>
+          </a>
         </Link>
       </div>
     </article>

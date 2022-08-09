@@ -1,5 +1,4 @@
 import { GetServerSidePropsContext } from 'next';
-import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -13,8 +12,11 @@ import NFTTransferButton from '~/components/Button/OrderButton/NFTTransferButton
 import { PriceText } from '~/components/Events/EventInfo';
 import EventSaleTimer from '~/components/Events/EventSaleTimer';
 import StickyBlurFooter from '~/components/Footer/StickyBlurFooter';
+import HeadMeta from '~/components/HeadMeta';
 import LinkToKlaytnScope from '~/components/LinkToKlaytnScope';
 import TextInfo from '~/components/TextInfo';
+import LoginRequestToast from '~/components/Toast/LoginRequestToast';
+import { data } from '~/constants/seo';
 import useEventByIdQuery from '~/hooks/apis/useEventByIdQuery';
 import useTicketByIdsQuery from '~/hooks/apis/useTicketByIdsQuery';
 import NotFoundPage from '~/pages/404';
@@ -86,9 +88,14 @@ export default function TicketDetail({ skeletonDataTicket, skeletonDataEvent }: 
 
   return (
     <>
-      <Head>
-        <title>{`NFT 티켓 | ${ticketDetail.metadata.name}`}</title>
-      </Head>
+      <HeadMeta
+        title={`NFT 티켓 | ${ticketDetail.metadata.name}`}
+        image={ticketDetail.metadata.image}
+        description={ticketDetail.metadata.description}
+        url={data.url + `/tickets/${ticketDetail.eventId}/${ticketDetail.id}`}
+        creator={ticketDetail.artistName}
+      />
+
       <div className="w-full ">
         <div className=" relative w-[calc(100%+2rem)] p-4 -translate-x-4 bg-gray-100 ">
           <div className="m-2 max-w-fit drop-shadow-2xl">
@@ -191,7 +198,7 @@ export default function TicketDetail({ skeletonDataTicket, skeletonDataEvent }: 
             <Button
               onClick={() => {
                 if (!isLoggedIn) {
-                  toast.error('로그인 후 이용해주세요.');
+                  toast.error(<LoginRequestToast />, { icon: null });
                 } else {
                   toast.success('준비중입니다.');
                 }
@@ -203,7 +210,7 @@ export default function TicketDetail({ skeletonDataTicket, skeletonDataEvent }: 
             <Button
               onClick={() => {
                 if (!isLoggedIn) {
-                  toast.error('로그인 후 이용해주세요.');
+                  toast.error(<LoginRequestToast />, { icon: null });
                 } else {
                   toast.success('준비중입니다.');
                 }
@@ -214,12 +221,12 @@ export default function TicketDetail({ skeletonDataTicket, skeletonDataEvent }: 
             </Button>
           </>
         ) : ticketDetail.ticketSalesStatus === 'ON_SALE' ? (
-          <FormOrderButton amount={ticketDetail.price} ticketId={ticketDetail.id} />
+          <FormOrderButton amount={ticketDetail.price} ticketId={ticketDetail.id} eventId={Number(eventId)} />
         ) : (
           <Button
             onClick={() => {
               if (!isLoggedIn) {
-                toast.error('로그인 후 이용해주세요.');
+                toast.error(<LoginRequestToast />, { icon: null });
               } else toast.success('준비중입니다.');
             }}
           >

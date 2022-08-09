@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { fetchAllEvents } from '~/apis/events';
 import EventCard from '~/components/Card/EventCard';
 import Footer from '~/components/Footer';
+import HeadMeta from '~/components/HeadMeta';
+import { data } from '~/constants/seo';
 import useEventsQuery from '~/hooks/apis/useEventsQuery';
 import { EventSimpleType } from '~/types/eventType';
 
@@ -24,6 +26,13 @@ export default function IndexPage({ posts }: Props) {
   if (isLoading) return 'loading';
   return (
     <>
+      <HeadMeta
+        title={data.title}
+        image={data.images.logo}
+        description={data.description}
+        url={data.url}
+        creator={data.creator}
+      />
       <div>
         <IntroContent />
         <ul>
