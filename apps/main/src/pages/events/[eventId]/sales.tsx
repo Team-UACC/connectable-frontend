@@ -11,6 +11,7 @@ import TicketCard from '~/components/Card/TicketCard';
 import StickyBlurFooter from '~/components/Footer/StickyBlurFooter';
 import OrderForm from '~/components/Form/OrderForm';
 import HeadMeta from '~/components/HeadMeta';
+import Text from '~/components/Text';
 import LoginRequestToast from '~/components/Toast/LoginRequestToast';
 import { data } from '~/constants/seo';
 import useTicketsByEventIdQuery from '~/hooks/apis/useTicketsByEventIdQuery';
@@ -45,7 +46,15 @@ interface Props {
 export default function EventsSalesPage({ eventDetail }: Props) {
   const router = useRouter();
   const { eventId } = router.query;
-  const { data: ticketList, isLoading, refetch } = useTicketsByEventIdQuery(Number(eventId), { staleTime: 0 });
+  const {
+    data: ticketList,
+    isFetched,
+    refetch,
+  } = useTicketsByEventIdQuery(Number(eventId), {
+    staleTime: 0,
+    onSuccess: () => setCheckedSet(new Set<number>()),
+    enabled: false,
+  });
   const [checkedSet, setCheckedSet] = useState(new Set<number>());
 
   const { isLoggedIn } = useUserStore();
@@ -57,26 +66,6 @@ export default function EventsSalesPage({ eventDetail }: Props) {
     }
   }, [router]);
 
-  useEffect(() => {
-    // refetch 시 초기화
-    setCheckedSet(new Set<number>());
-  }, [ticketList]);
-
-  if (isLoading)
-    return (
-      <>
-        <HeadMeta
-          title={`티켓 판매 목록 | ${eventDetail.name}`}
-          image={eventDetail.image}
-          description={eventDetail.description}
-          url={data.url + `/events/${eventDetail.id}/sales`}
-          creator={eventDetail.artistName}
-        />
-
-        <span>loading...</span>
-      </>
-    );
-
   return (
     <>
       <HeadMeta
@@ -87,68 +76,73 @@ export default function EventsSalesPage({ eventDetail }: Props) {
         creator={eventDetail.artistName}
       />
 
-      <section className="relative ">
-        <ul className="w-full ">
-          {ticketList?.map(ticketData => (
-            <div
-              key={ticketData.tokenId}
-              className={
-                `relative px-2 flex w-full bg-transparent cursor-pointer shadow-lg hover:rounded-lg [@media(hover:hover)]:hover:bg-[#EBF8FF] transition-all ease-in-out ` +
-                (checkedSet.has(ticketData.id) ? `bg-[#EBF8FF] ` : '') +
-                (ticketData.ticketSalesStatus !== 'ON_SALE'
-                  ? ` opacity-50 [@media(hover:hover)]:hover:bg-transparent `
-                  : '')
-              }
-            >
-              <label className="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  className="text-indigo-600 form-checkbox"
-                  checked={checkedSet.has(ticketData.id)}
-                  disabled={ticketData.ticketSalesStatus !== 'ON_SALE'}
-                  onChange={() => setCheckedSet(toggleSet(ticketData.id))}
-                />
-              </label>
+      {!isFetched && <Text>loading...</Text>}
+
+      {isFetched && (
+        <section className="relative ">
+          <ul className="w-full ">
+            {ticketList?.map(ticketData => (
               <div
-                onClick={() => ticketData.ticketSalesStatus === 'ON_SALE' && setCheckedSet(toggleSet(ticketData.id))}
+                key={ticketData.tokenId}
+                className={
+                  `relative px-2 flex w-full bg-transparent cursor-pointer shadow-lg hover:rounded-lg [@media(hover:hover)]:hover:bg-[#EBF8FF] transition-all ease-in-out ` +
+                  (checkedSet.has(ticketData.id) ? `bg-[#EBF8FF] ` : '') +
+                  (ticketData.ticketSalesStatus !== 'ON_SALE'
+                    ? ` opacity-50 [@media(hover:hover)]:hover:bg-transparent `
+                    : '')
+                }
               >
-                <TicketCard
-                  key={ticketData.tokenId}
-                  ticketData={ticketData}
-                  eventId={Number(eventId)}
-                  type="Order"
-                  className="mb-1 min-w-[min(360px,80vw)] "
-                />
-              </div>
-            </div>
-          ))}
-        </ul>
-        <StickyBlurFooter className="w-full">
-          <Button
-            className="sticky bottom-0 -translate-x-1/2 left-1/2 "
-            disabled={checkedSet.size === 0}
-            onClick={() => {
-              if (isLoggedIn) {
-                showModal(
-                  '공연 예매하기',
-                  <OrderForm
-                    amount={ticketList!.reduce((total, v) => (checkedSet.has(v.id) ? total + v.price : total), 0)}
-                    ticketIdList={[...checkedSet]}
-                    eventId={Number(eventId)}
+                <label className="inline-flex items-center">
+                  <input
+                    type="checkbox"
+                    className="text-indigo-600 form-checkbox"
+                    checked={checkedSet.has(ticketData.id)}
+                    disabled={ticketData.ticketSalesStatus !== 'ON_SALE'}
+                    onChange={() => setCheckedSet(toggleSet(ticketData.id))}
                   />
-                );
-              } else {
-                toast.error(<LoginRequestToast />, { icon: null });
-              }
-            }}
-          >
-            {`티켓 ${checkedSet.size}장 ` + '구매하기'}
-          </Button>
-        </StickyBlurFooter>
-      </section>
+                </label>
+                <div
+                  onClick={() => ticketData.ticketSalesStatus === 'ON_SALE' && setCheckedSet(toggleSet(ticketData.id))}
+                >
+                  <TicketCard
+                    key={ticketData.tokenId}
+                    ticketData={ticketData}
+                    eventId={Number(eventId)}
+                    type="Order"
+                    className="mb-1 min-w-[min(360px,80vw)] "
+                  />
+                </div>
+              </div>
+            ))}
+          </ul>
+          <StickyBlurFooter className="w-full">
+            <Button
+              className="sticky bottom-0 -translate-x-1/2 left-1/2 "
+              disabled={checkedSet.size === 0}
+              onClick={() => {
+                if (isLoggedIn) {
+                  showModal(
+                    '공연 예매하기',
+                    <OrderForm
+                      amount={ticketList!.reduce((total, v) => (checkedSet.has(v.id) ? total + v.price : total), 0)}
+                      ticketIdList={[...checkedSet]}
+                      eventId={Number(eventId)}
+                    />
+                  );
+                } else {
+                  toast.error(<LoginRequestToast />, { icon: null });
+                }
+              }}
+            >
+              {`티켓 ${checkedSet.size}장 ` + '구매하기'}
+            </Button>
+          </StickyBlurFooter>
+        </section>
+      )}
     </>
   );
 }
+
 EventsSalesPage.getLayout = function getLayout(page: ReactElement) {
   const router = useRouter();
 

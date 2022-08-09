@@ -16,9 +16,9 @@ interface Props {
 }
 
 export default function TicketCard({ ticketData, className, type = 'Default', eventId }: Props) {
-  if (!ticketData.metadata) return null;
-
   const { showModal } = useModalStore();
+
+  if (!ticketData.metadata) return null;
 
   return (
     <article className={'relative flex w-full px-2 py-4 ' + className}>
