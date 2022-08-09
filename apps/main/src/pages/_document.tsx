@@ -20,11 +20,6 @@ class MyDocument extends Document {
           <link rel="shortcut icon" href={data.favicons.appleTouchIcon} />
           <link rel="mask-icon" href={data.favicons[32]} />
 
-          <meta name="twitter:creator" content={data.creator} />
-          <meta name="twitter:site" content={'@' + data.title} />
-          <meta name="twitter:title" content={data.title} />
-          <meta name="twitter:description" content={data.description} />
-
           <meta charSet="utf-8" />
         </Head>
         <body>

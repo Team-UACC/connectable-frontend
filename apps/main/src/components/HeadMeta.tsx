@@ -22,7 +22,7 @@ const HeadMeta = ({ title, description, url, image, creator }: Props) => {
       <meta property="og:image" content={image} />
       <meta property="og:article:author" content="Connectable" />
 
-      <meta name="twitter:creator" content={data.creator ?? creator} />
+      <meta name="twitter:creator" content={creator ?? data.creator} />
       <meta name="twitter:site" content={'@' + (creator ?? data.creator)} />
       <meta name="twitter:title" content={title ?? data.title} />
       <meta name="twitter:image" content={image} />
