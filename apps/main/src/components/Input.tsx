@@ -1,6 +1,6 @@
 import { forwardRef, InputHTMLAttributes, Ref } from 'react';
 
-import Label from './Label';
+import Label from './Text/Label';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   name: string;

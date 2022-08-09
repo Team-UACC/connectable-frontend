@@ -13,8 +13,9 @@ import { PriceText } from '~/components/Events/EventInfo';
 import EventSaleTimer from '~/components/Events/EventSaleTimer';
 import StickyBlurFooter from '~/components/Footer/StickyBlurFooter';
 import HeadMeta from '~/components/HeadMeta';
-import LinkToKlaytnScope from '~/components/LinkToKlaytnScope';
-import TextInfo from '~/components/TextInfo';
+import LinkText from '~/components/Text/LinkText';
+import LinkToKlaytnScope from '~/components/Text/LinkToKlaytnScope';
+import TextInfo from '~/components/Text/TextInfo';
 import LoginRequestToast from '~/components/Toast/LoginRequestToast';
 import { data } from '~/constants/seo';
 import useEventByIdQuery from '~/hooks/apis/useEventByIdQuery';
@@ -189,6 +190,16 @@ export default function TicketDetail({ skeletonDataTicket, skeletonDataEvent }: 
             { term: 'Token ID', description: ticketDetail.tokenId.toString() },
             { term: 'Token Standard', description: 'KIP-17' },
             { term: 'BlockChain', description: 'Klaytn' },
+            {
+              term: 'OpenSea',
+              description: (
+                <LinkText
+                  href={`https://opensea.io/assets/klaytn/${ticketDetail.contractAddress}/${ticketDetail.tokenId}`}
+                >
+                  오픈씨에서 확인하기
+                </LinkText>
+              ),
+            },
           ]}
         />
       </div>

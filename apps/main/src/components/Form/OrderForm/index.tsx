@@ -2,7 +2,7 @@ import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
 
 import Button from '~/components/Button';
 import Input from '~/components/Input';
-import Label from '~/components/Label';
+import Label from '~/components/Text/Label';
 import useOrderForm from '~/hooks/useOrderForm';
 import { useUserStore } from '~/stores/user';
 
