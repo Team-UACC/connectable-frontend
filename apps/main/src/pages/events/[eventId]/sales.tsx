@@ -62,7 +62,20 @@ export default function EventsSalesPage({ eventDetail }: Props) {
     setCheckedSet(new Set<number>());
   }, [ticketList]);
 
-  if (isLoading) return 'loading...';
+  if (isLoading)
+    return (
+      <>
+        <HeadMeta
+          title={`티켓 판매 목록 | ${eventDetail.name}`}
+          image={eventDetail.image}
+          description={eventDetail.description}
+          url={data.url + `/events/${eventDetail.id}/sales`}
+          creator={eventDetail.artistName}
+        />
+
+        <span>loading...</span>
+      </>
+    );
 
   return (
     <>
