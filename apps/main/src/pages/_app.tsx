@@ -1,6 +1,5 @@
 import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ReactElement, ReactNode, useEffect, useState } from 'react';
 // eslint-disable-next-line import/no-named-as-default
@@ -59,10 +58,6 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-        <title>Connectable</title>
-      </Head>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <ErrorBoundary>

@@ -1,24 +1,48 @@
+import { GetStaticPropsContext } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
+import { fetchAllEvents, fetchEventsDetail } from '~/apis/events';
 import Button from '~/components/Button';
 import TicketCard from '~/components/Card/TicketCard';
 import StickyBlurFooter from '~/components/Footer/StickyBlurFooter';
 import OrderForm from '~/components/Form/OrderForm';
+import HeadMeta from '~/components/HeadMeta';
 import LoginRequestToast from '~/components/Toast/LoginRequestToast';
+import { data } from '~/constants/seo';
 import useTicketsByEventIdQuery from '~/hooks/apis/useTicketsByEventIdQuery';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
+import { EventDetailType } from '~/types/eventType';
 
 const toggleSet = (element: any) => (set: Set<any>) => {
   set.has(element) ? set.delete(element) : set.add(element);
   return new Set([...set]);
 };
 
-export default function EventsSalesPage() {
+export async function getStaticPaths() {
+  const events = await fetchAllEvents();
+  const paths = events.map(e => ({ params: { eventId: e.id.toString() } }));
+  return { paths, fallback: false };
+}
+
+export async function getStaticProps({ params }: GetStaticPropsContext) {
+  const eventDetail = await fetchEventsDetail(Number(params?.eventId));
+  return {
+    props: {
+      eventDetail,
+    },
+  };
+}
+
+interface Props {
+  eventDetail: EventDetailType;
+}
+
+export default function EventsSalesPage({ eventDetail }: Props) {
   const router = useRouter();
   const { eventId } = router.query;
   const { data: ticketList, isLoading, refetch } = useTicketsByEventIdQuery(Number(eventId), { staleTime: 0 });
@@ -37,6 +61,14 @@ export default function EventsSalesPage() {
 
   return (
     <>
+      <HeadMeta
+        title={`티켓 판매 목록 | ${eventDetail.name}`}
+        image={eventDetail.image}
+        description={eventDetail.description}
+        url={data.url + `/events/${eventDetail.id}/sales`}
+        creator={eventDetail.artistName}
+      />
+
       <section className="relative ">
         <ul className="w-full ">
           {ticketList?.map(ticketData => (

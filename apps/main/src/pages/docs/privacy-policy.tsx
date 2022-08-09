@@ -1,10 +1,18 @@
 import DotText from '~/components/DotText';
 import Footer from '~/components/Footer';
+import HeadMeta from '~/components/HeadMeta';
 import Text from '~/components/Text';
+import { data } from '~/constants/seo';
 
 export default function PrivacyPolicy() {
   return (
     <>
+      <HeadMeta
+        title={`Connectable | 개인정보처리방침`}
+        image={data.images.logo}
+        url={data.url + `/docs/privacy-policy`}
+      />
+
       <article className="w-full pb-[5rem] flex flex-col top-1/2 left-1/2 min-w-[320px] gap-4">
         <header>
           <h1 className="text-[2rem] font-bold ">개인정보처리방침</h1>
