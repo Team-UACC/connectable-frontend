@@ -57,6 +57,11 @@ export default function EventsSalesPage({ eventDetail }: Props) {
     }
   }, [router]);
 
+  useEffect(() => {
+    // refetch 시 초기화
+    setCheckedSet(new Set<number>());
+  }, [ticketList]);
+
   if (isLoading) return 'loading...';
 
   return (
@@ -116,6 +121,7 @@ export default function EventsSalesPage({ eventDetail }: Props) {
                   <OrderForm
                     amount={ticketList!.reduce((total, v) => (checkedSet.has(v.id) ? total + v.price : total), 0)}
                     ticketIdList={[...checkedSet]}
+                    eventId={Number(eventId)}
                   />
                 );
               } else {

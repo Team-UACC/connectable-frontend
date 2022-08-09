@@ -10,9 +10,10 @@ import { useUserStore } from '~/stores/user';
 interface Props {
   amount: number;
   ticketId: number;
+  eventId: number;
 }
 
-export default function FormOrderButton({ amount, ticketId }: Props) {
+export default function FormOrderButton({ amount, ticketId, eventId }: Props) {
   const { isLoggedIn } = useUserStore();
   const { showModal } = useModalStore();
 
@@ -20,7 +21,7 @@ export default function FormOrderButton({ amount, ticketId }: Props) {
     <Button
       onClick={() => {
         if (isLoggedIn) {
-          showModal('공연 예매하기', <OrderForm amount={amount} ticketIdList={[ticketId]} />);
+          showModal('공연 예매하기', <OrderForm amount={amount} ticketIdList={[ticketId]} eventId={eventId} />);
         } else {
           toast.error(<LoginRequestToast />, { icon: null });
         }

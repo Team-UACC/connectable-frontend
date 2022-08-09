@@ -15,9 +15,10 @@ export type OrderFormPageType = 'OnBoarding' | 'Agreement' | 'UserInfo' | 'Depos
 interface Props {
   amount: number;
   ticketIdList: Array<number>;
+  eventId: number;
 }
 
-export default function OrderForm({ amount, ticketIdList }: Props) {
+export default function OrderForm({ amount, ticketIdList, eventId }: Props) {
   const { phoneNumber } = useUserStore();
   const [page, setPage] = useState<OrderFormPageType>('OnBoarding');
 
@@ -37,6 +38,7 @@ export default function OrderForm({ amount, ticketIdList }: Props) {
     userNameRef,
     phoneNumberRef,
     ticketIdList,
+    eventId,
   });
 
   const handleChangeUserNameInput = (e: ChangeEvent<HTMLInputElement>) =>

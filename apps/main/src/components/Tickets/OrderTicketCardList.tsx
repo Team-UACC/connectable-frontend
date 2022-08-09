@@ -83,6 +83,7 @@ export default function OrderTicketCardList({ eventId }: Props) {
                   <OrderForm
                     amount={ticketList!.reduce((total, v) => (checkedSet.has(v.id) ? total + v.price : total), 0)}
                     ticketIdList={[...checkedSet]}
+                    eventId={eventId}
                   />
                 );
               } else {
