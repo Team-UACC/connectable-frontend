@@ -135,7 +135,7 @@ export default function TicketDetailForm({ eventId, ticketId }: Props) {
       />
       <div className="flex translate-y-[5rem] items-center justify-between ">
         {ticketDetail.ticketSalesStatus === 'ON_SALE' && (
-          <FormOrderButton amount={ticketDetail.price} ticketId={ticketDetail.id} />
+          <FormOrderButton amount={ticketDetail.price} ticketId={ticketDetail.id} eventId={eventDetail.id} />
         )}
 
         <Link href={`/tickets/${eventDetail.id}/${ticketDetail.id}`} passHref prefetch={true}>

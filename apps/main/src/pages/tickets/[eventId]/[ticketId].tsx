@@ -221,7 +221,7 @@ export default function TicketDetail({ skeletonDataTicket, skeletonDataEvent }: 
             </Button>
           </>
         ) : ticketDetail.ticketSalesStatus === 'ON_SALE' ? (
-          <FormOrderButton amount={ticketDetail.price} ticketId={ticketDetail.id} />
+          <FormOrderButton amount={ticketDetail.price} ticketId={ticketDetail.id} eventId={Number(eventId)} />
         ) : (
           <Button
             onClick={() => {
