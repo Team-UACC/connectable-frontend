@@ -1,10 +1,18 @@
 import DotText from '~/components/DotText';
 import Footer from '~/components/Footer';
+import HeadMeta from '~/components/HeadMeta';
 import Text from '~/components/Text';
+import { data } from '~/constants/seo';
 
 export default function TermOfService() {
   return (
     <>
+      <HeadMeta
+        title={`Connectable | 서비스 이용 약관`}
+        image={data.images.logo}
+        url={data.url + `/docs/terms-of-service`}
+      />
+
       <article className="w-full pb-[5rem] flex flex-col top-1/2 left-1/2 min-w-[320px] gap-4">
         <header>
           <h1 className="text-[2rem] font-bold ">서비스 이용 약관</h1>

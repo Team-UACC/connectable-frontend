@@ -1,5 +1,4 @@
 import { GetStaticPropsContext } from 'next';
-import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -10,8 +9,10 @@ import { ArtistImageBox, ArtistName, PriceText, RemainingTicketStatus } from '~/
 import EventSaleTimer from '~/components/Events/EventSaleTimer';
 import LinkBox from '~/components/Events/LinkBox';
 import StickyBlurFooter from '~/components/Footer/StickyBlurFooter';
+import HeadMeta from '~/components/HeadMeta';
 import LinkToKlaytnScope from '~/components/LinkToKlaytnScope';
 import TextInfo from '~/components/TextInfo';
+import { data } from '~/constants/seo';
 import useEventByIdQuery from '~/hooks/apis/useEventByIdQuery';
 import NotFoundPage from '~/pages/404';
 import { EventDetailType } from '~/types/eventType';
@@ -60,9 +61,14 @@ export default function EventDetailPage({ initialEventDetail }: Props) {
 
   return (
     <>
-      <Head>
-        <title>{`컬렉션 | ${eventDetail.name}`}</title>
-      </Head>
+      <HeadMeta
+        title={`컬렉션 | ${eventDetail.name}`}
+        image={eventDetail.image}
+        description={eventDetail.description}
+        url={data.url + `/events/${eventDetail.id}`}
+        creator={eventDetail.artistName}
+      />
+
       <article className="relative w-full mb-10 ">
         <ArtistImageBox src={eventDetail.artistImage} />
         <section className="flex flex-col justify-between h-40 my-6">
