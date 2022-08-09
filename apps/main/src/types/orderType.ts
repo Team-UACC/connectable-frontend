@@ -9,6 +9,8 @@ export interface TicketOrderStatusType {
   orderStatus: OrderStatus;
   modifiedDate: number;
   txHash: string;
+  price: number;
+  eventId: number;
 }
 
 export type OrderStatus = 'REQUESTED' | 'PAID' | 'UNPAID' | 'REFUND' | 'TRANSFER_SUCCESS' | 'TRANSFER_FAIL';
