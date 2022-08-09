@@ -10,6 +10,7 @@ import EventSaleTimer from '~/components/Events/EventSaleTimer';
 import LinkBox from '~/components/Events/LinkBox';
 import StickyBlurFooter from '~/components/Footer/StickyBlurFooter';
 import HeadMeta from '~/components/HeadMeta';
+import LinkText from '~/components/LinkText';
 import LinkToKlaytnScope from '~/components/LinkToKlaytnScope';
 import TextInfo from '~/components/TextInfo';
 import { data } from '~/constants/seo';
@@ -149,6 +150,10 @@ export default function EventDetailPage({ initialEventDetail }: Props) {
             },
             { term: 'Token Standard', description: 'KIP-17' },
             { term: 'BlockChain', description: 'Klaytn' },
+            {
+              term: 'OpenSea',
+              description: <LinkText href={eventDetail.openseaUrl}>오픈씨에서 확인하기</LinkText>,
+            },
           ]}
         />
       </article>

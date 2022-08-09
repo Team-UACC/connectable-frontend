@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import Tooltip from '../Tooltop';
+import Tooltip from '../Tooltip';
 
 interface Props {
   twitterUrl: string;
