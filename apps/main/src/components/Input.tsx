@@ -10,7 +10,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 
 const Input = forwardRef(({ name, label, type, notice, ...rests }: Props, ref: Ref<HTMLInputElement>) => {
   return (
-    <>
+    <div className="relative flex flex-col gap-4">
       <Label text={label} htmlFor={name} />
       <span className=" absolute w-full text-xs text-red top-[1.75rem]">{notice}</span>
       <input
@@ -20,7 +20,7 @@ const Input = forwardRef(({ name, label, type, notice, ...rests }: Props, ref: R
         ref={ref}
         {...rests}
       />
-    </>
+    </div>
   );
 });
 

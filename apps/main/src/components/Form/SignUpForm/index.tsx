@@ -56,7 +56,7 @@ export default function SingUpForm() {
   }, [page]);
 
   return (
-    <div className="w-full mb-10 overflow-hidden">
+    <div className="w-full h-[80vh] overflow-hidden ">
       <form
         className={`flex ${page === 'UserInfo' && '-translate-x-1/3'} ${
           page === 'Finish' && '-translate-x-2/3'
@@ -162,9 +162,7 @@ export default function SingUpForm() {
           <Button color="red" onClick={() => handleClickSubmitButton()} disabled={false}>
             회원가입 완료하기
           </Button>
-          <MoreDescriptionContainer>
-            <MoreDescription page="Finish" />
-          </MoreDescriptionContainer>
+          <MoreDescription page="Finish" />
         </FormPageContainer>
       </form>
     </div>

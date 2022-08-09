@@ -71,7 +71,7 @@ export default function OrderForm({ amount, ticketIdList, eventId }: Props) {
   }, [page]);
 
   return (
-    <div className="relative w-full h-full overflow-hidden">
+    <div className="relative w-full h-full overflow-x-hidden">
       <form
         className={`flex ${page === 'Agreement' && '-translate-x-[25%]'}  
          ${page === 'UserInfo' && '-translate-x-[50%]'} ${
