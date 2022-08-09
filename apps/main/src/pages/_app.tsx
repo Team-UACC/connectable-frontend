@@ -7,10 +7,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
 import ErrorBoundary from '~/components/ErrorBoundary';
-import HeadMeta from '~/components/HeadMeta';
 import Layout from '~/components/Layout';
 import Modals from '~/components/Modal';
-import { data } from '~/constants/seo';
 import useUser from '~/hooks/useUser';
 import { useModalStore } from '~/stores/modal';
 
@@ -60,14 +58,6 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <>
-      <HeadMeta
-        title={data.title}
-        image={data.images.logo}
-        description={data.description}
-        url={data.url}
-        creator={data.creator}
-      />
-
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <ErrorBoundary>

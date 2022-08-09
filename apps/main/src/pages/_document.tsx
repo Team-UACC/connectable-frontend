@@ -12,11 +12,6 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <meta property="og:title" content={data.title} />
-          <meta property="og:image" content={data.images.logo} />
-          <meta name="description" content={data.description} />
-          <meta property="og:description" content={data.description} />
-
           <link rel="apple-touch-icon" sizes="180x180" href={data.favicons.appleTouchIcon} />
           <link rel="icon" type="image/png" sizes="32x32" href={data.favicons[32]} />
           <link rel="icon" type="image/png" sizes="16x16" href={data.favicons[16]} />
