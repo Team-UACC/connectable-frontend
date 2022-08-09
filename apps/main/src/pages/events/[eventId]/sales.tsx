@@ -53,7 +53,7 @@ export default function EventsSalesPage({ eventDetail }: Props) {
   } = useTicketsByEventIdQuery(Number(eventId), {
     staleTime: 0,
     onSuccess: () => setCheckedSet(new Set<number>()),
-    enabled: false,
+    enabled: router.isReady,
   });
   const [checkedSet, setCheckedSet] = useState(new Set<number>());
 

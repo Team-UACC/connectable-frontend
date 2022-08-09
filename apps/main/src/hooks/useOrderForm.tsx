@@ -50,6 +50,8 @@ export default function useOrderForm({
     toast.promise(submitPromise, {
       loading: 'loading...',
       success: () => {
+        console.log(eventId);
+
         queryClient.invalidateQueries(queryKeys.tickets.byEventId(eventId));
 
         hideModal();
