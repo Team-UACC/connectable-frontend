@@ -7,7 +7,7 @@ import ProfileEditForm from '~/components/Form/ProfileEditForm';
 import WithAuth from '~/components/HOC/WithAuth';
 import UserOrderStatusList from '~/components/Order/UserOrderStatusList';
 import Tabs from '~/components/Tabs';
-import TextInfo from '~/components/TextInfo';
+import TextInfo from '~/components/Text/TextInfo';
 import UserTicketCardList from '~/components/Tickets/UserTicketCardList';
 import { useLogout } from '~/hooks/useAuth';
 import { useModalStore } from '~/stores/modal';

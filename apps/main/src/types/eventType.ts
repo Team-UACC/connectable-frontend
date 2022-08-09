@@ -29,4 +29,5 @@ export interface EventDetailType {
   location: string;
   salesOption: 'FLAT_PRICE' | 'FLEXIBLE_PRICE'; // FLAT_PRICE(균일가), FLEXIBLE_PRICE(균일가 아님)
   contractAddress: string;
+  openseaUrl: string;
 }

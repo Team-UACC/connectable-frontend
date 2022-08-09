@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 import Button from '~/components/Button';
 
-import Text from './Text';
+import Text from '.';
 
 type Contents = { term: string; description: ReactNode; hasCopy?: boolean };
 

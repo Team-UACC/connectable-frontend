@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { BUISNESS } from '~/constants/company';
+
 import Text from '../Text';
 
 const OFFICE_TERMS = [
@@ -20,7 +22,16 @@ export default function Footer() {
               </Link>
             ))}
           </ul>
-          <div className="mt-6 ">©2022. Connectable.</div>
+          <div className="mt-6 text-sm ">©2022. Connectable.</div>
+          <span className="text-xs ">
+            <b>{BUISNESS.NAME}</b>
+            <br />
+            사업자등록번호: {BUISNESS.REFISTRATION_NUMBER}
+            <br />
+            대표 {BUISNESS.REPRESENTATIVE} | 주소: {BUISNESS.ADDRESS}
+            <br />
+            이메일 문의: {BUISNESS.EMAIL}
+          </span>
         </div>
       </section>
     </footer>

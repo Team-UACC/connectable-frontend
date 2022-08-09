@@ -3,7 +3,7 @@ import { MouseEvent, ReactNode } from 'react';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
-import Tooltip from '../Tooltop';
+import Tooltip from '../Tooltip';
 
 type ButtonColor = 'white' | 'brand' | 'red' | 'kakao';
 

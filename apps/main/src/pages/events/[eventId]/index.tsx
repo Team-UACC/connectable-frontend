@@ -10,8 +10,9 @@ import EventSaleTimer from '~/components/Events/EventSaleTimer';
 import LinkBox from '~/components/Events/LinkBox';
 import StickyBlurFooter from '~/components/Footer/StickyBlurFooter';
 import HeadMeta from '~/components/HeadMeta';
-import LinkToKlaytnScope from '~/components/LinkToKlaytnScope';
-import TextInfo from '~/components/TextInfo';
+import LinkText from '~/components/Text/LinkText';
+import LinkToKlaytnScope from '~/components/Text/LinkToKlaytnScope';
+import TextInfo from '~/components/Text/TextInfo';
 import { data } from '~/constants/seo';
 import useEventByIdQuery from '~/hooks/apis/useEventByIdQuery';
 import NotFoundPage from '~/pages/404';
@@ -92,7 +93,7 @@ export default function EventDetailPage({ initialEventDetail }: Props) {
             )}
           </div>
         </section>
-        <Image src={eventDetail.image} width={388} height={388} objectFit="cover" layout="responsive" />
+        <Image src={eventDetail.image} width={388} height={388} objectFit="cover" layout="responsive" priority />
         <TextInfo
           title="공연정보"
           contents={[
@@ -149,6 +150,10 @@ export default function EventDetailPage({ initialEventDetail }: Props) {
             },
             { term: 'Token Standard', description: 'KIP-17' },
             { term: 'BlockChain', description: 'Klaytn' },
+            {
+              term: 'OpenSea',
+              description: <LinkText href={eventDetail.openseaUrl}>오픈씨에서 확인하기</LinkText>,
+            },
           ]}
         />
       </article>

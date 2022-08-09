@@ -17,8 +17,10 @@ export default function OrderListButton({ eventId }: Props) {
   }, []);
 
   return (
-    <Link href={`/events/${eventId}/sales`} passHref>
-      <Button>티켓 구매하기</Button>
-    </Link>
+    <Button>
+      <Link href={`/events/${eventId}/sales`} passHref>
+        <a>티켓 구매하기</a>
+      </Link>
+    </Button>
   );
 }
