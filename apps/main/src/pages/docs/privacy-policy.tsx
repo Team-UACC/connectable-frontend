@@ -2,6 +2,7 @@ import Footer from '~/components/Footer';
 import HeadMeta from '~/components/HeadMeta';
 import Text from '~/components/Text';
 import DotText from '~/components/Text/DotText';
+import { BUISNESS } from '~/constants/company';
 import { data } from '~/constants/seo';
 
 export default function PrivacyPolicy() {
@@ -85,7 +86,7 @@ export default function PrivacyPolicy() {
             <Text>개인정보 보호책임자 : 조영상</Text>
             <br />
             <a
-              href="mailto:uacc.connectable@gmail.com"
+              href={`mailto:${BUISNESS.EMAIL}`}
               target="_blank"
               className="text-blue-500 cursor-pointer "
               rel="noreferrer"

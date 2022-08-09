@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
-import { ACCOUNT } from '~/constants/account';
+import { ACCOUNT } from '~/constants/company';
 import { KAKAO_TALK_ONE_TO_ONE_CHAT } from '~/constants/link';
 
 import { OrderFormPageType } from '.';

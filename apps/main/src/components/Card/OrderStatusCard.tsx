@@ -3,7 +3,7 @@ import Link from 'next/link';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
-import { ACCOUNT } from '~/constants/account';
+import { ACCOUNT } from '~/constants/company';
 import { ORDER_STATUS_MESSAGE } from '~/constants/message';
 import { OrderStatus, TicketOrderStatusType } from '~/types/orderType';
 import { dayjsKO } from '~/utils/day';
