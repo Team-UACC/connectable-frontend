@@ -6,7 +6,6 @@ import FormOrderButton from '~/components/Button/OrderButton/FormOrderButton';
 import TicketDetailArticle from '~/components/Tickets/TicketDetailArticle';
 import useEventByIdQuery from '~/hooks/apis/useEventByIdQuery';
 import useTicketByIdsQuery from '~/hooks/apis/useTicketByIdsQuery';
-import useScrollToTop from '~/hooks/useScrollToTop';
 
 interface Props {
   eventId: number;
@@ -25,8 +24,6 @@ export default function TicketDetailForm({ eventId, ticketId }: Props) {
   });
 
   const containterRef = useRef(null);
-
-  useScrollToTop(containterRef);
 
   if (ticketDetailLoading || eventDetailLoading) {
     return <span>loading...</span>;

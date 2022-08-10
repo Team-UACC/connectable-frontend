@@ -120,7 +120,7 @@ export default function EventDetailPage({ initialEventDetail }: Props) {
             {
               term: '안내사항1',
               description:
-                '공연 입장 시간에 맞추어 공연장 입구 및 게단에서 개인 정보 확인 후 입장을 도와드릴 예정입니다.',
+                '공연 입장 시간에 맞추어 공연장 입구 및 계단에서 개인 정보 확인 후 입장을 도와드릴 예정입니다.',
             },
             {
               term: '안내사항2',

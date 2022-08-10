@@ -17,3 +17,12 @@ export const formatPhoneNumber = (value: string) => {
 export const calculateRemaingTime = (endTime: number) => endTime - new Date().getTime();
 
 export const isAdrress = (string: string) => /^(0x)?[0-9a-f]{40}$/i.test(string);
+
+export const toggleSet = (element: any) => (set: Set<any>) => {
+  set.has(element) ? set.delete(element) : set.add(element);
+  return new Set([...set]);
+};
+
+const SHALLOW_MODAL_URL_LIST = ['?ticketId'];
+
+export const isShallowModalUrl = (url: string) => SHALLOW_MODAL_URL_LIST.some(v => url.indexOf(v) !== -1);

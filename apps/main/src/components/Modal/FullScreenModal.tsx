@@ -40,6 +40,14 @@ export default function FullScreenModal() {
                     className="cursor-pointer h-[1.5rem]"
                     type="button"
                     onClick={() => {
+                      const storage = globalThis?.sessionStorage;
+                      const current = storage.getItem('currentPath') || '/';
+
+                      if (current.indexOf('sales?ticketId') !== -1) {
+                        window.history.back();
+                        window.history.replaceState(window.history.state, '', window.location.pathname);
+                      }
+
                       setIsOpen(false);
                       setModalContent(null, null);
                     }}
