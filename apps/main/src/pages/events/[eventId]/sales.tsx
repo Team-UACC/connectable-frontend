@@ -72,7 +72,10 @@ export default function EventsSalesPage({ eventDetail }: Props) {
 
   useEffect(() => {
     if (isShallowModalUrl(router.asPath)) {
-      showModal('NFT 티켓', <TicketDetailForm eventId={Number(eventId)} ticketId={Number(router.query.ticketId)} />);
+      showModal(
+        <ShallowModalBackButton />,
+        <TicketDetailForm eventId={Number(eventId)} ticketId={Number(router.query.ticketId)} />
+      );
     } else {
       hideModal();
     }
@@ -165,7 +168,7 @@ EventsSalesPage.getLayout = function getLayout(page: ReactElement) {
           <div className="flex flex-col justify-center">
             <Link className="translate-x-1 " href={`/events/${router.query.eventId}`}>
               <a>
-                <span className="p-2 text-lg font-semibold cursor-pointer ">{'<'}</span>
+                <span className="p-2 text-2xl font-semibold cursor-pointer ">{'<'}</span>
               </a>
             </Link>
           </div>
@@ -174,5 +177,29 @@ EventsSalesPage.getLayout = function getLayout(page: ReactElement) {
       </header>
       <div className="flex flex-col items-center px-4 ">{page}</div>
     </div>
+  );
+};
+
+const ShallowModalBackButton = () => {
+  const { hideModal } = useModalStore();
+
+  return (
+    <button
+      className="text-2xl cursor-pointer"
+      type="button"
+      onClick={() => {
+        const storage = globalThis?.sessionStorage;
+        const current = storage.getItem('currentPath') || '/';
+
+        if (isShallowModalUrl(current)) {
+          window.history.back();
+          window.history.replaceState(window.history.state, '', window.location.pathname);
+        }
+
+        hideModal();
+      }}
+    >
+      {'<'}
+    </button>
   );
 };
