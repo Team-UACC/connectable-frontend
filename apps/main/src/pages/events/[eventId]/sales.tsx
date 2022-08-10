@@ -10,6 +10,7 @@ import Button from '~/components/Button';
 import TicketCard from '~/components/Card/TicketCard';
 import StickyBlurFooter from '~/components/Footer/StickyBlurFooter';
 import OrderForm from '~/components/Form/OrderForm';
+import TicketDetailForm from '~/components/Form/TicketDetailForm';
 import HeadMeta from '~/components/HeadMeta';
 import Text from '~/components/Text';
 import LoginRequestToast from '~/components/Toast/LoginRequestToast';
@@ -18,11 +19,7 @@ import useTicketsByEventIdQuery from '~/hooks/apis/useTicketsByEventIdQuery';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 import { EventDetailType } from '~/types/eventType';
-
-const toggleSet = (element: any) => (set: Set<any>) => {
-  set.has(element) ? set.delete(element) : set.add(element);
-  return new Set([...set]);
-};
+import { isShallowModalUrl, toggleSet } from '~/utils/index';
 
 export async function getStaticPaths() {
   const events = await fetchAllEvents();
@@ -46,6 +43,9 @@ interface Props {
 export default function EventsSalesPage({ eventDetail }: Props) {
   const router = useRouter();
   const { eventId } = router.query;
+
+  const { showModal, hideModal } = useModalStore();
+
   const {
     data: ticketList,
     isFetched,
@@ -58,13 +58,25 @@ export default function EventsSalesPage({ eventDetail }: Props) {
   const [checkedSet, setCheckedSet] = useState(new Set<number>());
 
   const { isLoggedIn } = useUserStore();
-  const { showModal } = useModalStore();
 
   useEffect(() => {
     if (router.isReady) {
-      refetch();
+      const storage = globalThis?.sessionStorage;
+      const previousLink = storage.getItem('prevPath') || '/';
+
+      if (previousLink !== `/events/${eventDetail.id}/sales` && !isShallowModalUrl(previousLink)) {
+        refetch();
+      }
     }
   }, [router]);
+
+  useEffect(() => {
+    if (isShallowModalUrl(router.asPath)) {
+      showModal('NFT 티켓', <TicketDetailForm eventId={Number(eventId)} ticketId={Number(router.query.ticketId)} />);
+    } else {
+      hideModal();
+    }
+  }, [router.asPath]);
 
   return (
     <>

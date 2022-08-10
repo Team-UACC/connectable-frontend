@@ -1,8 +1,8 @@
+/* eslint-disable import/no-named-as-default */
 import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { ReactElement, ReactNode, useEffect, useState } from 'react';
-// eslint-disable-next-line import/no-named-as-default
 import toast, { Toaster } from 'react-hot-toast';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
@@ -21,6 +21,10 @@ type NextPageWithLayout = NextPage & {
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
+
+const SHALLOW_MODAL_URL_LIST = ['?ticketId'];
+
+const isShallowModalUrl = (url: string) => SHALLOW_MODAL_URL_LIST.some(v => url.indexOf(v) !== -1);
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const router = useRouter();
@@ -42,19 +46,83 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
   const getLayout = Component.getLayout ?? ((page: ReactElement) => <Layout>{page}</Layout>);
 
+  function scrollPositionRestorer() {
+    const scrollMemories: { [asPath: string]: number } = {};
+    let isPop = false;
+
+    if (process.browser) {
+      window.history.scrollRestoration = 'manual';
+      window.onpopstate = () => {
+        isPop = true;
+      };
+    }
+
+    Router.events.on('routeChangeStart', () => {
+      saveScroll();
+    });
+
+    Router.events.on('routeChangeComplete', (url: string) => {
+      if (isPop) {
+        restoreScroll();
+        isPop = false;
+      } else {
+        !isShallowModalUrl(url) && scrollToTop();
+      }
+    });
+
+    const saveScroll = () => {
+      scrollMemories[Router.asPath] = window.scrollY;
+    };
+
+    const restoreScroll = () => {
+      const prevScrollY = scrollMemories[Router.asPath];
+      if (prevScrollY !== undefined) {
+        window.requestAnimationFrame(() => window.scrollTo(0, prevScrollY));
+      }
+    };
+
+    const scrollToTop = () => {
+      window.requestAnimationFrame(() => window.scrollTo(0, 0));
+    };
+  }
+
   useUser();
 
+  const storePathValues = () => {
+    const storage = globalThis?.sessionStorage;
+    if (!storage) return;
+    const prevPath = storage.getItem('currentPath');
+    storage.setItem('prevPath', prevPath as string);
+    storage.setItem('currentPath', globalThis.location.pathname + globalThis.location.search);
+  };
+
+  useEffect(() => storePathValues, [router.asPath]);
+
   useEffect(() => {
-    const handleComplete = () => {
-      toast.dismiss();
+    const handleStart = () => {
       hideModal();
     };
+
+    const handleComplete = (url: string, { shallow }: { shallow: boolean }) => {
+      toast.dismiss();
+
+      if (!isShallowModalUrl(url) && !shallow) {
+        hideModal();
+      }
+    };
+
+    router.events.on('routeChangeStart', handleStart);
     router.events.on('routeChangeComplete', handleComplete);
 
     return () => {
+      router.events.off('routeChangeStart', handleStart);
       router.events.off('routeChangeComplete', handleComplete);
     };
   }, [router]);
+
+  useEffect(() => {
+    scrollPositionRestorer();
+  }, []);
 
   return (
     <>

@@ -1,12 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import Button from '~/components/Button';
-import { useModalStore } from '~/stores/modal';
 import { Ticket } from '~/types/ticketType';
 import { dayjsKO } from '~/utils/day';
-
-import TicketDetailForm from '../Form/TicketDetailForm';
 
 interface Props {
   ticketData: Ticket;
@@ -15,8 +13,8 @@ interface Props {
   type?: 'Order' | 'Default';
 }
 
-export default function TicketCard({ ticketData, className, type = 'Default', eventId }: Props) {
-  const { showModal } = useModalStore();
+export default function TicketCard({ ticketData, className, type = 'Default' }: Props) {
+  const router = useRouter();
 
   if (!ticketData.metadata) return null;
 
@@ -47,16 +45,16 @@ export default function TicketCard({ ticketData, className, type = 'Default', ev
                   : '판매 완료'}
               </span>
             </div>
-            <Button
-              onClick={e => {
-                e.stopPropagation();
-
-                showModal('NFT 티켓', <TicketDetailForm eventId={Number(eventId)} ticketId={ticketData.id} />);
-              }}
-              className="absolute text-xs bottom-[1.5em] right-[1rem] px-[0.75rem]"
-            >
-              상세정보
-            </Button>
+            <Link href={`/events/${router.query.eventId}/sales?ticketId=${ticketData.id}`} shallow={true}>
+              <Button
+                onClick={e => {
+                  e.stopPropagation();
+                }}
+                className="absolute text-xs bottom-[1.5em] right-[1rem] px-[0.75rem]"
+              >
+                <a>상세정보</a>
+              </Button>
+            </Link>
           </>
         ) : (
           <>
