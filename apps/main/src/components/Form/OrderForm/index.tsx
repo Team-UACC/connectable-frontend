@@ -4,6 +4,7 @@ import Button from '~/components/Button';
 import Input from '~/components/Input';
 import Label from '~/components/Text/Label';
 import useOrderForm from '~/hooks/useOrderForm';
+import { event } from '~/libs/gtag';
 import { useUserStore } from '~/stores/user';
 
 import FormPageContainer from '../FormPageContainer';
@@ -29,6 +30,8 @@ export default function OrderForm({ amount, ticketIdList, eventId }: Props) {
   const userNameRef = useRef<HTMLInputElement>(null);
   const phoneNumberRef = useRef<HTMLInputElement>(null);
   const depositCheckRef = useRef<HTMLInputElement>(null);
+
+  const isSubmitRef = useRef(false);
 
   const handleChangeTermsCheckBox = (e: ChangeEvent<HTMLInputElement>) => {
     setIsDisabledUserInfoPage(!e.currentTarget.checked ?? false);
@@ -69,6 +72,23 @@ export default function OrderForm({ amount, ticketIdList, eventId }: Props) {
       if (page === 'DepositCheck') depositCheckRef.current?.focus();
     }, 550);
   }, [page]);
+
+  useEffect(() => {
+    event({
+      action: 'try_order',
+      category: 'ecommerce',
+      label: `event_id: ${eventId}, ticketIdList: ${JSON.stringify(ticketIdList)}`,
+      value: 1,
+    });
+    return () => {
+      event({
+        action: 'checkout_order',
+        category: 'ecommerce',
+        label: `is_submit_form: ${isSubmitRef}, event_id: ${eventId}, ticketIdList: ${JSON.stringify(ticketIdList)}`,
+        value: 1,
+      });
+    };
+  }, []);
 
   return (
     <div className="relative w-full h-full overflow-x-hidden">
@@ -158,7 +178,14 @@ export default function OrderForm({ amount, ticketIdList, eventId }: Props) {
           <Button onClick={() => setPage('UserInfo')} disabled={false}>
             이전
           </Button>
-          <Button color="red" onClick={handleClickSubmitButton} disabled={false}>
+          <Button
+            color="red"
+            onClick={e => {
+              handleClickSubmitButton(e);
+              isSubmitRef.current = true;
+            }}
+            disabled={false}
+          >
             예매 폼 제출하기
           </Button>
           <MoreDescription page="Finish" amount={amount} />
