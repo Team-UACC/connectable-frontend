@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Fragment } from 'react';
 
 import { useModalStore } from '~/stores/modal';
+import { isShallowModalUrl } from '~/utils/index';
 
 export default function FullScreenModal() {
   const { isOpen, modalName, children, setIsOpen, setModalContent } = useModalStore();
@@ -43,7 +44,7 @@ export default function FullScreenModal() {
                       const storage = globalThis?.sessionStorage;
                       const current = storage.getItem('currentPath') || '/';
 
-                      if (current.indexOf('sales?ticketId') !== -1) {
+                      if (isShallowModalUrl(current)) {
                         window.history.back();
                         window.history.replaceState(window.history.state, '', window.location.pathname);
                       }

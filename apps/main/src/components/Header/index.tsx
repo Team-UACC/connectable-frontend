@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import KlipAuthForm from '~/components/Form/KlipAuthForm';
+import { event } from '~/libs/gtag';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 
@@ -45,10 +46,12 @@ const LoggedOffIcons = () => {
   const { showModal } = useModalStore();
 
   const handleClickLoginIcon = () => {
+    event({ action: 'click', category: 'engagement', label: 'login_button', value: 1 });
     showModal('로그인', <KlipAuthForm />);
   };
 
   const handleClickMenuIcon = () => {
+    event({ action: 'click', category: 'engagement', label: 'menu_button', value: 1 });
     showModal(' ', <MoreMenuForm />);
   };
 

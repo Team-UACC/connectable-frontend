@@ -6,6 +6,7 @@ import { useQuery } from 'react-query';
 
 import { requestUserLogin } from '~/apis/users';
 import SignUpForm from '~/components/Form/SignUpForm';
+import { event } from '~/libs/gtag';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 import { getKlipAccessMethod, getKlipRequest, getKlipRequestKey } from '~/utils/klip';
@@ -30,9 +31,11 @@ export const useKlipLogin = () => {
         setCookie('auth', jwt);
 
         if (isNew) {
+          event({ action: 'try_sign_up', category: 'engagement', label: `try_sign_up: ${klaytnAddress}`, value: 1 });
           setKlaytnAddress(klaytnAddress as string);
           showModal('회원가입', <SignUpForm />);
         } else {
+          event({ action: 'login', category: 'engagement', label: `login_success: ${klaytnAddress}`, value: 1 });
           setIsLoggedIn(true);
           hideModal();
         }
@@ -57,10 +60,11 @@ export const useKlipLogin = () => {
 };
 
 export const useLogout = () => {
-  const { setIsLoggedIn } = useUserStore();
+  const { setIsLoggedIn, klaytnAddress } = useUserStore();
   const logOut = () => {
     deleteCookie('auth');
     setIsLoggedIn(false);
+    event({ action: 'logout', category: 'engagement', label: `logut_success: ${klaytnAddress}`, value: 1 });
     toast.success('로그아웃 되었습니다.');
   };
 
