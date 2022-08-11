@@ -15,9 +15,10 @@
       "~/apis/*": ["src/apis/*"],
       "~/stores/*": ["src/stores/*"],
       "~/types/*": ["src/types/*"],
-      "~/constants/*": ["src/constants/*"]
+      "~/constants/*": ["src/constants/*"],
+      "~/libs/*": ["src/libs/*"]
     }
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/libs/gtag.ts"]
 }
