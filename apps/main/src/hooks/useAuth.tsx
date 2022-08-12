@@ -37,6 +37,7 @@ export const useKlipLogin = () => {
         } else {
           event({ action: 'login', category: 'engagement', label: `login_success: ${klaytnAddress}`, value: 1 });
           setIsLoggedIn(true);
+          toast.success('로그인되었습니다.');
           hideModal();
         }
       }
