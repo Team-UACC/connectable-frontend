@@ -32,6 +32,7 @@ const LoggedOnIcons = () => {
   const { showModal } = useModalStore();
 
   const handleClickMenuIcon = () => {
+    event({ action: 'click', category: 'engagement', label: 'menu_button', value: 1 });
     showModal(' ', <MoreMenuForm />);
   };
   return (
