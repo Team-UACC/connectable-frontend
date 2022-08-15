@@ -48,7 +48,6 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
   useUser();
   usePathStore();
-  useScrollRestorer();
   useGtag();
 
   useEffect(() => {
@@ -72,6 +71,8 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       router.events.off('routeChangeComplete', handleComplete);
     };
   }, [router]);
+
+  useScrollRestorer();
 
   return (
     <>

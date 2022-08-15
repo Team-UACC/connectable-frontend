@@ -44,7 +44,10 @@ export default function EventsSalesPage({ eventDetail }: Props) {
   const router = useRouter();
   const { eventId } = router.query;
 
+  const { isLoggedIn } = useUserStore();
   const { showModal, hideModal } = useModalStore();
+
+  const [checkedSet, setCheckedSet] = useState(new Set<number>());
 
   const {
     data: ticketList,
@@ -55,9 +58,6 @@ export default function EventsSalesPage({ eventDetail }: Props) {
     onSuccess: () => setCheckedSet(new Set<number>()),
     enabled: router.isReady,
   });
-  const [checkedSet, setCheckedSet] = useState(new Set<number>());
-
-  const { isLoggedIn } = useUserStore();
 
   useEffect(() => {
     if (router.isReady) {
