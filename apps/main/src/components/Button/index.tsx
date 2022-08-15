@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { MouseEvent, ReactNode } from 'react';
+import { forwardRef, MouseEvent, ReactNode, Ref } from 'react';
 // eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
@@ -22,7 +22,10 @@ export interface ButtonProps {
   className?: string;
 }
 
-export default function Button({ children, onClick, disabled, color = 'brand', className = '' }: ButtonProps) {
+export default forwardRef(function Button(
+  { children, onClick, disabled, color = 'brand', className = '' }: ButtonProps,
+  ref: Ref<HTMLButtonElement>
+) {
   return (
     <button
       className={`${disabled && 'opacity-30'} ${
@@ -31,13 +34,14 @@ export default function Button({ children, onClick, disabled, color = 'brand', c
       type="button"
       onClick={onClick}
       disabled={disabled}
+      ref={ref}
     >
       {children}
     </button>
   );
-}
+});
 
-Button.TextCopy = ({ text, size = 24 }: { text: string; size?: number }) => (
+export const TextCopyButton = ({ text, size = 24 }: { text: string; size?: number }) => (
   <Tooltip message="복사하기">
     <button
       onClick={() => {

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import Button from '~/components/Button';
+import { TextCopyButton } from '~/components/Button';
 
 import Text from '.';
 
@@ -38,7 +38,7 @@ TextInfo.Line = ({ term, description, hasCopy }: Contents) => {
         <div className="w-[60%] flex ">
           <Text textEllipsis={true}>{description}</Text>
           <div className="flex-shrink-0 w-6 ">
-            <Button.TextCopy size={18} text={description as string} />
+            <TextCopyButton size={18} text={description as string} />
           </div>
         </div>
       ) : (
