@@ -36,12 +36,12 @@ export default function useScrollRestorer() {
     const restoreScroll = () => {
       const prevScrollY = scrollMemories[Router.asPath];
       if (prevScrollY !== undefined) {
-        window.requestAnimationFrame(() => window.scrollTo({ top: prevScrollY, behavior: 'smooth' }));
+        window.requestAnimationFrame(() => window.scrollTo(0, prevScrollY));
       }
     };
 
     const scrollToTop = () => {
-      window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'smooth' }));
+      window.requestAnimationFrame(() => window.scrollTo(0, 0));
     };
   }
 
