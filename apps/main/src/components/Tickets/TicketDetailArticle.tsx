@@ -1,5 +1,6 @@
 import Image from 'next/image';
 
+import { IMAGE_BLUR_DATA_URL } from '~/constants/contents';
 import { EventDetailType } from '~/types/eventType';
 import { Ticket } from '~/types/ticketType';
 import { dayjsKO } from '~/utils/day';
@@ -27,6 +28,8 @@ export default function TicketDetailArticle({ ticketDetail, eventDetail }: Props
             objectFit="cover"
             className="rounded-[10px] "
             priority
+            placeholder="blur"
+            blurDataURL={IMAGE_BLUR_DATA_URL}
           />
         </div>
       </div>
