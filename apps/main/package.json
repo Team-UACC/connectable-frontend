@@ -10,6 +10,8 @@
   "dependencies": {
     "@headlessui/react": "^1.6.5",
     "@packages/common": "workspace:*",
+    "@sentry/nextjs": "^7.11.1",
+    "@sentry/tracing": "^7.11.1",
     "@tosspayments/payment-sdk": "^1.1.0",
     "axios": "^0.27.2",
     "cookies-next": "^2.1.1",

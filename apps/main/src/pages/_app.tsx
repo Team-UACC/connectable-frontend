@@ -1,4 +1,6 @@
 /* eslint-disable import/no-named-as-default */
+import * as Sentry from '@sentry/nextjs';
+import { Integrations } from '@sentry/tracing';
 import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
@@ -73,6 +75,18 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   }, [router]);
 
   useScrollRestorer();
+
+  useEffect(() => {
+    if (document) {
+      Sentry.init({
+        dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+
+        autoSessionTracking: true,
+        integrations: [new Integrations.BrowserTracing()],
+        tracesSampleRate: 1.0,
+      });
+    }
+  }, []);
 
   return (
     <>
