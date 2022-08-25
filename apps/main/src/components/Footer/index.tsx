@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { BUISNESS } from '~/constants/company';
+import { BUSINESS } from '~/constants/company';
 
 import Text from '../Text';
 
@@ -23,19 +23,25 @@ export default function Footer() {
             ))}
           </ul>
           <div className="mt-6 text-sm ">©2022. Connectable.</div>
-          <span className="text-xs ">
-            <b>{BUISNESS.NAME}</b>
-            <br />
-            사업자등록번호: {BUISNESS.REFISTRATION_NUMBER}
-            <br />
-            대표 {BUISNESS.REPRESENTATIVE} | 주소: {BUISNESS.ADDRESS}
-            <br />
-            이메일 문의: {BUISNESS.EMAIL}
-            <br />
-            전화 문의: {BUISNESS.PHONE}
-          </span>
+          <BusinessInfo />
         </div>
       </section>
     </footer>
   );
 }
+
+const BusinessInfo = () => {
+  return (
+    <span className="text-xs ">
+      <b>{BUSINESS.NAME}</b>
+      <br />
+      사업자등록번호: {BUSINESS.REFISTRATION_NUMBER}
+      <br />
+      대표 {BUSINESS.REPRESENTATIVE} | 주소: {BUSINESS.ADDRESS}
+      <br />
+      이메일 문의: {BUSINESS.EMAIL}
+      <br />
+      전화 문의: {BUSINESS.PHONE}
+    </span>
+  );
+};

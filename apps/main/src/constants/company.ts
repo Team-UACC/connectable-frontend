@@ -5,11 +5,11 @@ export const ACCOUNT = {
   OWNER: `이호현`,
 };
 
-export const BUISNESS = {
+export const BUSINESS = {
   NAME: '커넥터블',
   REFISTRATION_NUMBER: `318-51-00728`,
-  ADDRESS: `서울특별시 정릉로 26길 8, 205동 1203호`,
+  ADDRESS: `서울특별시 성북구 정릉로 26길 8, 205동 1203호`,
   REPRESENTATIVE: `이호현`,
-  EMAIL: `uacc.connectable@gmail.com`,
+  EMAIL: `contact@connectable.fans`,
   PHONE: `010-5248-4170`,
 };
