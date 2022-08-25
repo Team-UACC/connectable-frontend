@@ -137,7 +137,7 @@ export default function EventsSalesPage({ eventDetail }: Props) {
               onClick={() => {
                 if (isLoggedIn) {
                   showModal(
-                    '공연 예매하기',
+                    '티켓 구매하기',
                     <OrderForm
                       amount={ticketList!.reduce((total, v) => (checkedSet.has(v.id) ? total + v.price : total), 0)}
                       ticketIdList={[...checkedSet]}

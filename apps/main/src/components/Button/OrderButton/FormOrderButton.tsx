@@ -21,7 +21,7 @@ export default function FormOrderButton({ amount, ticketId, eventId }: Props) {
     <Button
       onClick={() => {
         if (isLoggedIn) {
-          showModal('공연 예매하기', <OrderForm amount={amount} ticketIdList={[ticketId]} eventId={eventId} />);
+          showModal('티켓 구매하기', <OrderForm amount={amount} ticketIdList={[ticketId]} eventId={eventId} />);
         } else {
           toast.error(<LoginRequestToast />, { icon: null });
         }

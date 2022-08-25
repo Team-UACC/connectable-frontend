@@ -55,7 +55,7 @@ export default function MoreDescription({
       {page === 'Finish' && (
         <p className="text-sm font-semibold ">
           티켓은 입금 확인 후 NFT로 전송됩니다. <br />
-          4시간 내에 Connctable에서 확인할 수 있으며 <br />
+          영업시간 기준 4시간 내에 Connectable로 전송되며 <br />
           문의사항은 언제든{' '}
           <a className="text-blue-500 " href={KAKAO_TALK_ONE_TO_ONE_CHAT} target="_blank" rel="noreferrer">
             1:1 문의하기
