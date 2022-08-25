@@ -4,12 +4,12 @@ export const data = {
   url: 'https://connectable.fans',
   description: '디지털 티켓의 새로운 패러다임, NFT with Connectable',
   images: {
-    logo: '/images/favicon/apple-touch-icon.png',
+    logo: '/images/logo/Connectable_sg1_b.png',
   },
   favicons: {
-    appleTouchIcon: '/images/favicon/apple-touch-icon.png',
-    32: '/images/favicon/favicon-32x32.png',
-    16: '/images/favicon/favicon-16x16.png',
-    manifest: '/images/favicon/site.webmanifest',
+    appleTouchIcon: '/images/logo/Connectable_symbol_b.png',
+    32: '/images/logo/Connectable_symbol_b.png',
+    16: '/images/logo/Connectable_symbol_b.png',
+    manifest: '/images/logo/site.webmanifest',
   },
 };

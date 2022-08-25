@@ -1,12 +1,21 @@
 import Image from 'next/image';
 
 import Text from '~/components/Text';
+import { IMAGE_BLUR_DATA_URL } from '~/constants/contents';
 
 export function ArtistImageBox({ src }: { src: string }) {
   return (
     <div className=" relative w-[calc(100%+2rem)] -translate-x-4 h-[140px] bg-gray-100">
       <div className="m-auto translate-y-[90px] max-w-fit">
-        <Image src={src} width={100} height={100} objectFit="cover" className="rounded-full" />
+        <Image
+          src={src}
+          width={100}
+          height={100}
+          objectFit="cover"
+          className="rounded-full"
+          placeholder="blur"
+          blurDataURL={IMAGE_BLUR_DATA_URL}
+        />
       </div>
     </div>
   );

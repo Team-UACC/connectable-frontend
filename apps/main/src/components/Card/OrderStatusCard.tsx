@@ -4,6 +4,7 @@ import Link from 'next/link';
 import toast from 'react-hot-toast';
 
 import { ACCOUNT } from '~/constants/company';
+import { IMAGE_BLUR_DATA_URL } from '~/constants/contents';
 import { ORDER_STATUS_MESSAGE } from '~/constants/message';
 import { OrderStatus, TicketOrderStatusType } from '~/types/orderType';
 import { dayjsKO } from '~/utils/day';
@@ -27,6 +28,8 @@ export default function OrderStatusCard({ orderData, className }: Props) {
             height={50}
             layout="fixed"
             className="rounded-[10px] shadow-lg "
+            placeholder="blur"
+            blurDataURL={IMAGE_BLUR_DATA_URL}
           />
           <div className="flex flex-col justify-between ml-8 h-[50px] text-start">
             <span className="text-sm font-semibold opacity-50">

@@ -31,6 +31,8 @@ export default function Footer() {
             대표 {BUISNESS.REPRESENTATIVE} | 주소: {BUISNESS.ADDRESS}
             <br />
             이메일 문의: {BUISNESS.EMAIL}
+            <br />
+            전화 문의: {BUISNESS.PHONE}
           </span>
         </div>
       </section>

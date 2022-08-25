@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import Button from '~/components/Button';
+import { IMAGE_BLUR_DATA_URL } from '~/constants/contents';
 import { Ticket } from '~/types/ticketType';
 import { dayjsKO } from '~/utils/day';
 
@@ -27,6 +28,8 @@ export default function TicketCard({ ticketData, className, type = 'Default' }: 
         height={100}
         objectFit="cover"
         className="rounded-[10px] shadow-lg"
+        placeholder="blur"
+        blurDataURL={IMAGE_BLUR_DATA_URL}
       />
       <div className="flex flex-col ml-8 h-[100px] text-start">
         <h2 className="font-bold ">{ticketData.metadata.name}</h2>

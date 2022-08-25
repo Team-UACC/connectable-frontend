@@ -13,6 +13,7 @@ import HeadMeta from '~/components/HeadMeta';
 import LinkText from '~/components/Text/LinkText';
 import LinkToKlaytnScope from '~/components/Text/LinkToKlaytnScope';
 import TextInfo from '~/components/Text/TextInfo';
+import { IMAGE_BLUR_DATA_URL } from '~/constants/contents';
 import { data } from '~/constants/seo';
 import useEventByIdQuery from '~/hooks/apis/useEventByIdQuery';
 import NotFoundPage from '~/pages/404';
@@ -93,7 +94,16 @@ export default function EventDetailPage({ initialEventDetail }: Props) {
             )}
           </div>
         </section>
-        <Image src={eventDetail.image} width={388} height={388} objectFit="cover" layout="responsive" priority />
+        <Image
+          src={eventDetail.image}
+          width={388}
+          height={388}
+          objectFit="cover"
+          layout="responsive"
+          priority
+          placeholder="blur"
+          blurDataURL={IMAGE_BLUR_DATA_URL}
+        />
         <TextInfo
           title="공연정보"
           contents={[

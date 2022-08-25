@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 import KlipAuthForm from '~/components/Form/KlipAuthForm';
@@ -17,8 +18,8 @@ export default function Header() {
       <nav className="relative flex justify-between w-full py-6 ">
         <div className="flex flex-col justify-center">
           <Link href="/">
-            <a className="translate-x-1 translate-y-1">
-              <span className="font-semibold cursor-pointer ">CONNECTABLE</span>
+            <a className="-translate-x-1 translate-y-1">
+              <Image src="/images/logo/Connectable_sg2_b.png" height={32} width={144} />
             </a>
           </Link>
         </div>
@@ -32,10 +33,11 @@ const LoggedOnIcons = () => {
   const { showModal } = useModalStore();
 
   const handleClickMenuIcon = () => {
+    event({ action: 'click', category: 'engagement', label: 'menu_button', value: 1 });
     showModal(' ', <MoreMenuForm />);
   };
   return (
-    <div className={`flex justify-between w-[5rem]`}>
+    <div className={`flex justify-between w-[5rem] h-[40px]`}>
       <NavIcons src="/images/defaultProfile.png" alt="profile" href="/my" />
       <NavIcons src="/images/menu.svg" alt="menu" onClick={handleClickMenuIcon} />
     </div>
@@ -56,8 +58,8 @@ const LoggedOffIcons = () => {
   };
 
   return (
-    <div className={`flex justify-between w-[5rem]`}>
-      <div className=" transform scale-[-1]">
+    <div className={`flex justify-between w-[5rem] h-[40px]`}>
+      <div className=" transform scale-[-1] my-auto ">
         <NavIcons src="/images/login.svg" alt="login" onClick={handleClickLoginIcon} />
       </div>
       <NavIcons src="/images/menu.svg" alt="menu" onClick={handleClickMenuIcon} />

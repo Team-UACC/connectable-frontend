@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
 import EventSaleTimer from '~/components/Events/EventSaleTimer';
+import { IMAGE_BLUR_DATA_URL } from '~/constants/contents';
 import { EventSimpleType } from '~/types/eventType';
 
 interface Props {
@@ -19,6 +20,8 @@ export default function EventCard({ data }: Props) {
           height={388}
           objectFit="cover"
           className=" rounded-[10px]"
+          placeholder="blur"
+          blurDataURL={IMAGE_BLUR_DATA_URL}
         />
       </div>
       <div className="mt-2 ml-1 ">
