@@ -8,7 +8,8 @@ export const ACCOUNT = {
 export const BUISNESS = {
   NAME: '커넥터블',
   REFISTRATION_NUMBER: `318-51-00728`,
-  ADDRESS: `서울특별시 강남구 테헤란로 311(역삼동) 아남타워빌딩 7층(06151)`,
+  ADDRESS: `서울특별시 정릉로 26길 8, 205동 1203호`,
   REPRESENTATIVE: `이호현`,
   EMAIL: `uacc.connectable@gmail.com`,
+  PHONE: `010-5248-4170`,
 };
