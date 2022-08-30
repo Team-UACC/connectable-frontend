@@ -8,6 +8,7 @@ import { fetchAllEvents, fetchEventsAllTickets, fetchEventsDetail, fetchTicketsD
 import Button from '~/components/Button';
 import FormOrderButton from '~/components/Button/OrderButton/FormOrderButton';
 import NFTTransferButton from '~/components/Button/OrderButton/NFTTransferButton';
+import QREntranceButton from '~/components/Button/QREntranceButton';
 import StickyBlurFooter from '~/components/Footer/StickyBlurFooter';
 import HeadMeta from '~/components/HeadMeta';
 import TicketDetailArticle from '~/components/Tickets/TicketDetailArticle';
@@ -25,7 +26,12 @@ export async function getStaticPaths() {
   const paths = await Promise.all(
     events.map(async e => {
       const eventId = e.id.toString();
-      const tickets = await fetchEventsAllTickets(Number(eventId));
+      let tickets = await fetchEventsAllTickets(Number(eventId));
+
+      // 토큰 소각에 대한 예외처리
+      if (eventId === '1') {
+        tickets = tickets.filter(t => t.id !== 2);
+      }
 
       const paramsList = tickets.map(t => ({ params: { eventId, ticketId: t.id.toString() } }));
 
@@ -108,18 +114,7 @@ export default function TicketDetailPage({ skeletonDataTicket, skeletonDataEvent
               공유하기
             </Button>
             <NFTTransferButton blockchain="Klaytn" eventId={Number(eventId)} ticketId={Number(ticketId)} />
-            <Button
-              onClick={() => {
-                if (!isLoggedIn) {
-                  toast.error(<LoginRequestToast />, { icon: null });
-                } else {
-                  toast.success('준비중입니다.');
-                }
-              }}
-              color="red"
-            >
-              QR 입장
-            </Button>
+            {!ticketDetail.isUsed && <QREntranceButton ticketId={ticketDetail.id} />}
           </>
         ) : ticketDetail.ticketSalesStatus === 'ON_SALE' ? (
           <FormOrderButton amount={ticketDetail.price} ticketId={ticketDetail.id} eventId={Number(eventId)} />

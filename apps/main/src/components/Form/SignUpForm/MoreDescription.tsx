@@ -12,11 +12,7 @@ export default function MoreDescription({ page }: { page: SignUpFormPage | 'User
         </p>
       )}
       {page === 'PhoneNumber' && (
-        <p className="text-sm gray-600 ">
-          공연 예매자 확인 및 관련 업무 수행 시 이용에 사용됩니다.
-          <br />
-          나중에 언제든지 수정할 수 있어요.
-        </p>
+        <p className="text-sm gray-600 ">공연 예매자 확인 및 관련 업무 수행 시 이용에 사용됩니다.</p>
       )}
       {page === 'Finish' && (
         <p className="pb-5 text-sm font-semibold ">

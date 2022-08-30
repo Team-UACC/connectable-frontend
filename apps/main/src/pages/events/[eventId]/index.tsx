@@ -10,9 +10,12 @@ import EventSaleTimer from '~/components/Events/EventSaleTimer';
 import LinkBox from '~/components/Events/LinkBox';
 import StickyBlurFooter from '~/components/Footer/StickyBlurFooter';
 import HeadMeta from '~/components/HeadMeta';
+import Text from '~/components/Text';
+import DotText from '~/components/Text/DotText';
 import LinkText from '~/components/Text/LinkText';
 import LinkToKlaytnScope from '~/components/Text/LinkToKlaytnScope';
 import TextInfo from '~/components/Text/TextInfo';
+import { BUSINESS } from '~/constants/company';
 import { IMAGE_BLUR_DATA_URL } from '~/constants/contents';
 import { data } from '~/constants/seo';
 import useEventByIdQuery from '~/hooks/apis/useEventByIdQuery';
@@ -104,6 +107,7 @@ export default function EventDetailPage({ initialEventDetail }: Props) {
           placeholder="blur"
           blurDataURL={IMAGE_BLUR_DATA_URL}
         />
+        <br />
         <TextInfo
           title="공연정보"
           contents={[
@@ -116,37 +120,9 @@ export default function EventDetailPage({ initialEventDetail }: Props) {
           ]}
         />
         <TextInfo.Simple title={`공연 설명`}>{eventDetail.description}</TextInfo.Simple>
-        <TextInfo
-          title="NFT 티켓 정보"
-          contents={[
-            { term: '혜택1', description: '조엘 겨울 콘서트 화이트리스트 제공' },
-            { term: '혜택2', description: 'NFT 티켓 소유자 중 추첨을 통해 공연 후 포토타임 제공' },
-          ]}
-        />
-        <TextInfo
-          title="기타 안내"
-          contents={[
-            { term: '티켓 사용법', description: '공연 입장 전, 마이페이지에서 본인의 티켓을 보여주세요.' },
-            {
-              term: '안내사항1',
-              description:
-                '공연 입장 시간에 맞추어 공연장 입구 및 계단에서 개인 정보 확인 후 입장을 도와드릴 예정입니다.',
-            },
-            {
-              term: '안내사항2',
-              description: '예매 폼 제출 순으로 입장합니다.',
-            },
-            {
-              term: '안내사항3',
-              description: '공연장 내 좌석은 모두 자유석입니다.',
-            },
-            {
-              term: '안내사항4',
-              description:
-                '취소 문의는 010-5248-4170으로 공연명, 성함, 계좌번호를 보내주시면 순차적으로 처리해드리겠습니다.',
-            },
-          ]}
-        />
+        <BenefitInformation />
+        <AdditionalGuidance />
+        <RefundGuidance />
         <TextInfo
           title="NFT 컬렉션 상세"
           contents={[
@@ -173,3 +149,54 @@ export default function EventDetailPage({ initialEventDetail }: Props) {
     </>
   );
 }
+
+const AdditionalGuidance = () => {
+  return (
+    <div className="w-full px-2 py-4 text-sm">
+      <h2 className="text-xl font-bold">공연 안내</h2>
+      <ul>
+        <DotText>공연 입장 시간에 맞추어 공연장 입구 및 계단에서 개인 정보 확인 후 입장을 도와드릴 예정입니다.</DotText>
+        <DotText>예매 폼 제출 순으로 입장합니다.</DotText>
+        <DotText>공연장 내 좌석은 모두 자유석입니다.</DotText>
+      </ul>
+    </div>
+  );
+};
+
+const RefundGuidance = () => {
+  return (
+    <div className="w-full px-2 py-4 text-sm">
+      <h2 className="text-xl font-bold">환불 안내</h2>
+      <br />
+      <Text>환불 취소 수수료 규정은 아래와 같습니다.</Text>
+      <ul>
+        <DotText>공연 10일 전까지 : 100% 환급</DotText>
+        <DotText>공연 7일 전까지 : 90% 환급</DotText>
+        <DotText>공연 3일 전까지 : 80% 환급</DotText>
+        <DotText>공연 1일 전까지 : 70% 환급</DotText>
+        <DotText>단, 공연 3일 전까지 예매 당일 취소는 100% 환급</DotText>
+      </ul>
+      <br />
+      <Text>환불 절차는 아래와 같습니다.</Text>
+      <ul>
+        <DotText>
+          환불을 위해서는 {BUSINESS.EMAIL} 로 환불 요청자의 성함, 전화번호를 기재하여 요청해주시기 바랍니다.
+        </DotText>
+        <DotText>본인 확인 절차 후 환불이 진행됩니다.</DotText>
+        <DotText>공연 당일 취소, 변경, 환불은 불가합니다.</DotText>
+      </ul>
+    </div>
+  );
+};
+
+const BenefitInformation = () => {
+  return (
+    <div className="w-full px-2 py-4 text-sm">
+      <h2 className="text-xl font-bold">NFT 티켓 정보</h2>
+      <ul>
+        <DotText>조엘 겨울 콘서트 화이트리스트 제공</DotText>
+        <DotText>NFT 티켓 소유자 중 추첨을 통해 공연 후 포토타임 제공</DotText>
+      </ul>
+    </div>
+  );
+};

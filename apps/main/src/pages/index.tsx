@@ -8,19 +8,23 @@ import { data } from '~/constants/seo';
 import useEventsQuery from '~/hooks/apis/useEventsQuery';
 import { EventSimpleType } from '~/types/eventType';
 
+import { WELCOME_EVENT_SIMPLE } from './api/events';
+
 export async function getStaticProps() {
   const posts = await fetchAllEvents();
+  const welcomePost = WELCOME_EVENT_SIMPLE;
 
   return {
-    props: { posts },
+    props: { posts, welcomePost },
   };
 }
 
 interface Props {
   posts: Array<EventSimpleType>;
+  welcomePost: EventSimpleType;
 }
 
-export default function IndexPage({ posts }: Props) {
+export default function IndexPage({ posts, welcomePost }: Props) {
   const { data: EventsList, isLoading } = useEventsQuery({ initialData: posts });
 
   if (isLoading) return 'loading';
@@ -36,6 +40,13 @@ export default function IndexPage({ posts }: Props) {
       <div>
         <IntroContent />
         <ul>
+          <Link key={'welcome'} href={`/events/welcome`}>
+            <a>
+              <li className="p-4 mb-4 transition-all ease-in-out rounded-lg cursor-pointer [@media(hover:hover)]:hover:scale-110 hover:bg-[zinc-100]">
+                <EventCard data={welcomePost} />
+              </li>
+            </a>
+          </Link>
           {EventsList?.map(eventSimple => (
             <Link key={eventSimple.id} href={`/events/${eventSimple.id}`}>
               <a>

@@ -1,9 +1,11 @@
-import { KeyboardEvent, useEffect, useRef, useState } from 'react';
+import _ from 'lodash';
+import { KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
 
 import Button from '~/components/Button';
 import Input from '~/components/Input';
 import Label from '~/components/Text/Label';
 import useUserInfoForm from '~/hooks/useUserInfoForm';
+import { timeFormatterForMinute } from '~/utils/day';
 
 import FormPageContainer from '../FormPageContainer';
 import MoreDescriptionContainer from '../MoreDescriptionContainer';
@@ -11,12 +13,18 @@ import MoreDescriptionContainer from '../MoreDescriptionContainer';
 import MoreDescription from './MoreDescription';
 
 export type SignUpFormPage = 'Terms' | 'UserInfo' | 'Finish';
+type CertifiedPhoneNumberStep = 'Start' | 'InProgress' | 'Fail' | 'Success';
+
+const CERTICIFICATION_DURATION = 180;
 
 export default function SingUpForm() {
   const [page, setPage] = useState<SignUpFormPage>('Terms');
+  const [certifiedPhoneNumberStep, setCertifiedPhoneNumberStep] = useState<CertifiedPhoneNumberStep>('Start');
+  const [certificationRemainTime, setCertificationRemainTime] = useState(CERTICIFICATION_DURATION);
 
   const userNameRef = useRef<HTMLInputElement>(null);
   const phoneNumberRef = useRef<HTMLInputElement>(null);
+  const certificationKeyRef = useRef<HTMLInputElement>(null);
 
   const termOfServiceRef = useRef<HTMLInputElement>(null);
   const termOfPrivacyRef = useRef<HTMLInputElement>(null);
@@ -44,10 +52,48 @@ export default function SingUpForm() {
     }
     if (e.key === 'Enter') {
       if (page === 'Terms') validationTerms === true && setPage('UserInfo');
-      else if (page === 'UserInfo') validationNickName === true && setPage('Finish');
+      else if (page === 'UserInfo')
+        validationNickName === true && certifiedPhoneNumberStep === 'Success' && setPage('Finish');
       else handleClickSubmitButton();
     }
   };
+
+  const handleClickCertificatePhoneNumber = useCallback(() => {
+    setCertifiedPhoneNumberStep('InProgress');
+    fetch(`/api/auth/sms/key?phoneNumber=${phoneNumberRef.current}&duration=3`).catch(() =>
+      setCertifiedPhoneNumberStep('Start')
+    );
+  }, [phoneNumberRef.current]);
+
+  const debouncedPhoneNumberCertification = _.debounce(async (certificationKey: string) => {
+    fetch(
+      `/api/auth/sms/certification?phoneNumber=${phoneNumberRef.current?.value}&certificationKey=${certificationKey}`
+    )
+      .then(res => res.json())
+      .then(res => {
+        if (res) setCertifiedPhoneNumberStep('Success');
+        else setCertifiedPhoneNumberStep('Fail');
+      });
+  }, 100);
+
+  useEffect(() => {
+    let id: NodeJS.Timer;
+    if (certifiedPhoneNumberStep !== 'Start') {
+      id = setInterval(() => {
+        setCertificationRemainTime(now => {
+          if (now === 1) {
+            setCertifiedPhoneNumberStep('Start');
+            return CERTICIFICATION_DURATION;
+          }
+
+          return now - 1;
+        });
+      }, 1000);
+    }
+    return () => {
+      clearInterval(id);
+    };
+  }, [certifiedPhoneNumberStep]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -130,17 +176,51 @@ export default function SingUpForm() {
           />
           <MoreDescription page="UserName" />
 
-          <Input
-            name="phonenumber"
-            label="전화번호"
-            type="tel"
-            placeholder="전화번호를 입력해주세요"
-            maxLength={13}
-            onChange={handleChangePhoneNumberInput}
-            autoComplete="off"
-            spellCheck={false}
-            ref={phoneNumberRef}
-          />
+          <div className="relative">
+            <Input
+              name="phonenumber"
+              label="전화번호"
+              notice={
+                certifiedPhoneNumberStep === 'InProgress'
+                  ? '문자로 전송된 인증번호를 입력해주세요.'
+                  : certifiedPhoneNumberStep === 'Fail'
+                  ? '인증번호가 일치하지 않습니다.'
+                  : undefined
+              }
+              type="tel"
+              placeholder="010-0000-0000"
+              maxLength={13}
+              onChange={handleChangePhoneNumberInput}
+              autoComplete="off"
+              spellCheck={false}
+              ref={phoneNumberRef}
+            />
+            <Button
+              color="red"
+              className="absolute right-[5px] bottom-[5px] px-3 text-sm"
+              disabled={validationPhoneNumber !== true || certifiedPhoneNumberStep !== 'Start'}
+              onClick={handleClickCertificatePhoneNumber}
+            >
+              {certifiedPhoneNumberStep !== 'Start'
+                ? timeFormatterForMinute(certificationRemainTime * 1000)
+                : '인증하기'}
+            </Button>
+          </div>
+          {certifiedPhoneNumberStep !== 'Start' && (
+            <input
+              className={`w-full px-3 py-3 font-semibold leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline`}
+              id={'certificationNumber'}
+              type="text"
+              placeholder="인증번호를 입력해주세요"
+              onChange={() => {
+                debouncedPhoneNumberCertification(certificationKeyRef.current?.value as string);
+              }}
+              autoComplete="off"
+              spellCheck={false}
+              ref={certificationKeyRef}
+            />
+          )}
+
           <MoreDescription page="PhoneNumber" />
           <div className="flex justify-around w-2/3 m-auto ">
             <Button onClick={() => setPage('Terms')} disabled={false}>
@@ -148,7 +228,7 @@ export default function SingUpForm() {
             </Button>
             <Button
               onClick={() => setPage('Finish')}
-              disabled={validationNickName !== true || validationPhoneNumber !== true}
+              disabled={validationNickName !== true || certifiedPhoneNumberStep !== 'Success'}
             >
               다음
             </Button>
