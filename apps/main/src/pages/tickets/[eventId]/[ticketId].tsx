@@ -25,7 +25,12 @@ export async function getStaticPaths() {
   const paths = await Promise.all(
     events.map(async e => {
       const eventId = e.id.toString();
-      const tickets = await fetchEventsAllTickets(Number(eventId));
+      let tickets = await fetchEventsAllTickets(Number(eventId));
+
+      // 토큰 소각에 대한 예외처리
+      if (eventId === '1') {
+        tickets = tickets.filter(t => t.id !== 2);
+      }
 
       const paramsList = tickets.map(t => ({ params: { eventId, ticketId: t.id.toString() } }));
 
