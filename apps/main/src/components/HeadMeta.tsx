@@ -17,6 +17,7 @@ const HeadMeta = ({ title, description, url, image, creator }: Props) => {
       <meta name="description" content={description ?? data.description} />
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
       <meta property="og:title" content={title ?? data.title} />
+      <meta property="og:description" content={description ?? data.description} />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={url ?? data.url} />
       <meta property="og:image" content={image} />
