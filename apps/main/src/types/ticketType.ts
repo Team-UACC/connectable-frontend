@@ -2,6 +2,7 @@ export interface Ticket extends TicketSimple {
   eventId: number;
   contractAddress: string;
   ownedBy: string;
+  isUsed: boolean;
 }
 
 export interface TicketSimple {
