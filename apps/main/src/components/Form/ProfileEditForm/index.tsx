@@ -1,6 +1,7 @@
 import _ from 'lodash';
-import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 
+import { requestSMSCertificationKey, verifyCertificationKey } from '~/apis/auth';
 import Button from '~/components/Button';
 import Input from '~/components/Input';
 import useUserInfoForm from '~/hooks/useUserInfoForm';
@@ -35,22 +36,16 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
     phoneNumberRef,
   });
 
-  const handleClickCertificatePhoneNumber = useCallback(() => {
+  const handleClickCertificatePhoneNumber = () => {
     setCertifiedPhoneNumberStep('InProgress');
-    fetch(`/api/auth/sms/key?phoneNumber=${phoneNumberRef.current}&duration=3`).catch(() =>
-      setCertifiedPhoneNumberStep('Start')
-    );
-  }, [phoneNumberRef.current]);
+    requestSMSCertificationKey(phoneNumberRef.current?.value as string, CERTICIFICATION_DURATION / 60);
+  };
 
   const debouncedPhoneNumberCertification = _.debounce(async (certificationKey: string) => {
-    fetch(
-      `/api/auth/sms/certification?phoneNumber=${phoneNumberRef.current?.value}&certificationKey=${certificationKey}`
-    )
-      .then(res => res.json())
-      .then(res => {
-        if (res) setCertifiedPhoneNumberStep('Success');
-        else setCertifiedPhoneNumberStep('Fail');
-      });
+    verifyCertificationKey(phoneNumberRef.current?.value as string, certificationKey).then(res => {
+      if (res) setCertifiedPhoneNumberStep('Success');
+      else setCertifiedPhoneNumberStep('Fail');
+    });
   }, 100);
 
   useEffect(() => {

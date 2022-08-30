@@ -10,5 +10,5 @@ export const requestSMSCertificationKey = async (
 };
 
 export const verifyCertificationKey = async (phoneNumber: string, certificationKey: string): Promise<boolean> => {
-  return axiosInstance.get(`/auth/sms/certification?phoneNumber=${phoneNumber}&certificationKey=${certificationKey}`);
+  return axiosInstance.get(`/auth/sms/certification?phoneNumber=${phoneNumber}&authKey=${certificationKey}`);
 };
