@@ -7,6 +7,7 @@ import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 
 import MoreMenuForm from '../Form/MoreMenuForm';
+import SingUpForm from '../Form/SignUpForm';
 
 import NavIcons from './NavIcons';
 
@@ -54,7 +55,7 @@ const LoggedOffIcons = () => {
 
   const handleClickMenuIcon = () => {
     event({ action: 'click', category: 'engagement', label: 'menu_button', value: 1 });
-    showModal(' ', <MoreMenuForm />);
+    showModal(' ', <SingUpForm />);
   };
 
   return (

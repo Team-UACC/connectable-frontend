@@ -5,7 +5,6 @@ import Input from '~/components/Input';
 import Label from '~/components/Text/Label';
 import useOrderForm from '~/hooks/useOrderForm';
 import { event } from '~/libs/gtag';
-import { useUserStore } from '~/stores/user';
 
 import FormPageContainer from '../FormPageContainer';
 
@@ -20,15 +19,13 @@ interface Props {
 }
 
 export default function OrderForm({ amount, ticketIdList, eventId }: Props) {
-  const { phoneNumber } = useUserStore();
   const [page, setPage] = useState<OrderFormPageType>('OnBoarding');
-
   const [isDisabledMoveToAgreemetnPage] = useState(false);
   const [isDisabledUserInfoPage, setIsDisabledUserInfoPage] = useState(true);
-  const [isDisabledMoveToFinishPage, setIsDisabledMoveToFinishPage] = useState(false);
+  const [isDisabledMoveToFinishPage, setIsDisabledMoveToFinishPage] = useState(true);
+  const [isDisabledSubmit, setIsDisabledSubmit] = useState(true);
 
   const userNameRef = useRef<HTMLInputElement>(null);
-  const phoneNumberRef = useRef<HTMLInputElement>(null);
   const depositCheckRef = useRef<HTMLInputElement>(null);
 
   const isSubmitRef = useRef(false);
@@ -37,24 +34,25 @@ export default function OrderForm({ amount, ticketIdList, eventId }: Props) {
     setIsDisabledUserInfoPage(!e.currentTarget.checked ?? false);
   };
 
-  const [handleKeyUpPhoneNumberInput, handleClickSubmitButton] = useOrderForm({
+  const handleChangeSubmitTerms = (e: ChangeEvent<HTMLInputElement>) => {
+    setIsDisabledSubmit(!e.currentTarget.checked ?? false);
+  };
+
+  const [handleClickSubmitButton] = useOrderForm({
     userNameRef,
-    phoneNumberRef,
     ticketIdList,
     eventId,
   });
 
   const handleChangeUserNameInput = (e: ChangeEvent<HTMLInputElement>) =>
-    setIsDisabledMoveToFinishPage(e.currentTarget.value === '' || phoneNumberRef.current!.value.length < 13);
-
-  const handleChangePhoneNumberInput = (e: ChangeEvent<HTMLInputElement>) =>
-    setIsDisabledMoveToFinishPage(e.currentTarget.value.length < 13 || userNameRef.current?.value === '');
+    setIsDisabledMoveToFinishPage(e.currentTarget.value === '');
 
   const handleCheckEnter = (e: KeyboardEvent) => {
     if (e.key === 'Tab') {
       document.activeElement?.id !== 'username' && e.preventDefault();
     }
     if (e.key === 'Enter') {
+      e.preventDefault();
       if (page === 'OnBoarding') !isDisabledMoveToAgreemetnPage && setPage('Agreement');
       else if (page === 'Agreement') !isDisabledUserInfoPage && setPage('UserInfo');
       else if (page === 'UserInfo') !isDisabledMoveToFinishPage && setPage('Finish');
@@ -65,9 +63,6 @@ export default function OrderForm({ amount, ticketIdList, eventId }: Props) {
     setTimeout(() => {
       if (page === 'UserInfo') {
         userNameRef.current?.focus();
-        if (phoneNumberRef.current && phoneNumberRef.current?.value === '') {
-          phoneNumberRef.current.value = phoneNumber;
-        }
       }
       if (page === 'DepositCheck') depositCheckRef.current?.focus();
     }, 550);
@@ -146,21 +141,6 @@ export default function OrderForm({ amount, ticketIdList, eventId }: Props) {
           />
           <MoreDescription page="UserName" amount={amount} />
 
-          <br />
-          <Input
-            name="phonenumber"
-            label="전화번호"
-            type="tel"
-            placeholder="전화번호를 입력해주세요"
-            maxLength={13}
-            onKeyUp={handleKeyUpPhoneNumberInput}
-            onChange={handleChangePhoneNumberInput}
-            autoComplete="off"
-            spellCheck={false}
-            ref={phoneNumberRef}
-          />
-          <MoreDescription page="PhoneNumber" amount={amount} />
-
           <div className="flex justify-around w-2/3 m-auto ">
             <Button onClick={() => setPage('Agreement')} disabled={false}>
               이전
@@ -174,6 +154,14 @@ export default function OrderForm({ amount, ticketIdList, eventId }: Props) {
         <FormPageContainer>
           <Label text="예매 폼 작성이 완료되었습니다." />
           <MoreDescription page="DepositCheck" amount={amount} />
+          <label className="inline-flex items-center m-auto text-sm font-semibold">
+            <input
+              type="checkbox"
+              className="w-4 h-4 mr-2 text-indigo-600 form-checkbox"
+              onChange={handleChangeSubmitTerms}
+            />
+            <span className="text-blue-500 cursor-pointer ">{`[필수] 위 내용을 확인했습니다.`}</span>
+          </label>
 
           <Button onClick={() => setPage('UserInfo')} disabled={false}>
             이전
@@ -184,7 +172,7 @@ export default function OrderForm({ amount, ticketIdList, eventId }: Props) {
               handleClickSubmitButton(e);
               isSubmitRef.current = true;
             }}
-            disabled={false}
+            disabled={isDisabledSubmit}
           >
             예매 폼 제출하기
           </Button>

@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { ChangeEvent, Dispatch, RefObject, SetStateAction, useState } from 'react';
+// eslint-disable-next-line import/no-named-as-default
 import toast from 'react-hot-toast';
 
 import { updateUser, userValidation } from '~/apis/users';
