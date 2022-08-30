@@ -63,3 +63,13 @@ type UserValidationRes = {
 export const userValidation = async ({ nickname }: { nickname: string }): Promise<UserValidationRes> => {
   return axiosInstance.get(`/users/validation?${nickname ? `nickname=${nickname}` : ''}`);
 };
+
+type RequestEntranceVerificationRes = { ticketId: number; klaytnAddress: string; verficationKey: string };
+
+export const requestEntranceVerification = async ({
+  ticketId,
+}: {
+  ticketId: number;
+}): Promise<RequestEntranceVerificationRes> => {
+  return axiosInstance.get(`/users/tickets/${ticketId}/entrance-verification`, authorizationOptions());
+};

@@ -8,6 +8,7 @@ import { fetchAllEvents, fetchEventsAllTickets, fetchEventsDetail, fetchTicketsD
 import Button from '~/components/Button';
 import FormOrderButton from '~/components/Button/OrderButton/FormOrderButton';
 import NFTTransferButton from '~/components/Button/OrderButton/NFTTransferButton';
+import QREntranceButton from '~/components/Button/QREntranceButton';
 import StickyBlurFooter from '~/components/Footer/StickyBlurFooter';
 import HeadMeta from '~/components/HeadMeta';
 import TicketDetailArticle from '~/components/Tickets/TicketDetailArticle';
@@ -113,20 +114,7 @@ export default function TicketDetailPage({ skeletonDataTicket, skeletonDataEvent
               공유하기
             </Button>
             <NFTTransferButton blockchain="Klaytn" eventId={Number(eventId)} ticketId={Number(ticketId)} />
-            {!ticketDetail.isUsed && (
-              <Button
-                onClick={() => {
-                  if (!isLoggedIn) {
-                    toast.error(<LoginRequestToast />, { icon: null });
-                  } else {
-                    toast.success('준비중입니다.');
-                  }
-                }}
-                color="red"
-              >
-                QR 입장
-              </Button>
-            )}
+            {!ticketDetail.isUsed && <QREntranceButton ticketId={ticketDetail.id} />}
           </>
         ) : ticketDetail.ticketSalesStatus === 'ON_SALE' ? (
           <FormOrderButton amount={ticketDetail.price} ticketId={ticketDetail.id} eventId={Number(eventId)} />
