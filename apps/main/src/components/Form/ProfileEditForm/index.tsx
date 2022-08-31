@@ -39,6 +39,7 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
   const handleClickCertificatePhoneNumber = () => {
     setCertifiedPhoneNumberStep('InProgress');
     requestSMSCertificationKey(phoneNumberRef.current?.value as string, CERTICIFICATION_DURATION / 60);
+    setCertificationRemainTime(CERTICIFICATION_DURATION);
   };
 
   const debouncedPhoneNumberCertification = _.debounce(async (certificationKey: string) => {
