@@ -42,6 +42,7 @@ export default function Guide() {
               </DotText>
               <DotText>데이터를 통해 진정한 소비자와 전문 리셀러를 구분할 수 있습니다.</DotText>
               <DotText>NFT 티켓의 소유 여부를 손쉽게 팬서비스 이벤트에 사용할 수 있습니다.</DotText>
+              <DotText>여러분의 티켓을 이제 NFT로 사용하고 보관하세요.</DotText>
             </p>
           </section>
           <section>
@@ -112,7 +113,9 @@ export default function Guide() {
               <Text>원하는 티켓을 선택하신 후, 예매 폼을 제출해주세요.</Text>
               <br />
               <br />
-              <Text>예매 폼을 Connectable이 2시간 내로 확인하여 로그인한 Klip 지갑으로 티켓을 전송해드려요.</Text>
+              <Text>
+                예매 폼을 Connectable이 영업시간 기준 4시간 내에 확인하여 로그인한 Klip 지갑으로 티켓을 전송해드려요.
+              </Text>
               <br />
               <br />
               <Text>
@@ -148,7 +151,7 @@ export default function Guide() {
               <Text>마이페이지에서 {`‘마이 티켓'`}을 확인할 수 있어요.</Text>
               <br />
               <br />
-              <Text>본인의 티켓을 클릭하면 공유하기, 전송하기 기능을 사용할 수 있습니다.</Text>
+              <Text>본인의 티켓을 클릭하면 공유하기, 전송하기, QR 입장 기능을 사용할 수 있습니다.</Text>
             </p>
           </section>
         </section>

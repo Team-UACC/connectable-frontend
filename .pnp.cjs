@@ -4476,6 +4476,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["slash", "npm:3.0.0"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:13.1.2", {\
+          "packageLocation": "./.yarn/cache/globby-npm-13.1.2-3d26efd428-c148fcda0c.zip/node_modules/globby/",\
+          "packageDependencies": [\
+            ["globby", "npm:13.1.2"],\
+            ["dir-glob", "npm:3.0.1"],\
+            ["fast-glob", "npm:3.2.11"],\
+            ["ignore", "npm:5.2.0"],\
+            ["merge2", "npm:1.4.1"],\
+            ["slash", "npm:4.0.0"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["goober", [\
@@ -5497,9 +5509,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["axios", "npm:0.27.2"],\
             ["cookies-next", "npm:2.1.1"],\
             ["dayjs", "npm:1.11.3"],\
+            ["globby", "npm:13.1.2"],\
             ["lodash", "npm:4.17.21"],\
             ["next", "virtual:c23d35c484c37364ce76e6ad491963c83397206e744e6bebbfa198e142d80803c8386c05fb5bacfef11551e2eb5fc7b5a0b87e28f05cb1567288e5f703f596f6#npm:12.2.0"],\
             ["postcss", "npm:8.4.14"],\
+            ["prettier", "npm:2.7.1"],\
             ["qrcode.react", "virtual:c23d35c484c37364ce76e6ad491963c83397206e744e6bebbfa198e142d80803c8386c05fb5bacfef11551e2eb5fc7b5a0b87e28f05cb1567288e5f703f596f6#npm:3.1.0"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:0befabf21d5aaf00e834658201df49f88a3274c73957b4b564b377a8829d746172dffcda89d96471de6df5578bbe3a39931311210c73f2d8402440efb584a8b6#npm:18.2.0"],\
@@ -7283,6 +7297,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/slash-npm-3.0.0-b87de2279a-94a93fff61.zip/node_modules/slash/",\
           "packageDependencies": [\
             ["slash", "npm:3.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:4.0.0", {\
+          "packageLocation": "./.yarn/cache/slash-npm-4.0.0-ce4bbc4a80-da8e4af737.zip/node_modules/slash/",\
+          "packageDependencies": [\
+            ["slash", "npm:4.0.0"]\
           ],\
           "linkType": "HARD"\
         }]\
