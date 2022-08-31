@@ -17,10 +17,6 @@ module.exports = {
     return config;
   },
   images: {
-    domains: [
-      'assets.otherside.xyz',
-      'connectable-events.s3.ap-northeast-2.amazonaws.com',
-      'user-images.githubusercontent.com',
-    ],
+    domains: ['connectable-events.s3.ap-northeast-2.amazonaws.com', 'user-images.githubusercontent.com'],
   },
 };

@@ -39,6 +39,7 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
   const handleClickCertificatePhoneNumber = () => {
     setCertifiedPhoneNumberStep('InProgress');
     requestSMSCertificationKey(phoneNumberRef.current?.value as string, CERTICIFICATION_DURATION / 60);
+    setCertificationRemainTime(CERTICIFICATION_DURATION);
   };
 
   const debouncedPhoneNumberCertification = _.debounce(async (certificationKey: string) => {
@@ -127,7 +128,7 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
             />
             <Button
               color="red"
-              className="absolute right-[5px] bottom-[5px] px-3 text-sm"
+              className="absolute right-[5px] bottom-[5px] px-3 text-sm min-w-[4rem]"
               disabled={
                 phoneNumberRef.current?.value === phoneNumber ||
                 validationPhoneNumber !== true ||

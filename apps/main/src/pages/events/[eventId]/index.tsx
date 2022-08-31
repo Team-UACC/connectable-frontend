@@ -8,6 +8,7 @@ import OrderListButton from '~/components/Button/OrderListButton';
 import { ArtistImageBox, ArtistName, PriceText, RemainingTicketStatus } from '~/components/Events/EventInfo';
 import EventSaleTimer from '~/components/Events/EventSaleTimer';
 import LinkBox from '~/components/Events/LinkBox';
+import WelcomeTicketPage from '~/components/Events/WelcomTicketPage';
 import StickyBlurFooter from '~/components/Footer/StickyBlurFooter';
 import HeadMeta from '~/components/HeadMeta';
 import Text from '~/components/Text';
@@ -63,6 +64,10 @@ export default function EventDetailPage({ initialEventDetail }: Props) {
   useEffect(() => {
     setEventStart(dayjsKO(eventDetail.startTime).format('YYYY.MM.DD (ddd) A hh시 mm분'));
   }, []);
+
+  if (eventDetail.name === 'connectale 웰컴 티켓') {
+    return <WelcomeTicketPage eventDetail={eventDetail} />;
+  }
 
   return (
     <>

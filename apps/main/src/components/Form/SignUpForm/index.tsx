@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
 
+import { requestSMSCertificationKey } from '~/apis/auth';
 import Button from '~/components/Button';
 import Input from '~/components/Input';
 import Label from '~/components/Text/Label';
@@ -60,9 +61,8 @@ export default function SingUpForm() {
 
   const handleClickCertificatePhoneNumber = useCallback(() => {
     setCertifiedPhoneNumberStep('InProgress');
-    fetch(`/api/auth/sms/key?phoneNumber=${phoneNumberRef.current}&duration=3`).catch(() =>
-      setCertifiedPhoneNumberStep('Start')
-    );
+    requestSMSCertificationKey(phoneNumberRef.current?.value as string, CERTICIFICATION_DURATION / 60);
+    setCertificationRemainTime(CERTICIFICATION_DURATION);
   }, [phoneNumberRef.current]);
 
   const debouncedPhoneNumberCertification = _.debounce(async (certificationKey: string) => {
@@ -197,7 +197,7 @@ export default function SingUpForm() {
             />
             <Button
               color="red"
-              className="absolute right-[5px] bottom-[5px] px-3 text-sm"
+              className="absolute right-[5px] bottom-[5px] px-3 text-sm min-w-[4rem]"
               disabled={validationPhoneNumber !== true || certifiedPhoneNumberStep !== 'Start'}
               onClick={handleClickCertificatePhoneNumber}
             >
