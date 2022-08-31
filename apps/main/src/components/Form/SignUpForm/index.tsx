@@ -197,7 +197,7 @@ export default function SingUpForm() {
             />
             <Button
               color="red"
-              className="absolute right-[5px] bottom-[5px] px-3 text-sm"
+              className="absolute right-[5px] bottom-[5px] px-3 text-sm min-w-[4rem]"
               disabled={validationPhoneNumber !== true || certifiedPhoneNumberStep !== 'Start'}
               onClick={handleClickCertificatePhoneNumber}
             >
