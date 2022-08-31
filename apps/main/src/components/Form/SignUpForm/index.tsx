@@ -18,7 +18,7 @@ type CertifiedPhoneNumberStep = 'Start' | 'InProgress' | 'Fail' | 'Success';
 
 const CERTICIFICATION_DURATION = 180;
 
-export default function SingUpForm() {
+export default function SignUpForm() {
   const [page, setPage] = useState<SignUpFormPage>('Terms');
   const [certifiedPhoneNumberStep, setCertifiedPhoneNumberStep] = useState<CertifiedPhoneNumberStep>('Start');
   const [certificationRemainTime, setCertificationRemainTime] = useState(CERTICIFICATION_DURATION);
@@ -186,7 +186,11 @@ export default function SingUpForm() {
               type="tel"
               placeholder="010-0000-0000"
               maxLength={13}
-              onChange={handleChangePhoneNumberInput}
+              onChange={e => {
+                handleChangePhoneNumberInput(e);
+
+                setCertifiedPhoneNumberStep('Start');
+              }}
               autoComplete="off"
               spellCheck={false}
               ref={phoneNumberRef}
@@ -202,7 +206,7 @@ export default function SingUpForm() {
                 : '인증하기'}
             </Button>
           </div>
-          {certifiedPhoneNumberStep !== 'Start' && (
+          {validationPhoneNumber && certifiedPhoneNumberStep !== 'Start' && (
             <input
               className={`w-full px-3 py-3 font-semibold leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline`}
               id={'certificationNumber'}
