@@ -85,7 +85,7 @@ export default function WelcomeTicketPage({ eventDetail }: Props) {
         />
       </article>
       <StickyBlurFooter className=" w-[calc(100%+32px)] ">
-        <FormOrderButton amount={0} ticketId={0} eventId={0} />
+        <FormOrderButton amount={0} ticketId={0} eventId={eventDetail.id} />
       </StickyBlurFooter>
     </>
   );
