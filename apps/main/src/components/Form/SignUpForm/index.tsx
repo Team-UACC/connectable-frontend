@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
 
-import { requestSMSCertificationKey } from '~/apis/auth';
+import { requestSMSCertificationKey, verifyCertificationKey } from '~/apis/auth';
 import Button from '~/components/Button';
 import Input from '~/components/Input';
 import Label from '~/components/Text/Label';
@@ -66,14 +66,10 @@ export default function SingUpForm() {
   }, [phoneNumberRef.current]);
 
   const debouncedPhoneNumberCertification = _.debounce(async (certificationKey: string) => {
-    fetch(
-      `/api/auth/sms/certification?phoneNumber=${phoneNumberRef.current?.value}&certificationKey=${certificationKey}`
-    )
-      .then(res => res.json())
-      .then(res => {
-        if (res) setCertifiedPhoneNumberStep('Success');
-        else setCertifiedPhoneNumberStep('Fail');
-      });
+    verifyCertificationKey(phoneNumberRef.current?.value as string, certificationKey).then(res => {
+      if (res) setCertifiedPhoneNumberStep('Success');
+      else setCertifiedPhoneNumberStep('Fail');
+    });
   }, 100);
 
   useEffect(() => {
@@ -201,7 +197,7 @@ export default function SingUpForm() {
               disabled={validationPhoneNumber !== true || certifiedPhoneNumberStep !== 'Start'}
               onClick={handleClickCertificatePhoneNumber}
             >
-              {certifiedPhoneNumberStep !== 'Start'
+              {validationPhoneNumber && certifiedPhoneNumberStep !== 'Start'
                 ? timeFormatterForMinute(certificationRemainTime * 1000)
                 : '인증하기'}
             </Button>
