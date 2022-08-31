@@ -65,7 +65,7 @@ export default function EventDetailPage({ initialEventDetail }: Props) {
     setEventStart(dayjsKO(eventDetail.startTime).format('YYYY.MM.DD (ddd) A hh시 mm분'));
   }, []);
 
-  if (eventDetail.name === 'connectale 웰컴 티켓') {
+  if (eventDetail.name === 'Connectale 웰컴 티켓') {
     return <WelcomeTicketPage eventDetail={eventDetail} />;
   }
 
