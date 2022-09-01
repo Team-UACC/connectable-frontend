@@ -34,7 +34,7 @@ export default function useOrderForm({
     const userName = userNameRef.current!.value;
     // form 데이터 제출
 
-    const submitPromise = postOrderForm({ userName, phoneNumber, ticketIdList });
+    const submitPromise = postOrderForm({ userName, phoneNumber, ticketIdList, eventId });
 
     currentButton.disabled = true;
     currentButton.innerText = '...';
