@@ -18,6 +18,7 @@ import LinkToKlaytnScope from '~/components/Text/LinkToKlaytnScope';
 import TextInfo from '~/components/Text/TextInfo';
 import { BUSINESS } from '~/constants/company';
 import { IMAGE_BLUR_DATA_URL } from '~/constants/contents';
+import { KAKAO_TALK_ONE_TO_ONE_CHAT } from '~/constants/link';
 import { data } from '~/constants/seo';
 import useEventByIdQuery from '~/hooks/apis/useEventByIdQuery';
 import NotFoundPage from '~/pages/404';
@@ -125,7 +126,7 @@ export default function EventDetailPage({ initialEventDetail }: Props) {
           ]}
         />
         <TextInfo.Simple title={`공연 설명`}>{eventDetail.description}</TextInfo.Simple>
-        <BenefitInformation />
+        {/* <BenefitInformation /> */}
         <AdditionalGuidance />
         <RefundGuidance />
         <TextInfo
@@ -160,9 +161,9 @@ const AdditionalGuidance = () => {
     <div className="w-full px-2 py-4 text-sm">
       <h2 className="text-xl font-bold">공연 안내</h2>
       <ul>
-        <DotText>공연 입장 시간에 맞추어 공연장 입구 및 계단에서 개인 정보 확인 후 입장을 도와드릴 예정입니다.</DotText>
-        <DotText>예매 폼 제출 순으로 입장합니다.</DotText>
-        <DotText>공연장 내 좌석은 모두 자유석입니다.</DotText>
+        {/* <DotText>공연 입장 시간에 맞추어 공연장 입구 및 계단에서 개인 정보 확인 후 입장을 도와드릴 예정입니다.</DotText> */}
+        {/* <DotText>예매 폼 제출 순으로 입장합니다.</DotText> */}
+        {/* <DotText>공연장 내 좌석은 모두 자유석입니다.</DotText> */}
       </ul>
     </div>
   );
@@ -172,23 +173,26 @@ const RefundGuidance = () => {
   return (
     <div className="w-full px-2 py-4 text-sm">
       <h2 className="text-xl font-bold">환불 안내</h2>
-      <br />
-      <Text>환불 취소 수수료 규정은 아래와 같습니다.</Text>
-      <ul>
-        <DotText>공연 10일 전까지 : 100% 환급</DotText>
-        <DotText>공연 7일 전까지 : 90% 환급</DotText>
-        <DotText>공연 3일 전까지 : 80% 환급</DotText>
-        <DotText>공연 1일 전까지 : 70% 환급</DotText>
-        <DotText>단, 공연 3일 전까지 예매 당일 취소는 100% 환급</DotText>
-      </ul>
-      <br />
-      <Text>환불 절차는 아래와 같습니다.</Text>
       <ul>
         <DotText>
-          환불을 위해서는 {BUSINESS.EMAIL} 로 환불 요청자의 성함, 전화번호를 기재하여 요청해주시기 바랍니다.
+          환불을 위해서는 {BUSINESS.EMAIL} 혹은{' '}
+          <a className="text-blue-500 " href={KAKAO_TALK_ONE_TO_ONE_CHAT} target="_blank" rel="noreferrer">
+            1:1 문의하기
+          </a>{' '}
+          채널로 환불 요청자의 성함, 전화번호를 기재하여 요청해주시기 바랍니다.
         </DotText>
-        <DotText>본인 확인 절차 후 환불이 진행됩니다.</DotText>
-        <DotText>공연 당일 취소, 변경, 환불은 불가합니다.</DotText>
+        <DotText>
+          취소 수수료 및 구체적인 환불 절차는{' '}
+          <a
+            href="https://quiet-harrier-305.notion.site/Connectable-b0403961e4e24261b763757648dd3231"
+            target="_blank"
+            rel="noreferrer"
+            className="font-bold text-blue-500 underline "
+          >
+            여기
+          </a>
+          를 클릭해주세요.
+        </DotText>
       </ul>
     </div>
   );

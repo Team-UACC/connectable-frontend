@@ -7,9 +7,9 @@ import { MarketDescription, NotificationDescription } from './TempDescroption';
 export default function MoreMenu() {
   const { setModalContent } = useModalStore();
 
-  const MENU = [
-    { name: '마켓플레이스', handleClick: () => setModalContent('마켓플레이스', <MarketDescription />) },
-    { name: '알림', handleClick: () => setModalContent('알림', <NotificationDescription />) },
+  const MENU: Array<{ name: string; href?: string; handleClick?: () => any }> = [
+    // { name: '마켓플레이스', handleClick: () => setModalContent('마켓플레이스', <MarketDescription />) },
+    // { name: '알림', handleClick: () => setModalContent('알림', <NotificationDescription />) },
     { name: '1:1 문의하기', href: 'docs/chat' },
     { name: 'Connectable 안내서', href: 'docs/guide' },
     { name: '이용약관', href: 'docs/terms-of-service' },

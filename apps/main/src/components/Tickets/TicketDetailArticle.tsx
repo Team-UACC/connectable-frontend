@@ -63,14 +63,14 @@ export default function TicketDetailArticle({ ticketDetail, eventDetail }: Props
         ]}
       />
       <TextInfo.Simple title={`공연 설명`}>{eventDetail.description}</TextInfo.Simple>
-      <TextInfo
+      {/* <TextInfo
         title="NFT 티켓 정보"
         contents={[
           { term: '혜택1', description: '조엘 겨울 콘서트 화이트리스트 제공' },
           { term: '혜택2', description: 'NFT 티켓 소유자 중 추첨을 통해 공연 후 포토타임 제공' },
         ]}
-      />
-      <TextInfo
+      /> */}
+      {/* <TextInfo
         title="기타 안내"
         contents={[
           { term: '티켓 사용법', description: '공연 입장 전, 마이페이지에서 본인의 티켓을 보여주세요.' },
@@ -93,7 +93,7 @@ export default function TicketDetailArticle({ ticketDetail, eventDetail }: Props
               '취소 문의는 010-5248-4170으로 공연명, 성함, 계좌번호를 보내주시면 순차적으로 처리해드리겠습니다.',
           },
         ]}
-      />
+      /> */}
       {/* <TextInfo.Simple title="소유 이력">
       <TempTransaction />
       <TempTransaction />
