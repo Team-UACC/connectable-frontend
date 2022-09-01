@@ -87,7 +87,7 @@ export default function OrderTicketCardList({ eventId }: Props) {
                   />
                 );
               } else {
-                toast.error(<LoginRequestToast />, { icon: null });
+                toast.error(<LoginRequestToast />);
               }
             }}
           >

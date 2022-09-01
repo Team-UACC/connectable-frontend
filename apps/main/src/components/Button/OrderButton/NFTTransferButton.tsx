@@ -22,7 +22,7 @@ export default function NFTTransferButton({ blockchain = 'Klaytn', eventId, tick
     <Button
       onClick={() => {
         if (!isLoggedIn) {
-          toast.error(<LoginRequestToast />, { icon: null });
+          toast.error(<LoginRequestToast />);
         } else {
           showModal(
             'NFT 전송하기',

@@ -23,7 +23,7 @@ export default function FormOrderButton({ amount, ticketId, eventId }: Props) {
         if (isLoggedIn) {
           showModal('티켓 구매하기', <OrderForm amount={amount} ticketIdList={[ticketId]} eventId={eventId} />);
         } else {
-          toast.error(<LoginRequestToast />, { icon: null });
+          toast.error(<LoginRequestToast />);
         }
       }}
     >

@@ -145,7 +145,7 @@ export default function EventsSalesPage({ eventDetail }: Props) {
                     />
                   );
                 } else {
-                  toast.error(<LoginRequestToast />, { icon: null });
+                  toast.error(<LoginRequestToast />);
                 }
               }}
             >
