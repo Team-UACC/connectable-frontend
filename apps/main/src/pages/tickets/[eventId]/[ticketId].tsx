@@ -105,7 +105,7 @@ export default function TicketDetailPage({ skeletonDataTicket, skeletonDataEvent
             <Button
               onClick={() => {
                 if (!isLoggedIn) {
-                  toast.error(<LoginRequestToast />, { icon: null });
+                  toast.error(<LoginRequestToast />);
                 } else {
                   toast.success('준비중입니다.');
                 }
@@ -122,7 +122,7 @@ export default function TicketDetailPage({ skeletonDataTicket, skeletonDataEvent
           <Button
             onClick={() => {
               if (!isLoggedIn) {
-                toast.error(<LoginRequestToast />, { icon: null });
+                toast.error(<LoginRequestToast />);
               } else toast.success('준비중입니다.');
             }}
           >

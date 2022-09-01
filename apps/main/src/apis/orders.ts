@@ -9,14 +9,16 @@ export const postOrderForm = async ({
   userName,
   phoneNumber,
   ticketIdList,
+  eventId,
 }: {
   userName: string;
   phoneNumber: string;
   ticketIdList: Array<number>;
+  eventId: number;
 }): Promise<PostOrderFormRes> => {
   const data: PostOrderFormRes = await axiosInstance.post(
     `/orders`,
-    JSON.stringify({ userName, phoneNumber, ticketIds: ticketIdList }),
+    JSON.stringify({ userName, phoneNumber, ticketIds: ticketIdList, eventId }),
     authorizationOptions()
   );
 

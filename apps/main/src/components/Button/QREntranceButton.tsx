@@ -20,7 +20,7 @@ export default function QREntranceButton({ ticketId }: Props) {
     <Button
       onClick={() => {
         if (!isLoggedIn) {
-          toast.error(<LoginRequestToast />, { icon: null });
+          toast.error(<LoginRequestToast />);
         } else {
           showModal('QR 입장', <QREntranceForm ticketId={ticketId} />);
         }

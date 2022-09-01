@@ -47,7 +47,7 @@ export default function OrderButton({ amount, orderName }: Props) {
           if (!tossPayments) return toast.error('오류가 발생했습니다. 다시 시도해 주세요.');
           handleTransfer(tossPayments);
         } else {
-          toast.error(<LoginRequestToast />, { icon: null });
+          toast.error(<LoginRequestToast />);
         }
       }}
     >
