@@ -114,7 +114,7 @@ export default function TicketDetailPage({ skeletonDataTicket, skeletonDataEvent
               공유하기
             </Button>
             <NFTTransferButton blockchain="Klaytn" eventId={Number(eventId)} ticketId={Number(ticketId)} />
-            {!ticketDetail.isUsed && <QREntranceButton ticketId={ticketDetail.id} />}
+            {!ticketDetail.used && <QREntranceButton ticketId={ticketDetail.id} />}
           </>
         ) : ticketDetail.ticketSalesStatus === 'ON_SALE' ? (
           <FormOrderButton amount={ticketDetail.price} ticketId={ticketDetail.id} eventId={Number(eventId)} />
