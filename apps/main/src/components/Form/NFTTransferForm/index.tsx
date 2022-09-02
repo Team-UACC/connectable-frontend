@@ -73,7 +73,7 @@ export default function NFTTransferForm({ blockchain, eventId, ticketId }: Props
               isAddress
                 ? `아래 Klaytn 주소로 전송합니다.`
                 : isEmpty
-                ? `${ticketDetail?.eventName} NFT는 ${blockchain} 주소로만 보낼 수 있습니다.`
+                ? `${blockchain} 주소로만 보낼 수 있습니다.`
                 : '주소가 올바르지 않습니다.'
             }
             type="text"

@@ -1,12 +1,15 @@
 import Image from 'next/image';
 
+import { BUSINESS } from '~/constants/company';
 import { IMAGE_BLUR_DATA_URL } from '~/constants/contents';
+import { KAKAO_TALK_ONE_TO_ONE_CHAT } from '~/constants/link';
 import { EventDetailType } from '~/types/eventType';
 import { Ticket } from '~/types/ticketType';
 import { dayjsKO } from '~/utils/day';
 
 import { PriceText } from '../Events/EventInfo';
 import EventSaleTimer from '../Events/EventSaleTimer';
+import DotText from '../Text/DotText';
 import LinkText from '../Text/LinkText';
 import LinkToKlaytnScope from '../Text/LinkToKlaytnScope';
 import TextInfo from '../Text/TextInfo';
@@ -63,14 +66,14 @@ export default function TicketDetailArticle({ ticketDetail, eventDetail }: Props
         ]}
       />
       <TextInfo.Simple title={`공연 설명`}>{eventDetail.description}</TextInfo.Simple>
-      <TextInfo
+      {/* <TextInfo
         title="NFT 티켓 정보"
         contents={[
           { term: '혜택1', description: '조엘 겨울 콘서트 화이트리스트 제공' },
           { term: '혜택2', description: 'NFT 티켓 소유자 중 추첨을 통해 공연 후 포토타임 제공' },
         ]}
-      />
-      <TextInfo
+      /> */}
+      {/* <TextInfo
         title="기타 안내"
         contents={[
           { term: '티켓 사용법', description: '공연 입장 전, 마이페이지에서 본인의 티켓을 보여주세요.' },
@@ -93,12 +96,13 @@ export default function TicketDetailArticle({ ticketDetail, eventDetail }: Props
               '취소 문의는 010-5248-4170으로 공연명, 성함, 계좌번호를 보내주시면 순차적으로 처리해드리겠습니다.',
           },
         ]}
-      />
+      /> */}
       {/* <TextInfo.Simple title="소유 이력">
       <TempTransaction />
       <TempTransaction />
       <TempTransaction />
     </TextInfo.Simple> */}
+      <RefundGuidance />
       <TextInfo
         title="NFT 상세"
         contents={[
@@ -129,3 +133,32 @@ export default function TicketDetailArticle({ ticketDetail, eventDetail }: Props
     </article>
   );
 }
+
+const RefundGuidance = () => {
+  return (
+    <div className="w-full px-2 py-4 text-sm">
+      <h2 className="text-xl font-bold">환불 안내</h2>
+      <ul>
+        <DotText>
+          환불을 위해서는 {BUSINESS.EMAIL} 혹은{' '}
+          <a className="text-blue-500 " href={KAKAO_TALK_ONE_TO_ONE_CHAT} target="_blank" rel="noreferrer">
+            1:1 문의하기
+          </a>{' '}
+          채널로 환불 요청자의 성함, 전화번호를 기재하여 요청해주시기 바랍니다.
+        </DotText>
+        <DotText>
+          취소 수수료 및 구체적인 환불 절차는{' '}
+          <a
+            href="https://quiet-harrier-305.notion.site/Connectable-b0403961e4e24261b763757648dd3231"
+            target="_blank"
+            rel="noreferrer"
+            className="font-bold text-blue-500 underline "
+          >
+            여기
+          </a>
+          를 클릭해주세요.
+        </DotText>
+      </ul>
+    </div>
+  );
+};
