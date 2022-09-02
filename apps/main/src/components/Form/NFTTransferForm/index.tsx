@@ -60,7 +60,7 @@ export default function NFTTransferForm({ blockchain, eventId, ticketId }: Props
   return (
     <div className="w-full overflow-hidden">
       <form
-        className={`flex mt-[3rem] w-full bg-transparent `}
+        className={`flex w-full bg-transparent `}
         onSubmit={e => {
           e.preventDefault();
         }}
