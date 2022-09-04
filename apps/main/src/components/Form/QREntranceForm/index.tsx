@@ -26,6 +26,8 @@ export default function QREntranceForm({ ticketId }: Props) {
       refetchInterval: DURATION * 1000,
       staleTime: 0,
       cacheTime: 0,
+      refetchOnReconnect: true,
+      refetchOnWindowFocus: true,
     }
   );
 

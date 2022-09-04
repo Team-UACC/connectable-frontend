@@ -161,7 +161,9 @@ export default function SignUpForm() {
             notice={
               validationNickName === 'OVERLAP'
                 ? '중복된 닉네임입니다.'
-                : '닉네임은 영어 / 한글 / 숫자 / 2~20자 사이로 작성해주세요.'
+                : validationNickName === false
+                ? '닉네임은 영어 / 한글 / 숫자 / 2~20자 사이로 작성해주세요.'
+                : ''
             }
             type="text"
             placeholder="닉네임을 입력해주세요"
