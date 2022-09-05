@@ -18,7 +18,7 @@ export default function Text({
   return (
     <span
       className={
-        `text-${size} font-${weight} ` +
+        `text-${size} font-${weight} leading-6 ` +
         className +
         (textEllipsis ? ' overflow-hidden text-ellipsis whitespace-nowrap' : ' ')
       }
