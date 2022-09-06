@@ -20,23 +20,24 @@ export default function TicketCard({ ticketData, className, type = 'Default' }: 
   if (!ticketData.metadata) return null;
 
   return (
-    <article className={'relative justify-between flex w-full px-2 py-4 ' + className}>
+    <article className={'relative justify-between items-center flex w-full px-2 py-4 ' + className}>
       <Image
         src={ticketData.metadata.image}
         alt="티켓 이미지"
         width={100}
         height={100}
+        layout="fixed"
         objectFit="cover"
-        className="rounded-[10px] shadow-lg flex-shrink-0 "
+        className="rounded-[10px] shadow-lg flex-shrink-0  "
         placeholder="blur"
         blurDataURL={IMAGE_BLUR_DATA_URL}
       />
-      <div className="flex flex-col h-[100px] text-start ml-5 w-[calc(100%-120px)] ">
+      <div className="flex flex-col text-start ml-5 w-[calc(100%-120px)] ">
         <h2 className="font-bold ">{ticketData.metadata.name}</h2>
         {type === 'Order' ? (
           <>
             <div className="flex flex-col gap-2 mt-4 ">
-              <span className="text-sm font-semibold text-brand">
+              <span className="mb-2 text-sm font-semibold text-brand">
                 판매가{'   '}
                 {ticketData.price.toLocaleString('ko-KR')}원
               </span>
