@@ -20,18 +20,18 @@ export default function TicketCard({ ticketData, className, type = 'Default' }: 
   if (!ticketData.metadata) return null;
 
   return (
-    <article className={'relative flex w-full px-2 py-4 ' + className}>
+    <article className={'relative justify-between flex w-full px-2 py-4 ' + className}>
       <Image
         src={ticketData.metadata.image}
         alt="티켓 이미지"
         width={100}
         height={100}
         objectFit="cover"
-        className="rounded-[10px] shadow-lg"
+        className="rounded-[10px] shadow-lg flex-shrink-0 "
         placeholder="blur"
         blurDataURL={IMAGE_BLUR_DATA_URL}
       />
-      <div className="flex flex-col ml-8 h-[100px] text-start">
+      <div className="flex flex-col h-[100px] text-start ml-5 w-[calc(100%-120px)] ">
         <h2 className="font-bold ">{ticketData.metadata.name}</h2>
         {type === 'Order' ? (
           <>

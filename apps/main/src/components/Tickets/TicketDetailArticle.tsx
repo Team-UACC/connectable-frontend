@@ -1,15 +1,18 @@
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
-import { BUSINESS } from '~/constants/company';
 import { IMAGE_BLUR_DATA_URL } from '~/constants/contents';
-import { KAKAO_TALK_ONE_TO_ONE_CHAT } from '~/constants/link';
+import BookingGuidance from '~/constants/lets-rock/BookingGuidance';
+import EntranceGuidance from '~/constants/lets-rock/EntranceGuidance';
+import EtcGuidance from '~/constants/lets-rock/EtcGuidance';
+import { LETS_ROCK } from '~/constants/lets-rock/metadata';
+import RefundGuidance from '~/constants/lets-rock/RefundGuidance';
 import { EventDetailType } from '~/types/eventType';
 import { Ticket } from '~/types/ticketType';
 import { dayjsKO } from '~/utils/day';
 
 import { PriceText } from '../Events/EventInfo';
 import EventSaleTimer from '../Events/EventSaleTimer';
-import DotText from '../Text/DotText';
 import LinkText from '../Text/LinkText';
 import LinkToKlaytnScope from '../Text/LinkToKlaytnScope';
 import TextInfo from '../Text/TextInfo';
@@ -20,6 +23,12 @@ interface Props {
 }
 
 export default function TicketDetailArticle({ ticketDetail, eventDetail }: Props) {
+  const [eventStart, setEventStart] = useState('');
+
+  useEffect(() => {
+    setEventStart(dayjsKO(eventDetail.startTime).format('YYYY.MM.DD (ddd) A hh시 mm분'));
+  }, []);
+
   return (
     <article className="w-full ">
       <div className=" relative w-[calc(100%+2rem)] p-4 -translate-x-4 bg-gray-100 ">
@@ -57,52 +66,40 @@ export default function TicketDetailArticle({ ticketDetail, eventDetail }: Props
           </div>
         </div>
       )}
-      <TextInfo
-        title="공연정보"
-        contents={[
-          { term: '장소', description: eventDetail.location },
-          { term: '공연 일시', description: dayjsKO(eventDetail.startTime).format('YYYY.MM.DD (ddd) A hh시 mm분') },
-          { term: '공연 시간', description: `${(eventDetail.endTime - eventDetail.startTime) / 1000 / 60}분` },
-        ]}
-      />
+      {eventDetail.name === LETS_ROCK.name ? (
+        <TextInfo
+          title="공연정보"
+          contents={[
+            { term: '장소', description: '난지한강공원 일대' },
+            { term: '공연 일시', description: `2022.09.24 (토), 2022.09.25 (일)` },
+            {
+              term: '공연 시간',
+              description: `600분`,
+            },
+          ]}
+        />
+      ) : (
+        <TextInfo
+          title="공연정보"
+          contents={[
+            { term: '장소', description: eventDetail.location },
+            { term: '공연 일시', description: eventStart },
+            {
+              term: '공연 시간',
+              description: `${Math.floor((eventDetail.endTime - eventDetail.startTime) / 1000 / 60)}분`,
+            },
+          ]}
+        />
+      )}
       <TextInfo.Simple title={`공연 설명`}>{eventDetail.description}</TextInfo.Simple>
-      {/* <TextInfo
-        title="NFT 티켓 정보"
-        contents={[
-          { term: '혜택1', description: '조엘 겨울 콘서트 화이트리스트 제공' },
-          { term: '혜택2', description: 'NFT 티켓 소유자 중 추첨을 통해 공연 후 포토타임 제공' },
-        ]}
-      /> */}
-      {/* <TextInfo
-        title="기타 안내"
-        contents={[
-          { term: '티켓 사용법', description: '공연 입장 전, 마이페이지에서 본인의 티켓을 보여주세요.' },
-          {
-            term: '안내사항1',
-            description:
-              '공연 입장 시간에 맞추어 공연장 입구 및 계단에서 개인 정보 확인 후 입장을 도와드릴 예정입니다.',
-          },
-          {
-            term: '안내사항2',
-            description: '예매 폼 제출 순으로 입장합니다.',
-          },
-          {
-            term: '안내사항3',
-            description: '공연장 내 좌석은 모두 자유석입니다.',
-          },
-          {
-            term: '안내사항4',
-            description:
-              '취소 문의는 010-5248-4170으로 공연명, 성함, 계좌번호를 보내주시면 순차적으로 처리해드리겠습니다.',
-          },
-        ]}
-      /> */}
-      {/* <TextInfo.Simple title="소유 이력">
-      <TempTransaction />
-      <TempTransaction />
-      <TempTransaction />
-    </TextInfo.Simple> */}
-      <RefundGuidance />
+      {eventDetail.name === LETS_ROCK.name && (
+        <>
+          <BookingGuidance />
+          <RefundGuidance />
+          <EntranceGuidance />
+          <EtcGuidance />
+        </>
+      )}
       <TextInfo
         title="NFT 상세"
         contents={[
@@ -133,32 +130,3 @@ export default function TicketDetailArticle({ ticketDetail, eventDetail }: Props
     </article>
   );
 }
-
-const RefundGuidance = () => {
-  return (
-    <div className="w-full px-2 py-4 text-sm">
-      <h2 className="text-xl font-bold">환불 안내</h2>
-      <ul>
-        <DotText>
-          환불을 위해서는 {BUSINESS.EMAIL} 혹은{' '}
-          <a className="text-blue-500 " href={KAKAO_TALK_ONE_TO_ONE_CHAT} target="_blank" rel="noreferrer">
-            1:1 문의하기
-          </a>{' '}
-          채널로 환불 요청자의 성함, 전화번호를 기재하여 요청해주시기 바랍니다.
-        </DotText>
-        <DotText>
-          취소 수수료 및 구체적인 환불 절차는{' '}
-          <a
-            href="https://quiet-harrier-305.notion.site/Connectable-b0403961e4e24261b763757648dd3231"
-            target="_blank"
-            rel="noreferrer"
-            className="font-bold text-blue-500 underline "
-          >
-            여기
-          </a>
-          를 클릭해주세요.
-        </DotText>
-      </ul>
-    </div>
-  );
-};
