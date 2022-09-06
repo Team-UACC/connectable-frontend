@@ -4,7 +4,7 @@ import DotText from '~/components/Text/DotText';
 const EtcGuidance = () => {
   return (
     <div className="w-full px-2 py-4 text-sm">
-      <h2 className="text-xl font-bold">기타 공연 관림 시 주의사항</h2>
+      <h2 className="text-xl font-bold">기타 공연 관람 시 주의사항</h2>
       <ul>
         <DotText>
           공연장 입장시 진행요원이 소지품 확인을 요구할 수 있습니다(입장팔찌 확인 및 반입금지 물품 확인 절차).
