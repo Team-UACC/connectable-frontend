@@ -115,17 +115,33 @@ export default function EventDetailPage({ initialEventDetail }: Props) {
           blurDataURL={IMAGE_BLUR_DATA_URL}
         />
         <br />
-        <TextInfo
-          title="공연정보"
-          contents={[
-            { term: '장소', description: eventDetail.location },
-            { term: '공연 일시', description: eventStart },
-            {
-              term: '공연 시간',
-              description: `${Math.floor((eventDetail.endTime - eventDetail.startTime) / 1000 / 60)}분`,
-            },
-          ]}
-        />
+
+        {eventDetail.name === LETS_ROCK.name ? (
+          <TextInfo
+            title="공연정보"
+            contents={[
+              { term: '장소', description: '난지한강공원 일대' },
+              { term: '공연 일시', description: `2022.09.24 (토), 2022.09.25 (일)` },
+              {
+                term: '공연 시간',
+                description: `600분`,
+              },
+            ]}
+          />
+        ) : (
+          <TextInfo
+            title="공연정보"
+            contents={[
+              { term: '장소', description: eventDetail.location },
+              { term: '공연 일시', description: eventStart },
+              {
+                term: '공연 시간',
+                description: `${Math.floor((eventDetail.endTime - eventDetail.startTime) / 1000 / 60)}분`,
+              },
+            ]}
+          />
+        )}
+
         <TextInfo.Simple title={`공연 설명`}>{eventDetail.description}</TextInfo.Simple>
 
         {eventDetail.name === LETS_ROCK.name && (

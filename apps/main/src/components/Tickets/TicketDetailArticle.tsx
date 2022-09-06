@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 import { IMAGE_BLUR_DATA_URL } from '~/constants/contents';
 import BookingGuidance from '~/constants/lets-rock/BookingGuidance';
@@ -22,6 +23,12 @@ interface Props {
 }
 
 export default function TicketDetailArticle({ ticketDetail, eventDetail }: Props) {
+  const [eventStart, setEventStart] = useState('');
+
+  useEffect(() => {
+    setEventStart(dayjsKO(eventDetail.startTime).format('YYYY.MM.DD (ddd) A hh시 mm분'));
+  }, []);
+
   return (
     <article className="w-full ">
       <div className=" relative w-[calc(100%+2rem)] p-4 -translate-x-4 bg-gray-100 ">
@@ -59,14 +66,31 @@ export default function TicketDetailArticle({ ticketDetail, eventDetail }: Props
           </div>
         </div>
       )}
-      <TextInfo
-        title="공연정보"
-        contents={[
-          { term: '장소', description: eventDetail.location },
-          { term: '공연 일시', description: dayjsKO(eventDetail.startTime).format('YYYY.MM.DD (ddd) A hh시 mm분') },
-          { term: '공연 시간', description: `${(eventDetail.endTime - eventDetail.startTime) / 1000 / 60}분` },
-        ]}
-      />
+      {eventDetail.name === LETS_ROCK.name ? (
+        <TextInfo
+          title="공연정보"
+          contents={[
+            { term: '장소', description: '난지한강공원 일대' },
+            { term: '공연 일시', description: `2022.09.24 (토), 2022.09.25 (일)` },
+            {
+              term: '공연 시간',
+              description: `600분`,
+            },
+          ]}
+        />
+      ) : (
+        <TextInfo
+          title="공연정보"
+          contents={[
+            { term: '장소', description: eventDetail.location },
+            { term: '공연 일시', description: eventStart },
+            {
+              term: '공연 시간',
+              description: `${Math.floor((eventDetail.endTime - eventDetail.startTime) / 1000 / 60)}분`,
+            },
+          ]}
+        />
+      )}
       <TextInfo.Simple title={`공연 설명`}>{eventDetail.description}</TextInfo.Simple>
       {eventDetail.name === LETS_ROCK.name && (
         <>
