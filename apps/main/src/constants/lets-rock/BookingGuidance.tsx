@@ -4,6 +4,10 @@ const BookingGuidance = () => {
   return (
     <div className="w-full px-2 py-4 text-sm">
       <h2 className="mb-2 text-xl font-bold">예매 안내</h2>
+      <a href="http://letsrock.co.kr/" target="_blank" rel="noreferrer" className="leading-8 underline text-red ">
+        공연 안내 및 라인업 소개
+      </a>
+      <br />
       <a
         className="text-blue-500 "
         href={'https://nosy-whimsey-4c1.notion.site/19-d7ade26b5cea4586b55849aa8082209a'}
